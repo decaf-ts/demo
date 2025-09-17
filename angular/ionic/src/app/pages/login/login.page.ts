@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonCard, IonCardContent, IonContent, IonImg, ToastController} from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent, IonImg, ToastController } from '@ionic/angular/standalone';
 import { CrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent } from '@decaf-ts/for-angular';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
 import { LoginForm } from '@shared/forms';
+import { MenuController } from '@ionic/angular';
 
 
 /**
@@ -72,6 +73,8 @@ export class LoginPage implements OnInit {
    */
   logo: string = 'assets/images/decaf-logo.svg';
 
+  menuController: MenuController = inject(MenuController);
+
 
   /**
    * @description Angular Router instance for navigation
@@ -105,9 +108,13 @@ export class LoginPage implements OnInit {
    * @memberOf LoginPage
    */
   ngOnInit(): void {
-   const {matches} = window.matchMedia('(prefers-color-scheme: dark)');
-    if(matches)
+    const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
+    if (matches)
       this.logo = 'assets/images/decaf-logo-lw.svg';
+  }
+
+  async ionViewWillEnter(): Promise<void> {
+    await this.menuController.enable(false);
   }
 
   /**
@@ -131,9 +138,9 @@ export class LoginPage implements OnInit {
    *   LoginPage->>ToastController: Present toast
    */
   async handleEvent(event: CrudFormEvent): Promise<void> {
-    const {handlers} = event;
+    const { handlers } = event;
     try {
-      if(handlers?.['login']) {
+      if (handlers?.['login']) {
         const success = await (new handlers['login']()).handle(event);
         const toast = await this.toastController.create({
           message: success ? 'Login successful!' : 'Usuário ou senha inválidos.',
@@ -141,7 +148,7 @@ export class LoginPage implements OnInit {
           color: success ? 'dark' : 'danger',
           position: 'top',
         });
-        if(success)
+        if (success)
           await this.router.navigate(['/dashboard']);
         await toast.present();
       }

@@ -13,27 +13,29 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { routes } from './app.routes';
 import { getI18nLoaderFactoryProviderConfig, getWindow, I18nLoaderFactory } from '@decaf-ts/for-angular';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-// import { RamAdapter } from '@decaf-ts/core/ram';
+import { RamAdapter } from '@decaf-ts/core/ram/RamAdapter';
 
-// export const DbAdapterProvider = new InjectionToken<RamAdapter>('DbAdapterProvider');
+export const DbAdapterProvider = new InjectionToken<RamAdapter>('DbAdapterProvider');
 
 /**
  * Factory function to create and configure the database adapter
  * Sets the adapter name on the window object for global access
  */
-// function createDbAdapter(): RamAdapter {
-//   const adapter = new RamAdapter({ user: 'user' });
-//   // Set adapter name on window for global access
-//   getWindow()['dbAdapterFlavour'] = adapter.flavour;
-//   return adapter;
-// }
+export function createDbAdapter(): RamAdapter {
+
+
+  const adapter = new RamAdapter({ user: 'user' });
+  // Set adapter name on window for global access
+  getWindow()['dbAdapterFlavour'] = adapter.flavour;
+  return adapter;
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // { provide: DbAdapterProvider, useFactory: createDbAdapter },
+    { provide: DbAdapterProvider, useFactory: createDbAdapter },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules),  withComponentInputBinding()),
+    provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
     provideHttpClient(),
     provideTranslateService({
       defaultLanguage: 'en',
@@ -44,7 +46,7 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient],
       },
     }),
-     {
+    {
       ...getI18nLoaderFactoryProviderConfig({
         prefix: './assets/i18n/',
         suffix: '.json',

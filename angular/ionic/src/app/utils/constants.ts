@@ -27,18 +27,6 @@ export const SidebarMenu: MenuItem[] = [
     url: '/crud/delete',
   },
   {
-    label: 'Data Lists',
-    icon: 'list-outline',
-  },
-  {
-    label: 'Employees (Infinite)',
-    url: '/list/infinite',
-  },
-  {
-    label: 'Categories (Paginated)',
-    url: '/list/paginated',
-  },
-  {
     label: 'Model Lists',
     icon: 'list-outline',
   },

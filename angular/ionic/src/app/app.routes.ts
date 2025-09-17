@@ -25,19 +25,26 @@ export const routes: Routes = [
   },
   {
     path: 'fieldset',
-    data: {preload: false},
     loadComponent: () => import('./pages/fieldset/fieldset.page').then( m => m.FieldsetPage)
   },
-  // {
-  //   path: 'model',
-  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
-  // },
-  //  {
-  //   path: 'model/:modelName/:operation',
-  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
-  // },
-  // {
-  //   path: 'model/:modelName/:operation/:modelId',
-  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
-  // }
+  {
+    path: 'model',
+    loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  },
+  {
+    path: 'model/:modelName/:operation',
+    loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  },
+  {
+    path: 'model/:modelName/:operation/:modelId',
+    loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  },
+    {
+    path: 'list-model',
+    loadComponent: () => import('./pages/list-model/list-model.page').then( m => m.ListModelPage)
+  },
+  {
+    path: 'list-model/:type',
+    loadComponent: () => import('./pages/list-model/list-model.page').then( m => m.ListModelPage)
+  },
 ];

@@ -2,6 +2,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    // "declaration": true,
+    // "declarationMap": true,
+    // "inlineSources": true,
     "outDir": "./out-tsc/app",
     "types": []
   },
@@ -10,6 +13,7 @@
     "src/polyfills.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+   "src/**/*.d.ts",
+   "node_modules/@decaf-ts/**/*.d.ts"
   ]
 }

@@ -1,18 +1,22 @@
 
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import {Platform} from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
-import { isDevelopmentMode, NgxRenderingEngine, removeFocusTrap } from '@decaf-ts/for-angular';
-import { Model, ModelBuilderFunction } from '@decaf-ts/decorator-validation';
+import { isDevelopmentMode, NgxRenderingEngine, getOnWindow, removeFocusTrap } from '@decaf-ts/for-angular';
+import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
 import { MenuItem } from './utils/types';
 import { SidebarMenu } from './utils/constants';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-// import { DbAdapterProvider } from './app.config';
+import { createDbAdapter, DbAdapterProvider } from './app.config';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { LogoComponent } from './components/logo/logo.component';
+import { CategoryModel, EmployeeModel } from '@shared/models';
+import { ForAngularRepository } from './utils/ForAngularRepository';
+import { RamAdapter } from '@decaf-ts/core/ram/RamAdapter';
+import { Repository } from '@decaf-ts/core';
 
 try {
   new NgxRenderingEngine();
@@ -76,7 +80,7 @@ try {
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
 })
 export class AppComponent implements OnInit {
   /**
@@ -126,6 +130,11 @@ export class AppComponent implements OnInit {
   disableMenu = true;
 
   /**
+   * @description The database adapter provider
+   */
+  protected adapter: RamAdapter = inject(DbAdapterProvider);
+
+  /**
    * @description Initializes the component
    * @summary Sets up Ionic icons and disables the menu controller
    */
@@ -139,16 +148,18 @@ export class AppComponent implements OnInit {
    * @return {Promise<void>}
    */
   async ngOnInit(): Promise<void> {
+    await this.initializeApp();
+
+
     this.router.events.subscribe(async event => {
-      if(event instanceof NavigationEnd) {
-        const {url} = event;
+      if (event instanceof NavigationEnd) {
+        const { url } = event;
         this.disableMenu = url.includes('login');
         this.setTitle(url.replace('/', '') || "login");
       }
       if (event instanceof NavigationStart)
         removeFocusTrap();
     });
-    await this.initializeApp();
   }
 
   /**
@@ -159,13 +170,17 @@ export class AppComponent implements OnInit {
   async initializeApp(): Promise<void> {
     this.initialized = true;
     const isDevelopment = isDevelopmentMode();
-    console.log(`Application started in ${isDevelopment ? 'development' : 'production'} mode.`);
-    // if(isDevelopment) {
-    //   for(const model of [new CategoryModel(), new EmployeeModel()] ) {
-    //     const repository = new ForAngularRepository<typeof model>(this.adapter as unknown as DecafRepositoryAdapter, model);
-    //     await repository.init();
-    //   }
-    // }
+    if (isDevelopment) {
+
+
+      for (const instance of [CategoryModel, EmployeeModel]) {
+        const model = new instance();
+        const repo = Repository.forModel(instance as ModelConstructor<typeof model>, this.adapter.flavour);
+        const repository = new ForAngularRepository<typeof model>(repo, model as Model);
+        await repository.init();
+      }
+
+    }
   }
 
   /**
@@ -175,7 +190,7 @@ export class AppComponent implements OnInit {
    */
   setTitle(page: string): void {
     const activeMenu = this.menu.find(item => item?.url?.includes(page));
-    if(activeMenu)
+    if (activeMenu)
       this.titleService.setTitle(`${this.title} - ${activeMenu?.title || activeMenu?.label}`);
   }
 }

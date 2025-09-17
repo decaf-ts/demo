@@ -1,3 +1,113 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"]
-}
+   "typescript.preferences.autoImportFileExcludePatterns": ["node_modules", "dist", "@ionic/angular/common", "@ionic/angular"],
+    //"files.eol": "\n", // keep line endings as LF
+    "cSpell.enabled": false,
+    // Configurações do jest
+    "jest.runMode": {
+        "type": "on-demand",
+        // "coverage": false,
+        "revealOutput": "on-demand",
+        "deferred": true
+    },
+    "jest.outputConfig": {
+        "revealOn": "run",
+        "revealWithFocus": "none",
+        "clearOnRun": "none"
+    },
+    "jest.autoEnable": false,
+    "testing.automaticallyOpenTestResults": "neverOpen",
+    "testing.openTesting": "neverOpen",
+
+    // configurações do eslint
+    "eslint.alwaysShowStatus": true,
+    "eslint.codeActionsOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+
+
+    // Configurações do php
+    "php.validate.enable": false,
+    "php.suggest.basic": false,
+
+    "intelephense.environment.includePaths": ["vendor"],
+    "intelephense.stubs": [
+        "apache", "bcmath", "bz2", "calendar", "Core", "ctype", "curl", "date",
+        "dom", "fileinfo", "filter", "gd", "hash", "iconv", "json", "libxml",
+        "mbstring", "openssl", "pcre", "PDO", "mysql", "mysqli", "SQLite", "sqlite3", "sqlsrv", "Phar",
+        "readline", "Reflection", "session", "SimpleXML", "sockets", "SPL",
+        "standard", "tokenizer", "xml", "zip", "zlib"
+    ],
+    "intelephense.format.enable": true,
+    "intelephense.completion.insertUseDeclaration": true,
+    "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": false,
+    "intelephense.telemetry.enabled": false,
+    "[php]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        // "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+        "editor.defaultFormatter": "vscode.php-language-features",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            // "source.fixAll": "explicit"
+        }
+    },
+
+    // Configurações do typescript
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        // "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.suggest.autoImports": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.associations": {
+        "*.tsx": "typescriptreact",
+        "*.ts": "typescript",
+        "*.php": "php"
+    },
+
+
+    "git.ignoreLimitWarning": true,
+
+    // When opening a file, `editor.tabSize` and `editor.insertSpaces`
+    // will be detected based on the file contents. Set to false to keep
+    // the values you've explicitly set, above.
+    "editor.detectIndentation": false,
+    // trocar a cor de selecao do texto
+    "workbench.colorCustomizations": {
+        // "editor.selectionBackground": "#135564",
+        // "editor.selectionHighlightBackground": "#135564"
+        "editor.selectionBackground": "#6f0b42",
+        "editor.selectionHighlightBackground": "#6f0b4210"
+    },
+
+
+    // pasta padrão do terminal ao abrir o projeto no vscode
+    // "terminal.integrated.cwd": "./\\base\\",
+
+    // ocultar pastas
+    "files.exclude": {
+        // "**/vendor": true,
+        // "**/*_nosync": true,
+        // "**/*_system": true,
+        // "**/*system": true,
+        // "**/*system_414": true,
+        // "**/.idea": true,
+        // "**/api": true,
+
+        // "**/platforms": true,
+        // "**/plugins": true,
+        // "**/gen": true,
+        // "resources": true,
+        // "**/typings": true,
+        // "**/www": true,
+        // "**/ts*": true,
+        // "**/karma*": true,
+        // "**/.git*": true,
+    },
+  }

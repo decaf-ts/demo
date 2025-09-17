@@ -1,19 +1,17 @@
-import { DecafRepository, DecafRepositoryAdapter , formatDate, FunctionLike } from '@decaf-ts/for-angular';
+import { DecafRepository, formatDate, FunctionLike } from '@decaf-ts/for-angular';
 import { faker } from '@faker-js/faker';
-import { Model } from '@decaf-ts/decorator-validation';
-import { EmployeeModel, CategoryModel} from '@decaf-ts/angular-shared/models';
+import { Model, ModelConstructor } from '@decaf-ts/decorator-validation';
+import { EmployeeModel, CategoryModel } from '@shared/models';
 import { InternalError } from '@decaf-ts/db-decorators';
 import { Repository } from '@decaf-ts/core';
+
 
 export class ForAngularRepository<T extends Model> {
 
   private data: T[] = [];
+  constructor(protected _repository: DecafRepository<T> | ModelConstructor<T>, protected model?: string | Model) { }
 
-  private _repository: DecafRepository<Model> | undefined = undefined;
-
-  constructor(protected adapter: DecafRepositoryAdapter, protected model?: string | Model) {}
-
-  private get repository():  DecafRepository<Model> {
+  private get repository(): DecafRepository<Model> {
     if (!this._repository) {
       const constructor = Model.get(typeof this.model === 'string' ? this.model : (this.model as Model).constructor.name);
       if (!constructor)
@@ -22,20 +20,21 @@ export class ForAngularRepository<T extends Model> {
         );
       try {
         this.model = new constructor();
-        this._repository  = Repository.forModel(constructor, (this.adapter as DecafRepositoryAdapter).flavour);
+        this._repository = Repository.forModel(constructor) as unknown as DecafRepository<T>;
       } catch (error: unknown) {
         throw new InternalError(
           (error as Error)?.message || error as string
         );
       }
     }
-    return this._repository;
+    return this._repository as DecafRepository<Model>;
   }
 
   public async init(): Promise<void> {
-    this._repository = this.repository;
-    let data = await this._repository?.select().execute();
-    if(!this.data?.length) {
+    if (!this._repository)
+      this._repository = this.repository as DecafRepository<T>;
+    let data = await (this._repository as unknown as DecafRepository<Model>)?.select().execute();
+    if (!this.data?.length) {
       const items = 15;
       data = ((this.model as Model).constructor.name !== 'CategoryModel' ? generateEmployes(items) : generateCatories(items)) as Model[];
       data = await this.repository?.createAll(data) as T[];
@@ -89,7 +88,7 @@ export function getFakerData<T extends Model>(
     }
     // item.id = index;
     // item.createdAt = faker.date.past({ refDate: '2025-01-01' });
-    index  = index + 1;
+    index = index + 1;
     return (!model ? item : Model.build(item, model)) as T;
   });
 }
