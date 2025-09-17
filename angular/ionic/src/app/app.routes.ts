@@ -1,0 +1,43 @@
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'dashboard',
+
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
+  {
+    path: 'crud',
+    loadComponent: () => import('./pages/crud/crud.page').then( m => m.CrudPage)
+  },
+  {
+    path: 'crud/:operation',
+    loadComponent: () => import('./pages/crud/crud.page').then( m => m.CrudPage)
+  },
+  {
+    path: 'fieldset',
+    data: {preload: false},
+    loadComponent: () => import('./pages/fieldset/fieldset.page').then( m => m.FieldsetPage)
+  },
+  // {
+  //   path: 'model',
+  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  // },
+  //  {
+  //   path: 'model/:modelName/:operation',
+  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  // },
+  // {
+  //   path: 'model/:modelName/:operation/:modelId',
+  //   loadComponent: () => import('./pages/model/model.page').then( m => m.ModelPage)
+  // }
+];

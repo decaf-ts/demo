@@ -1,0 +1,52 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "paths": {
+      // "@decaf-ts/angular-shared": ["../../src"],
+      // "@decaf-ts/angular-shared/*": ["../../src/*"],
+
+      "@shared/*": ["../../src/*"],
+      "@decaf-ts/core/ram": [
+        "./node_modules/@decaf-ts/core/lib/ram"
+      ],
+      // "@decaf-ts/decorator-validation": [
+      //   "./node_modules/@decaf-ts/decorator-validation/lib"
+      // ]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+     "paths": {
+      "@shared/*": ["../../src/*"],
+      "@decaf-ts/core/ram": [
+        "./node_modules/@decaf-ts/core/lib/ram"
+      ]
+    },
+  },
+
+}

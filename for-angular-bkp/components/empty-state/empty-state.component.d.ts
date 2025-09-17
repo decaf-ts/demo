@@ -1,0 +1,301 @@
+import { OnInit } from '@angular/core';
+import { StringOrBoolean } from '../../engine';
+import { NgxBaseComponent } from '../../engine/NgxBaseComponent';
+import { SafeHtml } from '@angular/platform-browser';
+import { FunctionLike } from '../../engine/types';
+import * as i0 from "@angular/core";
+/**
+ * @description Component for displaying empty state messages with optional actions.
+ * @summary This component provides a standardized way to display empty state messages
+ * when no data is available or when a user needs to take an action to populate content.
+ * It includes customizable title, subtitle, icon, and action button elements that can be
+ * styled and configured through input properties. The component supports localization
+ * and can trigger navigation or custom actions when the button is clicked.
+ *
+ * @mermaid
+ * classDiagram
+ *   class EmptyStateComponent {
+ *     +string title
+ *     +string titleColor
+ *     +string subtitle
+ *     +string subtitleColor
+ *     +StringOrBoolean showIcon
+ *     +string icon
+ *     +string iconSize
+ *     +string iconColor
+ *     +string|Function buttonLink
+ *     +string buttonText
+ *     +string buttonFill
+ *     +string buttonColor
+ *     +string buttonSize
+ *     +string searchValue
+ *     -Router Router
+ *     +ngOnInit()
+ *     +handleClick()
+ *   }
+ *   EmptyStateComponent --|> NgxBaseComponent
+ *   EmptyStateComponent --|> OnInit
+ *
+ * @extends {NgxBaseComponent}
+ * @implements {OnInit}
+ */
+export declare class EmptyStateComponent extends NgxBaseComponent implements OnInit {
+    /**
+     * @description The main title displayed in the empty state.
+     * @summary Specifies the primary message to show in the empty state component.
+     * This text is typically used to inform the user about why they're seeing an empty view.
+     * If translatable is true, this will be processed through the localization system.
+     *
+     * @type {string}
+     * @default "title"
+     * @memberOf EmptyStateComponent
+     */
+    title: string;
+    /**
+     * @description The color of the title text.
+     * @summary Specifies the color for the title text using the application's color system.
+     * The value should correspond to a color variable defined in the application's theme.
+     * The component will automatically prefix this with "color-" to create the CSS class.
+     *
+     * @type {string}
+     * @default 'gray-6'
+     * @memberOf EmptyStateComponent
+     */
+    titleColor: string;
+    /**
+     * @description The secondary message displayed in the empty state.
+     * @summary Provides additional context or instructions below the main title.
+     * This text is typically used to guide the user on what actions they can take.
+     * If translatable is true, this will be processed through the localization system.
+     *
+     * @type {string | undefined}
+     * @memberOf EmptyStateComponent
+     */
+    subtitle: string;
+    /**
+     * @description The color of the subtitle text.
+     * @summary Specifies the color for the subtitle text using the application's color system.
+     * The value should correspond to a color variable defined in the application's theme.
+     * The component will automatically prefix this with "color-" to create the CSS class.
+     *
+     * @type {string}
+     * @default 'gray-4'
+     * @memberOf EmptyStateComponent
+     */
+    subtitleColor: string;
+    /**
+     * @description Controls whether the icon is displayed.
+     * @summary Determines if the visual icon should be shown in the empty state.
+     * This can be provided as a boolean or a string that will be converted to a boolean.
+     * Icons help visually communicate the empty state context to users.
+     *
+     * @type {StringOrBoolean}
+     * @default true
+     * @memberOf EmptyStateComponent
+     */
+    showIcon: StringOrBoolean;
+    /**
+     * @description The name of the icon to display.
+     * @summary Specifies which icon to show when showIcon is true.
+     * The component uses the icon system defined in the application,
+     * and this value should correspond to an available icon name.
+     *
+     * @type {string}
+     * @default "ti-info-square-rounded"
+     * @memberOf EmptyStateComponent
+     */
+    icon: string;
+    /**
+     * @description The size of the displayed icon.
+     * @summary Controls the size of the icon shown in the empty state.
+     * Can be either 'large' or 'small' to accommodate different layout needs.
+     *
+     * @type {'large' | 'small' | undefined}
+     * @default 'large'
+     * @memberOf EmptyStateComponent
+     */
+    iconSize?: 'large' | 'small';
+    /**
+     * @description The color of the displayed icon.
+     * @summary Specifies the color for the icon using Ionic's predefined color system.
+     * This allows the icon to match the application's color scheme.
+     *
+     * @type {PredefinedColors | undefined}
+     * @default 'medium'
+     * @memberOf EmptyStateComponent
+     */
+    iconColor?: string;
+    /**
+     * @description The navigation target or action for the button.
+     * @summary Specifies where the button should navigate to when clicked or what function
+     * it should execute. This can be either a URL string or a function that handles navigation.
+     * When not provided, the button will not perform any action.
+     *
+     * @type {string | FunctionLike | undefined}
+     * @memberOf EmptyStateComponent
+     */
+    buttonLink?: string | FunctionLike;
+    /**
+     * @description The text displayed on the action button.
+     * @summary Specifies the label for the action button in the empty state.
+     * If translatable is true, this will be processed through the localization system.
+     * If not provided, the button will not display any text.
+     *
+     * @type {string | undefined}
+     * @memberOf EmptyStateComponent
+     */
+    buttonText?: string;
+    /**
+     * @description The fill style of the action button.
+     * @summary Controls the visual style of the button using Ionic's button fill options.
+     * 'solid' creates a button with a solid background, 'outline' creates a button with
+     * just a border, and 'clear' creates a button with no background or border.
+     *
+     * @type {'clear' | 'solid' | 'outline'}
+     * @default 'solid'
+     * @memberOf EmptyStateComponent
+     */
+    buttonFill: 'clear' | 'solid' | 'outline';
+    /**
+     * @description The color of the action button.
+     * @summary Specifies the color for the button using Ionic's color system.
+     * This allows the button to match the application's color scheme.
+     *
+     * @type {string}
+     * @default 'primary'
+     * @memberOf EmptyStateComponent
+     */
+    buttonColor: string;
+    /**
+     * @description The size of the action button.
+     * @summary Controls the size of the button shown in the empty state.
+     * Can be 'large', 'small', or 'default' to accommodate different layout needs.
+     *
+     * @type {'large' | 'small' | 'default'}
+     * @default 'default'
+     * @memberOf EmptyStateComponent
+     */
+    buttonSize: 'large' | 'small' | 'default';
+    /**
+     * @description The search value that resulted in no results.
+     * @summary When the empty state is shown due to a search with no results,
+     * this property can hold the search term that was used. This can be displayed
+     * in the empty state message to provide context to the user.
+     *
+     * @type {string}
+     * @memberOf EmptyStateComponent
+     */
+    searchValue: string;
+    /**
+     * @description Service for handling navigation operations.
+     * @summary Injected service that provides methods for navigating between routes.
+     * This service is used when the buttonLink is a string URL to navigate to that location.
+     *
+     * @private
+     * @type {Router}
+     * @memberOf EmptyStateComponent
+     */
+    private router;
+    private sanitizer;
+    private translate;
+    searchSubtitle: SafeHtml;
+    /**
+     * @description Creates an instance of EmptyStateComponent.
+     * @summary Initializes a new EmptyStateComponent by calling the parent class constructor
+     * with the component name for logging and identification purposes. This component provides
+     * a standardized way to display empty state messages with optional icons and action buttons.
+     *
+     * @memberOf EmptyStateComponent
+     */
+    constructor();
+    /**
+     * @description Initializes the component after Angular first displays the data-bound properties.
+     * @summary Sets up the component by processing boolean inputs, applying localization to text
+     * elements if translation is enabled, and formatting CSS classes for title and subtitle colors.
+     * This method prepares the component for user interaction by ensuring all properties are
+     * properly initialized and localized.
+     *
+     * @mermaid
+     * sequenceDiagram
+     *   participant A as Angular Lifecycle
+     *   participant E as EmptyStateComponent
+     *
+     *   A->>E: ngOnInit()
+     *   E->>E: Process translatable flag
+     *   E->>E: Process showIcon flag
+     *   E->>E: Get locale settings
+     *   alt translatable is true
+     *     E->>E: Localize title
+     *     E->>E: Localize subtitle
+     *     E->>E: Localize buttonText
+     *   end
+     *   E->>E: Format title CSS class
+     *   E->>E: Format subtitle CSS class
+     *
+     * @return {Promise<void>}
+     * @memberOf EmptyStateComponent
+     */
+    ngOnInit(): Promise<void>;
+    /**
+     * @description Handles click events on the action button.
+     * @summary This method is triggered when the user clicks the action button in the empty state
+     * component. It supports three navigation patterns: 1) no action when buttonLink is not provided,
+     * 2) custom function execution when buttonLink is a function, and 3) navigation to a specific URL
+     * when buttonLink is a string. This flexibility allows the empty state to trigger various actions
+     * based on the context in which it's used.
+     *
+     * @mermaid
+     * sequenceDiagram
+     *   participant U as User
+     *   participant E as EmptyStateComponent
+     *   participant N as Router
+     *
+     *   U->>E: Click action button
+     *   E->>E: handleClick()
+     *   alt buttonLink is not provided
+     *     E-->>U: Return false (no action)
+     *   else buttonLink is a function
+     *     E->>E: Execute buttonLink function
+     *     E-->>U: Return function result
+     *   else buttonLink is a URL string
+     *     E->>N: navigateForward(buttonLink)
+     *     N-->>E: Return navigation result
+     *     E-->>U: Return navigation result
+     *   end
+     *
+     * @return {boolean | void | Promise<boolean>}
+     *   - false if no action is taken
+     *   - The result of the buttonLink function if it's a function
+     *   - A Promise resolving to the navigation result if buttonLink is a URL
+     * @memberOf EmptyStateComponent
+     */
+    handleClick(): boolean | void | Promise<boolean>;
+    /**
+      * @description Generates a localized and sanitized subtitle for search results.
+      * @summary This method takes a content string, typically the subtitle, and processes it
+      * through the translation service. It replaces a placeholder ('value0') with the actual
+      * search value, then sanitizes the result to safely use as HTML. This is particularly
+      * useful for displaying dynamic, localized messages in the empty state when a search
+      * yields no results.
+      *
+      * @param {string} content - The content string to be translated and processed
+      * @return {Promise<SafeHtml>} A promise that resolves to a sanitized HTML string
+      *
+      * @mermaid
+      * sequenceDiagram
+      *   participant E as EmptyStateComponent
+      *   participant T as TranslateService
+      *   participant S as DomSanitizer
+      *
+      *   E->>T: instant(content, {'value0': searchValue})
+      *   T-->>E: Return translated string
+      *   E->>S: bypassSecurityTrustHtml(translatedString)
+      *   S-->>E: Return sanitized SafeHtml
+      *
+      * @memberOf EmptyStateComponent
+      */
+    getSearchSubtitle(content: string): Promise<SafeHtml>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<EmptyStateComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<EmptyStateComponent, "ngx-decaf-empty-state", never, { "title": { "alias": "title"; "required": false; }; "titleColor": { "alias": "titleColor"; "required": false; }; "subtitle": { "alias": "subtitle"; "required": false; }; "subtitleColor": { "alias": "subtitleColor"; "required": false; }; "showIcon": { "alias": "showIcon"; "required": false; }; "icon": { "alias": "icon"; "required": false; }; "iconSize": { "alias": "iconSize"; "required": false; }; "iconColor": { "alias": "iconColor"; "required": false; }; "buttonLink": { "alias": "buttonLink"; "required": false; }; "buttonText": { "alias": "buttonText"; "required": false; }; "buttonFill": { "alias": "buttonFill"; "required": false; }; "buttonColor": { "alias": "buttonColor"; "required": false; }; "buttonSize": { "alias": "buttonSize"; "required": false; }; "searchValue": { "alias": "searchValue"; "required": false; }; }, {}, never, never, true, never>;
+}
+//# sourceMappingURL=empty-state.component.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"collapsable.directive.d.ts","sourceRoot":"","sources":["../../../src/lib/directives/collapsable.directive.ts"],"names":[],"mappings":"AAAA,OAAO,EAAiC,MAAM,EAAY,MAAM,eAAe,CAAC;;AAGhF,qBAIa,oBAAqB,YAAW,MAAM;IAEjD,OAAO,CAAC,OAAO,CAA+C;IAC9D,OAAO,CAAC,QAAQ,CAAoB;IAGpC,QAAQ;yCANG,oBAAoB;2CAApB,oBAAoB;CA6ChC"}

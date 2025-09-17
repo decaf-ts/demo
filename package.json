@@ -1,14 +1,14 @@
 {
-  "name": "@decaf-ts/ts-workspace",
-  "version": "3.9.7",
-  "description": "template for ts projects",
-  "type": "module",
+  "name": "@decaf-ts/demo",
+  "version": "0.0.1",
+  "description": "decaf demo project",
   "exports": {
     "require": "./lib/index.cjs",
     "import": "./lib/esm/index.js"
   },
   "types": "lib/index.d.ts",
   "scripts": {
+    "do-install": "TOKEN=$(cat .token) npm install",
     "update-dependencies": "PREFIX=\"decaf-ts\"; npm ls | grep \"$PREFIX\" | awk -F/ '{print $NF}' | sed 's/@.*//' | xargs -I package npm update @\"$PREFIX\"/package",
     "update-scripts": "npx update-scripts",
     "postinstall": "[ -z $CI ] && npm run on-first-run || echo 'CI detected, skipping on-first-run'",
@@ -71,7 +71,6 @@
     "ts"
   ],
   "author": "Tiago Venceslau",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/decaf-ts/ts-workspace/issues"
   },
@@ -85,6 +84,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@types/jest": "^29.5.14",
+    "@types/node": "^24.5.0",
     "clean-publish": "^5.1.0",
     "dpdm": "^3.14.0",
     "eslint": "^9.25.1",
@@ -108,5 +108,14 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0"
+  },
+  "dependencies": {
+    "@decaf-ts/cli": "latest",
+    "@decaf-ts/core": "0.5.24",
+    "@decaf-ts/db-decorators": "latest",
+    "@decaf-ts/decorator-validation": "latest",
+    "@decaf-ts/logging": "latest",
+    "@decaf-ts/ui-decorators": "latest",
+    "reflect-metadata": "^0.2.2"
   }
 }

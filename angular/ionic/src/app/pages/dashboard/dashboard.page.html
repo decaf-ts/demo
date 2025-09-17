@@ -1,0 +1,14 @@
+<app-header
+  title="Dashboard"
+  center="true"
+  showMenuButton="true"
+  color="primary">
+</app-header>
+
+<ion-content fullscreen="true">
+   <main class="main">
+    <app-container [hasSideMenu]="true">
+       <ngx-decaf-layout className="dcf-card-default" [model]="model" (listenEvent)="handleEvent($event)"/>
+    </app-container>
+  </main>
+</ion-content>
