@@ -13,7 +13,7 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { routes } from './app.routes';
 import { getI18nLoaderFactoryProviderConfig, getWindow, I18nLoaderFactory, DecafRepositoryAdapter } from '@decaf-ts/for-angular';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { RamAdapter, Adapter } from '@decaf-ts/core';
+import { RamAdapter } from '@decaf-ts/core';
 
 export const DbAdapterProvider = new InjectionToken<DecafRepositoryAdapter>('DbAdapterProvider');
 
@@ -22,8 +22,6 @@ export const DbAdapterProvider = new InjectionToken<DecafRepositoryAdapter>('DbA
  * Sets the adapter name on the window object for global access
  */
 export function createDbAdapter(): RamAdapter {
-
-
   const adapter = new RamAdapter({ user: 'user' }, "ram");
   // Set adapter name on window for global access
   getWindow()['dbAdapterFlavour'] = adapter.flavour;

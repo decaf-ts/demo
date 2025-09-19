@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { IonCard, IonCardContent, IonCardTitle, IonSearchbar, IonContent, IonItem, IonIcon, IonLabel, } from '@ionic/angular/standalone';
-import { DecafRepository, ListComponentsTypes, ListComponent, NgxBaseComponent, BaseCustomEvent, EventConstants } from '@decaf-ts/for-angular';
+import { DecafRepository, ListComponentsTypes, ListComponent, BaseCustomEvent, EventConstants } from '@decaf-ts/for-angular';
 import { getFakerData } from '@shared/utils';
 import { EmployeeModel, CategoryModel } from '@shared/models';
 import { Model } from '@decaf-ts/decorator-validation';

@@ -1,9 +1,9 @@
 
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject,  OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
-import { isDevelopmentMode, NgxRenderingEngine, getOnWindow, removeFocusTrap, DecafRepositoryAdapter } from '@decaf-ts/for-angular';
+import { isDevelopmentMode, NgxRenderingEngine, removeFocusTrap } from '@decaf-ts/for-angular';
 import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
 import { IMenuItem } from '@shared/utils/types';
 import { SidebarMenu } from '@shared/utils/constants';
