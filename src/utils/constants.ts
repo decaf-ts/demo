@@ -1,6 +1,6 @@
-import { MenuItem } from "./types";
+import { IMenuItem } from "./types";
 
-export const SidebarMenu: MenuItem[] = [
+export const SidebarMenu: IMenuItem[] = [
   {
     label: 'Dashboard',
     icon: 'apps-outline',

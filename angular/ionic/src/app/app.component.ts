@@ -3,20 +3,19 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
-import { isDevelopmentMode, NgxRenderingEngine, getOnWindow, removeFocusTrap } from '@decaf-ts/for-angular';
+import { isDevelopmentMode, NgxRenderingEngine, getOnWindow, removeFocusTrap, DecafRepositoryAdapter } from '@decaf-ts/for-angular';
 import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
-import { MenuItem } from './utils/types';
-import { SidebarMenu } from './utils/constants';
+import { IMenuItem } from '@shared/utils/types';
+import { SidebarMenu } from '@shared/utils/constants';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { createDbAdapter, DbAdapterProvider } from './app.config';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { LogoComponent } from './components/logo/logo.component';
 import { CategoryModel, EmployeeModel } from '@shared/models';
-import { ForAngularRepository } from './utils/ForAngularRepository';
-import { RamAdapter } from '@decaf-ts/core/ram/RamAdapter';
+import { FakerRepository } from '@shared/utils';
 import { Repository } from '@decaf-ts/core';
+import { DbAdapterProvider } from 'src/app/app.config';
 
 try {
   new NgxRenderingEngine();
@@ -91,7 +90,7 @@ export class AppComponent implements OnInit {
   /**
    * @description The menu items for the application's navigation
    */
-  menu: MenuItem[] = SidebarMenu;
+  menu: IMenuItem[] = SidebarMenu;
 
 
   /**
@@ -112,7 +111,7 @@ export class AppComponent implements OnInit {
   /**
    * @description The database adapter provider
    */
-  // adapter = inject(DbAdapterProvider);
+  adapter = inject(DbAdapterProvider);
 
   /**
    * @description Flag indicating if the application has been initialized
@@ -132,7 +131,7 @@ export class AppComponent implements OnInit {
   /**
    * @description The database adapter provider
    */
-  protected adapter: RamAdapter = inject(DbAdapterProvider);
+  // protected adapter: RamAdapter = inject(DbAdapterProvider);
 
   /**
    * @description Initializes the component
@@ -171,13 +170,18 @@ export class AppComponent implements OnInit {
     this.initialized = true;
     const isDevelopment = isDevelopmentMode();
     if (isDevelopment) {
+      if (isDevelopment) {
+        // for (const model of [new CategoryModel(), new EmployeeModel()]) {
+        //   const repository = new FakeRepository<typeof model>(this.adapter as unknown as DecafRepositoryAdapter, model);
+        //   await repository.init();
+        // }
 
-
-      for (const instance of [CategoryModel, EmployeeModel]) {
-        const model = new instance();
-        const repo = Repository.forModel(instance as ModelConstructor<typeof model>, this.adapter.flavour);
-        const repository = new ForAngularRepository<typeof model>(repo, model as Model);
-        await repository.init();
+        for (const instance of [CategoryModel, EmployeeModel]) {
+          const model = new instance();
+          const repo = Repository.forModel(instance as ModelConstructor<typeof model>);
+          const repository = new FakerRepository<typeof model>(repo, model as Model);
+          await repository.init();
+        }
       }
 
     }

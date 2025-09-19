@@ -7,7 +7,7 @@
     "do-install": "TOKEN=$(cat .token) npm install",
     "update-dependencies": "PREFIX=\"decaf-ts\"; npm ls | grep \"$PREFIX\" | awk -F/ '{print $NF}' | sed 's/@.*//' | xargs -I package npm update @\"$PREFIX\"/package && ng cache clean",
     "ng": "ng",
-    "start": "ng serve --port=8120",
+    "start": "npx rimraf .angular && ng serve --port=8120 --configuration=development",
     "build": "ng build",
     "watch": "ng build --watch --port=8120 --configuration development",
     "test": "ng test",

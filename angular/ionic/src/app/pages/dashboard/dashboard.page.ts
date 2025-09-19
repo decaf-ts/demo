@@ -1,9 +1,8 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon } from '@ionic/angular/standalone';
-import { addIcons  } from 'ionicons';
-import { cardOutline, peopleOutline, documentAttachOutline  } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { cardOutline, peopleOutline, documentAttachOutline } from 'ionicons/icons';
 import { DashboardLayout } from '@shared/layouts';
-
 import { LayoutComponent, RendererCustomEvent } from '@decaf-ts/for-angular';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';

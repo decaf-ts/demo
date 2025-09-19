@@ -1,0 +1,43 @@
+<app-header
+  [model]="model"
+  [title]="'List ' + type"
+  center="true"
+  showMenuButton="true"
+  [operations]="[OperationKeys.READ, OperationKeys.CREATE]"
+  color="primary">
+</app-header>
+<ion-content [fullscreen]="true">
+   <main class="main">
+    <app-container [hasSideMenu]="true" size="full">
+      <ion-card>
+        <ion-card-content>
+            <ngx-decaf-list
+              lines="none"
+              button="true"
+              [type]="type"
+              [showSearchbar]="true"
+              [showRefresher]="true"
+              [source]="refresh.bind(this)"
+              (refreshEvent)="handleListRefreshEvent($event)"
+              #listComponent
+            >
+            @if(data?.length) {
+              @for(item of data; track item) {
+                <ion-item [button]="true" (click)="handleListItemClick($event, item)">
+                <ion-icon aria-hidden="true" name="reader-outline" slot="start"></ion-icon>
+                <ion-label>
+                  <p class="dcf-list-title">{{item.name}}</p>
+                  <p class="dcf-list-description">{{item.occupation}}</p>
+                </ion-label>
+                <ion-note slot="end">{{item.birthdate}}</ion-note>
+              </ion-item>
+              }
+            }
+            </ngx-decaf-list>
+
+        </ion-card-content>
+      </ion-card>
+
+    </app-container>
+  </main>
+</ion-content>

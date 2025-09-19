@@ -4,7 +4,7 @@ import { IonCard, IonCardContent, IonContent, IonImg, ToastController } from '@i
 import { CrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent } from '@decaf-ts/for-angular';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
-import { LoginForm } from '@shared/forms';
+import { LoginForm } from '@shared/forms/LoginForm';
 import { MenuController } from '@ionic/angular';
 
 

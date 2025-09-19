@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonCard, IonContent } from '@ionic/angular/standalone';
 import { OperationKeys } from '@decaf-ts/db-decorators';
-import { KeyValue, getLogger, BaseCustomEvent, ModelRendererComponent} from '@decaf-ts/for-angular';
+import { KeyValue, getLogger, BaseCustomEvent, ModelRendererComponent } from '@decaf-ts/for-angular';
 import { FieldSetForm } from '@shared/forms';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
@@ -24,7 +24,7 @@ export class FieldsetPage implements OnInit {
 
   ngOnInit(): void {
     this.model = new FieldSetForm({});
-    this.globals = {operation: OperationKeys.CREATE,};
+    this.globals = { operation: OperationKeys.CREATE, };
   }
 
   handleSubmit(event: BaseCustomEvent): void {

@@ -11,11 +11,11 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 // import pt from '@decaf-ts/for-angular/assets/i18n/pt.json';
 
 import { routes } from './app.routes';
-import { getI18nLoaderFactoryProviderConfig, getWindow, I18nLoaderFactory } from '@decaf-ts/for-angular';
+import { getI18nLoaderFactoryProviderConfig, getWindow, I18nLoaderFactory, DecafRepositoryAdapter } from '@decaf-ts/for-angular';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { RamAdapter } from '@decaf-ts/core/ram/RamAdapter';
+import { RamAdapter, Adapter } from '@decaf-ts/core';
 
-export const DbAdapterProvider = new InjectionToken<RamAdapter>('DbAdapterProvider');
+export const DbAdapterProvider = new InjectionToken<DecafRepositoryAdapter>('DbAdapterProvider');
 
 /**
  * Factory function to create and configure the database adapter
@@ -24,7 +24,7 @@ export const DbAdapterProvider = new InjectionToken<RamAdapter>('DbAdapterProvid
 export function createDbAdapter(): RamAdapter {
 
 
-  const adapter = new RamAdapter({ user: 'user' });
+  const adapter = new RamAdapter({ user: 'user' }, "ram");
   // Set adapter name on window for global access
   getWindow()['dbAdapterFlavour'] = adapter.flavour;
   return adapter;

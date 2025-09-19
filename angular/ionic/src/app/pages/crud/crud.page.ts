@@ -11,7 +11,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
   templateUrl: './crud.page.html',
   styleUrls: ['./crud.page.css'],
   standalone: true,
-  imports: [ModelRendererComponent, HeaderComponent, ContainerComponent, IonContent, IonCard,  IonCardContent]
+  imports: [ModelRendererComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardContent]
 })
 export class CrudPage implements OnInit {
 
@@ -39,13 +39,13 @@ export class CrudPage implements OnInit {
       website: 'https://johndoe.example.com',
       password: 'password123',
       ... (this.operation === OperationKeys.READ ?
-      {
-        category: {name: "Demo Category", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-        user: {username: "Admin", secret: "DemoPass"},
-        gender: "male",
-        birthdate: "1989-12-12",
+        {
+          category: { name: "Demo Category", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+          user: { username: "Admin", secret: "DemoPass" },
+          gender: "male",
+          birthdate: "1989-12-12",
 
-      }: {}),
+        } : {}),
     });
 
     this.globals = {

@@ -9,7 +9,7 @@
   "types": "lib/index.d.ts",
   "type": "module",
   "scripts": {
-    "do-install": "TOKEN=$(cat .token) npm install && cd angular/ionic && npm install",
+    "do-install": "TOKEN=$(cat .token) npm install --force && cd angular/ionic && npm install",
     "update-dependencies": "PREFIX=\"decaf-ts\"; npm ls | grep \"$PREFIX\" | awk -F/ '{print $NF}' | sed 's/@.*//' | xargs -I package npm update @\"$PREFIX\"/package",
     "update-scripts": "npx update-scripts",
     "on-first-run": "npx update-scripts --boot",
