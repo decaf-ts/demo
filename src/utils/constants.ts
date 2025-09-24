@@ -14,6 +14,10 @@ export const SidebarMenu: IMenuItem[] = [
     label: 'Fieldset',
     url: '/fieldset',
   },
+ {
+    label: 'Steps Form',
+    url: '/steps-form',
+  },
   {
     label: 'Read',
     url: '/crud/read',

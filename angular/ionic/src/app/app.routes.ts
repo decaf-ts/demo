@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fieldset/fieldset.page').then(m => m.FieldsetPage)
   },
   {
+    path: 'steps-form',
+    loadComponent: () => import('./pages/steps-form/steps-form.page').then( m => m.StepsFormPage)
+  },
+  {
     path: 'model',
     loadComponent: () => import('./pages/model/model.page').then(m => m.ModelPage)
   },
