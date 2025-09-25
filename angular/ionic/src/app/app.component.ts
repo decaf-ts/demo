@@ -148,8 +148,6 @@ export class AppComponent implements OnInit {
    */
   async ngOnInit(): Promise<void> {
     await this.initializeApp();
-
-
     this.router.events.subscribe(async event => {
       if (event instanceof NavigationEnd) {
         const { url } = event;

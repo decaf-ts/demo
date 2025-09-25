@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonCard, IonContent } from '@ionic/angular/standalone';
-import { BaseCustomEvent, ModelRendererComponent, StepedFormComponent, KeyValue, getLogger } from '@decaf-ts/for-angular';
+import { BaseCustomEvent, ModelRendererComponent, SteppedFormComponent, KeyValue, getLogger } from '@decaf-ts/for-angular';
 import { OperationKeys } from '@decaf-ts/db-decorators';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
@@ -12,7 +12,7 @@ import { SteppedForm } from '@shared/forms/SteppedForm';
   selector: 'app-steps-form',
   templateUrl: './steps-form.page.html',
   styleUrls: ['./steps-form.page.scss'],
-  imports: [HeaderComponent, ContainerComponent, ModelRendererComponent, StepedFormComponent, IonContent, IonCard]
+  imports: [HeaderComponent, ContainerComponent, ModelRendererComponent, SteppedFormComponent, IonContent, IonCard]
 
 })
 export class StepsFormPage implements OnInit {
