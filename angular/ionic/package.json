@@ -2,7 +2,7 @@
   "name": "@decaf-ts/demo-angular-ionic",
   "version": "0.0.1",
   "author": "Tiago Venceslau",
-  "license": "AGPL-3.0-or-later",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/decaf-ts/demo.git"
