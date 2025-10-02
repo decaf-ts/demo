@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonCard, IonCardContent, IonContent, IonImg, ToastController } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent, ToastController } from '@ionic/angular/standalone';
 import { CrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent } from '@decaf-ts/for-angular';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
@@ -42,7 +42,7 @@ import { MenuController } from '@ionic/angular';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonCard, IonCardContent, IonImg, LogoComponent, ContainerComponent, ModelRendererComponent],
+  imports: [IonContent, IonCard, IonCardContent, LogoComponent, ContainerComponent, ModelRendererComponent],
 })
 export class LoginPage implements OnInit {
 

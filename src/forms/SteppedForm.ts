@@ -11,7 +11,7 @@ import {
 import { uichild, uielement, uimodel } from '@decaf-ts/ui-decorators';
 import { CategoryModel } from '../models/CategoryModel';
 
-@uimodel('ngx-decaf-steped-form', {pages: 3, startPage: 1})
+@uimodel('ngx-decaf-stepped-form', {pages: 3, startPage: 1})
 @model()
 export class SteppedForm extends Model {
 
@@ -86,7 +86,7 @@ export class SteppedForm extends Model {
   })
   agree!: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+   
   constructor(arg?: ModelArg<SteppedForm>) {
     super(arg);
   }

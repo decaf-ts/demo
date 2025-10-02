@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { faker } from '@faker-js/faker';
-import { IonCard, IonCardContent, IonCardTitle, IonSearchbar, IonContent, IonItem, IonIcon, IonLabel, } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent, IonItem, IonIcon, IonLabel, } from '@ionic/angular/standalone';
 import { DecafRepository, ListComponentsTypes, ListComponent, BaseCustomEvent, EventConstants } from '@decaf-ts/for-angular';
 import { getFakerData } from '@shared/utils';
 import { EmployeeModel, CategoryModel } from '@shared/models';
@@ -14,7 +14,7 @@ import { OperationKeys } from '@decaf-ts/db-decorators';
   templateUrl: './list.page.html',
   styleUrls: ['./list.page.css'],
   standalone: true,
-  imports: [ListComponent, HeaderComponent, ContainerComponent, IonContent, IonItem, IonIcon, IonLabel, IonCard, IonCardTitle, IonCardContent, IonSearchbar],
+  imports: [ListComponent, HeaderComponent, ContainerComponent, IonContent, IonItem, IonIcon, IonLabel, IonCard, IonCardContent],
 })
 export class ListPage implements OnInit, OnDestroy {
 

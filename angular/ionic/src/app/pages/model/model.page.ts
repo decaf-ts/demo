@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonSearchbar } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent } from '@ionic/angular/standalone';
 import {
-  CrudOperations,
   InternalError,
   IRepository,
   OperationKeys,
@@ -19,13 +18,17 @@ import { ContainerComponent } from 'src/app/components/container/container.compo
   standalone: true,
   selector: 'app-model',
   templateUrl: './model.page.html',
-  imports: [ModelRendererComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSearchbar],
+   imports: [ModelRendererComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent],
   styleUrls: ['./model.page.scss'],
 })
 export class ModelPage implements OnInit {
 
   @Input()
-  operation: CrudOperations = OperationKeys.READ;
+  operation:
+    | OperationKeys.CREATE
+    | OperationKeys.READ
+    | OperationKeys.UPDATE
+    | OperationKeys.DELETE = OperationKeys.READ;
 
   @Input()
   modelName!: string;
@@ -33,7 +36,7 @@ export class ModelPage implements OnInit {
   @Input()
   modelId!: string;
 
-  allowedOperations: CrudOperations[] = [OperationKeys.CREATE, OperationKeys.READ];
+  allowedOperations: OperationKeys[] = [OperationKeys.CREATE, OperationKeys.READ];
 
   model!: Model | undefined;
 
@@ -42,7 +45,7 @@ export class ModelPage implements OnInit {
    * @description Logger instance for the component.
    * @summary Provides logging capabilities for the component, allowing for consistent
    * and structured logging of information, warnings, and errors. This logger is initialized
-   * in the ngOnInit method using the getLogger function from the ForAngularModule.
+   * in the ngOnInit method using the getLogger function from the ForAngularCommonModule.
    *
    * The logger is used throughout the component to record important events, debug information,
    * and potential issues. It helps in monitoring the component's behavior, tracking the flow
@@ -145,3 +148,4 @@ export class ModelPage implements OnInit {
       return uid;
   }
 }
+

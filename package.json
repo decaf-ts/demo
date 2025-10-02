@@ -1,7 +1,12 @@
 {
   "name": "@decaf-ts/demo",
   "version": "0.0.1",
-  "description": "decaf demo project",
+  "description": "Decaf demo project",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decaf-ts/demo.git"
+  },
   "exports": {
     "require": "./lib/index.cjs",
     "import": "./lib/esm/index.js"
@@ -34,10 +39,6 @@
     "uml": "cd workdocs/uml && for FILE in ./*.puml; do docker run --rm -v $(pwd):/work -w /work miy4/plantuml -DPLANTUML_LIMIT_SIZE=8192 -tpng $FILE; done && cd ../.. && cp -fr workdocs/uml/*.png workdocs/resources/",
     "docs": "npx rimraf ./docs && mkdir docs && npx build-scripts --docs",
     "publish-docs": "docker run -it --rm --user $(id -u):$(id -g) -v \"$(pwd)/workdocs/confluence:/content\" -e ATLASSIAN_API_TOKEN=$(cat .confluence-token) ghcr.io/markdown-confluence/publish:latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/decaf-ts/ts-workspace.git"
   },
   "engines": {
     "node": ">=20.0.0",
@@ -75,6 +76,7 @@
   "homepage": "https://github.com/decaf-ts/ts-workspace#readme",
   "devDependencies": {
     "@decaf-ts/utils": "latest",
+    "@faker-js/faker": "^10.0.0",
     "@eslint/js": "^9.25.1",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-json": "^6.1.0",
@@ -116,7 +118,6 @@
     "@decaf-ts/for-angular": "latest",
     "@decaf-ts/logging": "latest",
     "@decaf-ts/ui-decorators": "latest",
-    "@faker-js/faker": "^10.0.0",
     "reflect-metadata": "^0.2.2"
   }
 }

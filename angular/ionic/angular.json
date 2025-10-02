@@ -78,7 +78,7 @@
               },
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": false
+              "namedChunks": true
             },
             "ci": {
               "progress": false

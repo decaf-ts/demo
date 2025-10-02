@@ -1,21 +1,38 @@
 
 import { Component, inject,  OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 import { Platform } from '@ionic/angular';
-import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
-import { isDevelopmentMode, NgxRenderingEngine, removeFocusTrap } from '@decaf-ts/for-angular';
-import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
-import { IMenuItem } from '@shared/utils/types';
-import { SidebarMenu } from '@shared/utils/constants';
+import {
+  IonApp,
+  IonSplitPane,
+  IonMenu,
+  IonContent,
+  IonList,
+  IonMenuToggle,
+  IonItem,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonRouterLink
+} from '@ionic/angular/standalone';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { Title } from '@angular/platform-browser';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
-import { LogoComponent } from './components/logo/logo.component';
-import { CategoryModel, EmployeeModel } from '@shared/models';
-import { FakerRepository } from '@shared/utils';
+import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
+import { TranslateModule } from '@ngx-translate/core';
 import { Repository } from '@decaf-ts/core';
-import { DbAdapterProvider } from 'src/app/app.config';
+import {
+  isDevelopmentMode,
+  NgxRenderingEngine,
+  DB_ADAPTER_PROVIDER_TOKEN,
+  removeFocusTrap
+} from '@decaf-ts/for-angular';
+import { FakerRepository, IMenuItem, SidebarMenu } from '@shared/utils';
+import { CategoryModel, EmployeeModel } from '@shared/models';
+import { LogoComponent } from './components/logo/logo.component';
+
+
 
 try {
   new NgxRenderingEngine();
@@ -66,7 +83,6 @@ try {
     RouterLinkActive,
     IonContent,
     IonList,
-    IonListHeader,
     IonMenuToggle,
     IonItem,
     IonIcon,
@@ -74,7 +90,6 @@ try {
     IonRouterLink,
     IonRouterOutlet,
     TranslateModule,
-    TranslatePipe,
     LogoComponent
   ],
   templateUrl: './app.component.html',
@@ -111,7 +126,7 @@ export class AppComponent implements OnInit {
   /**
    * @description The database adapter provider
    */
-  adapter = inject(DbAdapterProvider);
+  adapter = inject(DB_ADAPTER_PROVIDER_TOKEN);
 
   /**
    * @description Flag indicating if the application has been initialized
@@ -131,7 +146,7 @@ export class AppComponent implements OnInit {
   /**
    * @description The database adapter provider
    */
-  // protected adapter: RamAdapter = inject(DbAdapterProvider);
+  // protected adapter: RamAdapter = inject(DB_ADAPTER_PROVIDER_TOKEN);
 
   /**
    * @description Initializes the component

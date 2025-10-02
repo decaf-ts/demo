@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonCard, IonCardContent, IonCardTitle, IonContent, IonSearchbar } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent} from '@ionic/angular/standalone';
 import { KeyValue, ListComponent, BaseCustomEvent, EventConstants, ListComponentsTypes } from '@decaf-ts/for-angular';
 import { EmployeeModel, CategoryModel } from '@shared/models';
 import { Model } from '@decaf-ts/decorator-validation';
@@ -12,7 +12,7 @@ import { OperationKeys } from '@decaf-ts/db-decorators';
   templateUrl: './list-model.page.html',
   styleUrls: ['./list-model.page.css'],
   standalone: true,
-  imports: [HeaderComponent, ContainerComponent, ListComponent, IonContent, IonCard, IonCardTitle, IonCardContent, IonSearchbar],
+  imports: [HeaderComponent, ContainerComponent, ListComponent, IonContent, IonCard, IonCardContent],
 })
 export class ListModelPage implements OnInit {
 
