@@ -14,6 +14,9 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescriptreact]": {
@@ -31,5 +34,6 @@
     "scss",
     "sass"
   ],
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  
 }

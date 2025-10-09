@@ -43,8 +43,6 @@
  */
 
 import './zone-flags';
-// DELETAR
-import 'reflect-metadata';
 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
@@ -55,3 +53,13 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import 'reflect-metadata';
+
+((globalThis as any).window as any).global = (globalThis as any).window;
+(globalThis as any).global = (globalThis as any).global || globalThis.window;
+(globalThis as any).Buffer = (globalThis as any).Buffer || [];
+(globalThis as any).process = (globalThis as any).process || {
+  env: { DEBUG: undefined },
+  version: '',
+};

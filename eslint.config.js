@@ -1,34 +1,70 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
+import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
-import eslintConfigPrettier from "eslint-config-prettier";
-
-export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
+import angular from "angular-eslint";
+import { defineConfig } from "npm-check-updates";
+export default tseslint.config(
   {
+    files: ["**/*.ts"],
     ignores: [
-      "lib",
-      "bin",
-      "dist",
-      "docs",
-      "gulpfile.js",
-      "workdocs",
-      "!src/**/*",
-      "!tests/**/*",
-      "tests/bundling/**/*",
-      "tests/web/**/*",
+        "**/tests/**",
+        "**/dist/**",
+        "**/esm/**",
+        "**/lib/**",
+        "**/typings/**",
+        "**/.vscode/**",
+        "**/.angular/**",
+        "**/cache/**",
+        "**/*.spec.*",
+        "**/cli-module.*",
+        "angular/**/polyfills.ts",  
+        "angular/**/zone-flags.ts"
     ],
-  },
-  { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintConfigPrettier,
-  {
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
     rules: {
-      // '@typescript-eslint/interface-name-prefix': 'off',
-      // '@typescript-eslint/explicit-function-return-type': 'off',
-      // '@typescript-eslint/explicit-module-boundary-types': 'off',
-      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "no-useless-constructor": "off",
+      "@typescript-eslint/no-useless-constructor": "warn",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-empty-function": "warn",
+      "@angular-eslint/no-empty-lifecycle-method": "warn",
+      "@angular-eslint/prefer-inject": "warn",
+      "@angular-eslint/component-class-suffix": [
+        "error",
+        {
+          suffixes: ["Page", "Component"],
+        },
+      ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          type: "attribute",
+          prefix: ["decaf", ""],
+          style: "camelCase",
+        },
+      ],
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          type: "element",
+          prefix: ["app"],
+          style: "kebab-case",
+        },
+      ],
     },
   },
-];
+  {
+    files: ["**/*.html"],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
+    ],
+    rules: {},
+  }
+);

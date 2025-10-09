@@ -1,7 +1,7 @@
 import { EventHandler } from "@decaf-ts/ui-decorators";
 
 
-type FormEvent = {data: Record<string, string>};
+interface FormEvent {data: Record<string, string>}
 
 
 /**

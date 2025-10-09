@@ -26,7 +26,9 @@ import {
   isDevelopmentMode,
   NgxRenderingEngine,
   DB_ADAPTER_PROVIDER_TOKEN,
-  removeFocusTrap
+  removeFocusTrap,
+  DecafRepository,
+  DecafRepositoryAdapter
 } from '@decaf-ts/for-angular';
 import { FakerRepository, IMenuItem, SidebarMenu } from '@shared/utils';
 import { CategoryModel, EmployeeModel } from '@shared/models';
@@ -183,20 +185,10 @@ export class AppComponent implements OnInit {
     this.initialized = true;
     const isDevelopment = isDevelopmentMode();
     if (isDevelopment) {
-      if (isDevelopment) {
-        // for (const model of [new CategoryModel(), new EmployeeModel()]) {
-        //   const repository = new FakeRepository<typeof model>(this.adapter as unknown as DecafRepositoryAdapter, model);
-        //   await repository.init();
-        // }
-
-        for (const instance of [CategoryModel, EmployeeModel]) {
-          const model = new instance();
-          const repo = Repository.forModel(instance as ModelConstructor<typeof model>);
-          const repository = new FakerRepository<typeof model>(repo, model as Model);
-          await repository.init();
-        }
+      for(const model of [new CategoryModel(), new EmployeeModel()] ) {
+        const repository = new FakerRepository<typeof model>(this.adapter, model);
+        await repository.init();
       }
-
     }
   }
 
