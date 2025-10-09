@@ -1,5 +1,5 @@
 {
-  "name": "@decaf-ts/demo-angular-ew",
+  "name": "@decaf-ts/demo-angular-ionic",
   "type": "angular-standalone",
   "root": ".",
   "integrations": {
