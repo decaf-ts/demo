@@ -6,6 +6,8 @@ import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
 import { LoginForm } from '@shared/forms/LoginForm';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { getNgxToastComponent } from 'src/app/utils';
 
 
 /**
@@ -98,6 +100,8 @@ export class LoginPage implements OnInit {
    */
   private toastController: ToastController = inject(ToastController);
 
+  private authService = inject(AuthService);
+
   /**
    * @description Component initialization lifecycle method
    * @summary Initializes the login page component by logging the locale context
@@ -138,22 +142,17 @@ export class LoginPage implements OnInit {
    *   LoginPage->>ToastController: Present toast
    */
   async handleEvent(event: CrudFormEvent): Promise<void> {
-    const { handlers } = event;
+    const {data} = event;
+    console.log(data);
+    const toast = getNgxToastComponent();
     try {
-      if (handlers?.['login']) {
-        const success = await (new handlers['login']()).handle(event);
-        const toast = await this.toastController.create({
-          message: success ? 'Login successful!' : 'Usuário ou senha inválidos.',
-          duration: 3000,
-          color: success ? 'dark' : 'danger',
-          position: 'top',
-        });
-        if (success)
+        const isLoggedIn = await this.authService.login();
+        if (isLoggedIn)
           await this.router.navigate(['/dashboard']);
-        await toast.present();
-      }
+        await toast.inform("Seja bem-vindo!");
     } catch (error: unknown) {
       getLogger(this).error(error as Error | string);
+       await toast.error("Error on login");
     }
   }
 }

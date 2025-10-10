@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, InjectionToken } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -12,11 +12,23 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { RamAdapter } from '@decaf-ts/core';
 import { provideI18nLoader, I18nLoaderFactory, provideDbAdapter } from '@decaf-ts/for-angular';
 import { routes } from './app.routes';
+import { AxiosHttpAdapter } from './utils/AxiosHttpAdapter';
 
+
+export function instanceHttpAdapter(): AxiosHttpAdapter{
+  // Use a static factory method or similar, since constructor is protected
+  return new AxiosHttpAdapter({
+    protocol: "https",
+    host: "api.example.com"
+  });
+}
+
+export const HTTP_ADAPTER_TOKEN = new InjectionToken<AxiosHttpAdapter>('HTTP_ADAPTER_TOKEN');
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy  },
+    { provide: HTTP_ADAPTER_TOKEN, useValue: instanceHttpAdapter },
     provideDbAdapter(RamAdapter, {user: "user"}),
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),

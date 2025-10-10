@@ -16,3 +16,4 @@ export interface IRawQuery<M extends Model> {
     limit?: number;
     skip?: number;
 }
+
