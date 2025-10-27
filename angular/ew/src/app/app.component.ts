@@ -15,34 +15,24 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonRouterLink
+  IonRouterLink,
+  IonImg
 } from '@ionic/angular/standalone';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
 import { TranslateModule } from '@ngx-translate/core';
-import { Repository } from '@decaf-ts/core';
 import {
   isDevelopmentMode,
-  NgxRenderingEngine,
-  DB_ADAPTER_PROVIDER_TOKEN,
   removeFocusTrap,
-  DecafRepository,
-  DecafRepositoryAdapter
-} from '@decaf-ts/for-angular';
-import { FakerRepository, IMenuItem, SidebarMenu } from '@shared/utils';
-import { CategoryModel, EmployeeModel } from '@shared/models';
+} from '@decaf-ts/_for-angular';
+import { FakerRepository, IMenuItem } from './utils';
 import { LogoComponent } from './components/logo/logo.component';
+import { DashboardMenuItem, LogoutMenuItem, SidebarMenu } from './utils/constants';
+import { appModels, databaseFlavour } from './app.config';
+import { Repository, uses } from '@decaf-ts/core';
+import { getNgxLoadingComponent } from './utils/NgxLoadingComponent';
+import {  ModelConstructor } from '@decaf-ts/decorator-validation';
 
-
-
-try {
-  new NgxRenderingEngine();
-  Model.setBuilder(Model.fromModel as ModelBuilderFunction);
-
-} catch (e: unknown) {
-  throw new Error(`Failed to load rendering engine: ${e}`);
-}
 
 /**
  * @description Root component of the Decaf-ts for Angular application
@@ -88,6 +78,7 @@ try {
     IonMenuToggle,
     IonItem,
     IonIcon,
+    IonImg,
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
@@ -126,11 +117,6 @@ export class AppComponent implements OnInit {
   activeItem = '';
 
   /**
-   * @description The database adapter provider
-   */
-  adapter = inject(DB_ADAPTER_PROVIDER_TOKEN);
-
-  /**
    * @description Flag indicating if the application has been initialized
    */
   initialized = false;
@@ -143,7 +129,7 @@ export class AppComponent implements OnInit {
   /**
    * @description disable or enable menu on page
    */
-  disableMenu = true;
+  hasMenu = false;
 
   /**
    * @description The database adapter provider
@@ -168,7 +154,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(async event => {
       if (event instanceof NavigationEnd) {
         const { url } = event;
-        this.disableMenu = url.includes('login');
+        this.hasMenu = !(url.includes('login'));
         this.setTitle(url.replace('/', '') || "login");
       }
       if (event instanceof NavigationStart)
@@ -183,13 +169,34 @@ export class AppComponent implements OnInit {
    */
   async initializeApp(): Promise<void> {
     this.initialized = true;
+    this.menu = [];
     const isDevelopment = isDevelopmentMode();
-    if (isDevelopment) {
-      for(const model of [new CategoryModel(), new EmployeeModel()] ) {
-        const repository = new FakerRepository<typeof model>(this.adapter, model);
-        await repository.init();
+    const models = appModels;
+    const loading = getNgxLoadingComponent();
+    const menu = [];
+    const populate = ['Product'];
+    const icons = {
+      Product: 'products.svg',
+      Batch: 'batches.svg',
+    };
+    await loading.show('Populating ' + name);
+    for(let model of models) {
+      uses(databaseFlavour)(model);
+      if(model instanceof Function)
+        model = new (model as unknown as ModelConstructor<any>)();
+      const name = model.constructor.name.replace(/[0-9]/g, '');
+       if (isDevelopment) {
+        await loading.show('Populating ' + name);
+        if(populate.includes(name)) {
+          const repository = new FakerRepository(model);
+          await repository.init();
+        }
       }
+      menu.push({label: `${name.toLowerCase()}.menu`,  name, url: `/model/${Repository.table(model)}`, icon: icons[name as keyof typeof icons] || 'database.svg' });
     }
+    this.menu = [DashboardMenuItem, ...menu, LogoutMenuItem];
+    if(loading.isVisible())
+      await loading.remove();
   }
 
   /**

@@ -8,7 +8,7 @@ import {
 import { Repository } from '@decaf-ts/core';
 import { Model } from '@decaf-ts/decorator-validation';
 import { Logger } from '@decaf-ts/logging';
-import { BaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent } from '@decaf-ts/for-angular';
+import { IBaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent } from '@decaf-ts/for-angular';
 import { RouterService } from '../../services/router.service';
 import { getNgxToastComponent } from '../../utils/NgxToastComponent';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -100,7 +100,7 @@ export class ModelPage implements OnInit {
     }
   }
 
-  async handleEvent(event: BaseCustomEvent) {
+  async handleEvent(event: IBaseCustomEvent) {
     const { name } = event;
     switch (name) {
       case EventConstants.SUBMIT:
@@ -109,7 +109,7 @@ export class ModelPage implements OnInit {
     }
   }
 
-  async handleSubmit(event: BaseCustomEvent): Promise<void | Error> {
+  async handleSubmit(event: IBaseCustomEvent): Promise<void | Error> {
     try {
       const repo = this._repository as IRepository<Model>;
       const data = this.parseData(event.data as KeyValue);

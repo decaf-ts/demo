@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxBaseComponent, FlexPositions, StringOrBoolean } from '@decaf-ts/for-angular';
+import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxBaseComponent, FlexPositions, StringOrBoolean } from '@decaf-ts/_for-angular';
 
 
 /**

@@ -46,18 +46,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
 
 
   /**
-   * @description The identifier of the current operation model.
-   * @summary  Accepts either a string or a number.
-   *
-   * @type {string|number}
-   * @default OperationKeys.READ
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  modelId!: string | number;
-
-
-  /**
    * @description Controls whether the menu button is displayed.
    * @summary When set to true, the component will display a menu button that can be used
    * to toggle the application's side menu. This is particularly useful for mobile
@@ -239,17 +227,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   private routerService: RouterService  = inject(RouterService);
 
-  /**
-   * @description Root component of the Decaf-ts for Angular application
-   * @summary This component serves as the main entry point for the application.
-   * It sets up the navigation menu, handles routing events, and initializes
-   * the application state. It also manages the application title and menu visibility.
-   *
-   * @private
-   * @type {MenuController}
-   * @memberOf HeaderComponent
-   */
-  private menuController: MenuController = inject(MenuController);
 
   /**
    * @description Color of back button icon.

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonCard, IonContent } from '@ionic/angular/standalone';
-import { BaseCustomEvent, ModelRendererComponent, KeyValue, getLogger } from '@decaf-ts/for-angular';
+import { IBaseCustomEvent, ModelRendererComponent, KeyValue, getLogger } from '@decaf-ts/for-angular';
 import { OperationKeys } from '@decaf-ts/db-decorators';
 import { SteppedForm } from '@shared/forms/SteppedForm';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -27,7 +27,7 @@ export class StepsFormPage implements OnInit {
     this.globals = {operation: OperationKeys.CREATE};
   }
 
-  handleSubmit(event: BaseCustomEvent): void {
+  handleSubmit(event: IBaseCustomEvent): void {
     getLogger(this).info(`Submit event: ${JSON.stringify(event)}`);
   }
 }

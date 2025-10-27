@@ -9,72 +9,36 @@
       "placeholder": "Type your password"
     }
   },
-  "demo": {
-    "id": {
-      "label": "id",
-      "placeholder": "Type a number"
+
+ "product": {
+    "menu": "Products",
+    "productCode": {
+      "label": "Product Code",
+      "placeholder": "Enter the product code"
     },
-    "name": {
-      "label": "Name",
-      "placeholder": "Type your name"
+   "inventedName": {
+      "label": "Internal Material Code",
+      "placeholder": "Enter the internal material code"
     },
-    "birthdate": {
-      "label": "Birthdate"
+    "namemedicinalproduct": {
+      "label": "Medicinal Product Name",
+      "placeholder": "Enter the name of the medicinal product"
     },
-    "email": {
-      "label": "E-mail",
-      "placeholder": "Type your e-mail address"
+    "internalMaterialCode": {
+      "label": "Internal Material Code",
+      "placeholder": "Enter the internal material code"
     },
-    "website": {
-      "label": "Website",
-      "placeholder": "Type your favorite website"
+     "importLicenseNumber": {
+      "label": "Import License Number",
+      "placeholder": "Enter the import license number"
     },
-    "password": {
-      "label": "Password",
-      "placeholder": "Type your password"
-    },
-    "gender": {
-      "label": "Select your gender",
-      "options": {
-        "male": "Male",
-        "female": "Female"
-      }
-    },
-    "contact": {
-      "label": "Contact",
-      "options": {
-        "morning": "Morning",
-        "afternoon": "Afternoon",
-        "evening": "Evening",
-        "all": "All"
-      }
-    },
-    "agree": {
-      "label": "I accept the terms and conditions."
+    "nameMedicinalProduct": {
+      "label": "Medicinal Product Name",
+      "placeholder": "Enter the name of the medicinal product"
     }
   },
-  "category": {
-    "name": {
-      "label": "Category name",
-      "placeholder": "Type the category"
-    },
-    "description": {
-      "label": "Category Description",
-      "placeholder": "Describe the category (optional)"
-    },
-    "created": {
-      "label": "Creation date",
-      "placeholder": "Select the creation date"
-    }
-  },
-  "employee": {
-    "name": {
-      "label": "Employee name",
-      "placeholder": "Type the employee name"
-    },
-    "occupation": {
-      "label": "Employee occupation"
-    }
+  "batch": {
+    "menu": "Batches"
   },
   "user": {
     "secret": {

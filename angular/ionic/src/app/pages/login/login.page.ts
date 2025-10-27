@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonCard, IonCardContent, IonContent, ToastController } from '@ionic/angular/standalone';
-import { CrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent } from '@decaf-ts/for-angular';
+import { ICrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent, NgxEventHandler } from '@decaf-ts/for-angular';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
 import { LoginForm } from '@shared/forms/LoginForm';
@@ -121,7 +121,7 @@ export class LoginPage implements OnInit {
    * @description Handles form submission events
    * @summary This method processes the login form submission, authenticates the user,
    * displays appropriate messages, and navigates to the dashboard on successful login
-   * @param {CrudFormEvent} event - The event object containing form data and handlers
+   * @param {ICrudFormEvent} event - The event object containing form data and handlers
    * @return {Promise<void>}
    * @mermaid
    * sequenceDiagram
@@ -137,23 +137,24 @@ export class LoginPage implements OnInit {
    *   end
    *   LoginPage->>ToastController: Present toast
    */
-  async handleEvent(event: CrudFormEvent): Promise<void> {
-    const { handlers } = event;
-    try {
-      if (handlers?.['login']) {
-        const success = await (new handlers['login']()).handle(event);
-        const toast = await this.toastController.create({
-          message: success ? 'Login successful!' : 'Usuário ou senha inválidos.',
-          duration: 3000,
-          color: success ? 'dark' : 'danger',
-          position: 'top',
-        });
-        if (success)
-          await this.router.navigate(['/dashboard']);
-        await toast.present();
-      }
-    } catch (error: unknown) {
-      getLogger(this).error(error as Error | string);
-    }
+  async handleEvent(event: ICrudFormEvent): Promise<void> {
+    // const { handlers } = event;
+    // try {
+    //   if (handlers?.['login']) {
+    //     const handler = handlers['login'] as unknown as NgxEventHandler<ICrudFormEvent>;
+    //     const success = await new handler().handle(event);
+    //     const toast = await this.toastController.create({
+    //       message: success ? 'Login successful!' : 'Usuário ou senha inválidos.',
+    //       duration: 3000,
+    //       color: success ? 'dark' : 'danger',
+    //       position: 'top',
+    //     });
+    //     if (success)
+    //       await this.router.navigate(['/dashboard']);
+    //     await toast.present();
+    //   }
+    // } catch (error: unknown) {
+    //   getLogger(this).error(error as Error | string);
+    // }
   }
 }

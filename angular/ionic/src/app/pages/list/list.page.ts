@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { IonCard, IonCardContent, IonContent, IonItem, IonIcon, IonLabel, } from '@ionic/angular/standalone';
-import { DecafRepository, ListComponentsTypes, ListComponent, BaseCustomEvent, EventConstants } from '@decaf-ts/for-angular';
+import { DecafRepository, ListComponentsTypes, ListComponent, IBaseCustomEvent, EventConstants } from '@decaf-ts/for-angular';
 import { getFakerData } from '@shared/utils';
 import { EmployeeModel, CategoryModel } from '@shared/models';
 import { Model } from '@decaf-ts/decorator-validation';
@@ -41,13 +41,13 @@ export class ListPage implements OnInit, OnDestroy {
     this.data = [];
   }
 
-  handleEvent(event: BaseCustomEvent) {
+  handleEvent(event: IBaseCustomEvent) {
     const { name } = event;
     if (name === EventConstants.REFRESH)
       return this.handleListRefreshEvent(event);
   }
 
-  handleListRefreshEvent(event: BaseCustomEvent) {
+  handleListRefreshEvent(event: IBaseCustomEvent) {
     const data = event.data as Model[];
     if (data?.length)
       this.data = [...data];

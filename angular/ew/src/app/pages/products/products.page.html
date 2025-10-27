@@ -1,0 +1,25 @@
+<app-header
+  [model]="model"
+  title="Products"
+  center="true"
+  showMenuButton="true"
+  operations="['read', 'create']"
+  color="primary">
+</app-header>
+
+<ion-content [fullscreen]="true">
+    <main>
+    <app-container [hasSideMenu]="true" size="2xlarge">
+      <ion-card class="dcf-card-default">
+        <ion-card-content>
+            <ngx-decaf-list
+              [model]="model"
+              type="paginated"
+              [operations]="['read', 'create', 'update', 'delete']"
+              (listenEvent)="handleEvent($event)"
+            />
+        </ion-card-content>
+      </ion-card>
+    </app-container>
+  </main>
+</ion-content>

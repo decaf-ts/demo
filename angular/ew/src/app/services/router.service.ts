@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular/standalone';
 import { NavigationOptions } from '@ionic/angular/common/providers/nav-controller';
-import { KeyValue, EventConstants, RouteDirections} from '@decaf-ts/for-angular';
+import { KeyValue, EventConstants, RouteDirections} from '@decaf-ts/_for-angular';
 import { Primitives } from '@decaf-ts/decorator-validation';
 
 /**

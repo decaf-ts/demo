@@ -6,6 +6,14 @@
 
 /** Ionic CSS Variables **/
 :root {
+
+  --dcf-color-primary: #144c71;
+	--dcf-color-primary-rgb: 20,76,113;
+	--dcf-color-primary-contrast: #ffffff;
+	--dcf-color-primary-contrast-rgb: 255,255,255;
+	--dcf-color-primary-shade: #124363;
+	--dcf-color-primary-tint: #2c5e7f;
+
   --ion-default-dynamic-font: var(--dcf-default-dynamic-font) !important;
 
   --ion-color-primary: var(--dcf-color-primary);

@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content" >
-      <ion-menu contentId="main-content" type="overlay" [disabled]="disableMenu">
+      <ion-menu contentId="main-content" type="overlay"  [disabled]="!hasMenu">
         <section class="dcf-logo-container">
           <app-logo></app-logo>
         </section>
@@ -19,9 +19,16 @@
                   routerLinkActive="dcf-active"
                 >
                   @if(item.icon) {
-                    <ion-icon [color]="item.color || ''" aria-hidden="true" class="icon" [name]="item.icon"></ion-icon>
+                    @if(item.icon.endsWith('.svg')) {
+                      <ion-img [src]="'assets/images/icons/' + item.icon" class="icon"
+                        [style.fill]="item.color || ''"
+                        [style.stroke]="item.color || ''"
+                      />
+                    } @else {
+                      <ion-icon [color]="item.color || ''" aria-hidden="true" class="icon" [name]="item.icon"></ion-icon>
+                    }
                   }
-                  <ion-label>{{item.label}}</ion-label>
+                  <ion-label>{{ item.label | translate}}</ion-label>
                   <!-- @if(item?.url && item.url !== '/login') {
                     <ion-icon aria-hidden="true" slot="end" size="small" name="chevron-forward-outline"></ion-icon>
                   } -->

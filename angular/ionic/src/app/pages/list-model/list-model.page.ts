@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IonCard, IonCardContent, IonContent} from '@ionic/angular/standalone';
-import { KeyValue, ListComponent, BaseCustomEvent, EventConstants, ListComponentsTypes } from '@decaf-ts/for-angular';
+import { KeyValue, ListComponent, IBaseCustomEvent, EventConstants, ListComponentsTypes } from '@decaf-ts/for-angular';
 import { EmployeeModel, CategoryModel } from '@shared/models';
 import { Model } from '@decaf-ts/decorator-validation';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -30,7 +30,7 @@ export class ListModelPage implements OnInit {
       new EmployeeModel() : new CategoryModel();
   }
 
-  handleEvent(event: BaseCustomEvent) {
+  handleEvent(event: IBaseCustomEvent) {
     const { name, data } = event;
     if (name === EventConstants.REFRESH)
       return this.handleListRefreshEvent(data as Model[]);

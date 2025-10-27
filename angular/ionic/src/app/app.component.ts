@@ -36,13 +36,6 @@ import { LogoComponent } from './components/logo/logo.component';
 
 
 
-try {
-  new NgxRenderingEngine();
-  Model.setBuilder(Model.fromModel as ModelBuilderFunction);
-
-} catch (e: unknown) {
-  throw new Error(`Failed to load rendering engine: ${e}`);
-}
 
 /**
  * @description Root component of the Decaf-ts for Angular application
@@ -143,7 +136,7 @@ export class AppComponent implements OnInit {
   /**
    * @description disable or enable menu on page
    */
-  disableMenu = true;
+  hasMenu = true;
 
   /**
    * @description The database adapter provider
@@ -168,7 +161,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(async event => {
       if (event instanceof NavigationEnd) {
         const { url } = event;
-        this.disableMenu = url.includes('login');
+        this.hasMenu = !url.includes('login');
         this.setTitle(url.replace('/', '') || "login");
       }
       if (event instanceof NavigationStart)
@@ -183,6 +176,7 @@ export class AppComponent implements OnInit {
    */
   async initializeApp(): Promise<void> {
     this.initialized = true;
+    console.log(this.menu);
     const isDevelopment = isDevelopmentMode();
     if (isDevelopment) {
       for(const model of [new CategoryModel(), new EmployeeModel()] ) {

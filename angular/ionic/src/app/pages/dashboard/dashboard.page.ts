@@ -3,7 +3,7 @@ import {  IonContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { cardOutline, peopleOutline, documentAttachOutline } from 'ionicons/icons';
 import { DashboardLayout } from '@shared/layouts';
-import { LayoutComponent, RendererCustomEvent } from '@decaf-ts/for-angular';
+import { LayoutComponent, IBaseCustomEvent } from '@decaf-ts/for-angular';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 @Component({
@@ -44,7 +44,7 @@ export class DashboardPage implements OnInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  handleEvent(event: RendererCustomEvent): void {
+  handleEvent(event: IBaseCustomEvent): void {
     console.log('Event received:', event);
   }
 

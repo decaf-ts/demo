@@ -1,6 +1,6 @@
 import { Component, Input, OnInit  } from '@angular/core';
 import { IonImg } from '@ionic/angular/standalone';
-import { getWindow } from '@decaf-ts/for-angular';
+import { getWindow } from '@decaf-ts/_for-angular';
 
 
 @Component({

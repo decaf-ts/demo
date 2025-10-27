@@ -2,7 +2,7 @@ import { Component,  inject, Input, OnInit } from '@angular/core';
 import { CrudOperations, OperationKeys } from '@decaf-ts/db-decorators';
 import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, MenuController } from '@ionic/angular/standalone';
 import { RouterService } from 'src/app/services/router.service';
-import { StringOrBoolean,getWindow, stringToBoolean, NgxBaseComponent, FunctionLike } from '@decaf-ts/for-angular';
+import { StringOrBoolean,getWindow, stringToBoolean, NgxBaseComponent, FunctionLike } from '@decaf-ts/_for-angular';
 import { saveOutline, folderOpenOutline, createOutline } from "ionicons/icons";
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { addIcons } from 'ionicons';
@@ -346,7 +346,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
     if(this.backgroundColor === 'white') {
       this.backButtonColor = 'medium';
     }
-
   }
 
   /**
@@ -430,7 +429,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
   isAllowed(operation: string): boolean {
     if(!this.operations)
       return false;
-    return this.operations.includes(operation as CrudOperations) && (this.currentOperation !== OperationKeys.CREATE && this.currentOperation.toLowerCase() !== operation);
+    return this.operations.includes(operation as CrudOperations) && (this.currentOperation !== OperationKeys.CREATE && ((this.currentOperation || "").toLowerCase() !== operation || !this.currentOperation));
   }
 
 

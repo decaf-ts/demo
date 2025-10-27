@@ -8,27 +8,28 @@ import {
 import { Repository } from '@decaf-ts/core';
 import { Model } from '@decaf-ts/decorator-validation';
 import { Logger } from '@decaf-ts/logging';
-import { BaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent } from '@decaf-ts/for-angular';
+import { IBaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent, NgxBasePage, ListComponent } from '@decaf-ts/_for-angular';
 import { RouterService } from '../../services/router.service';
 import { getNgxToastComponent } from '../../utils/NgxToastComponent';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-model',
   templateUrl: './model.page.html',
-   imports: [ModelRendererComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent],
+  imports: [ModelRendererComponent, TranslatePipe, ListComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent],
   styleUrls: ['./model.page.scss'],
 })
-export class ModelPage implements OnInit {
+export class ModelPage extends NgxBasePage {
 
   @Input()
-  operation:
+  operation!:
     | OperationKeys.CREATE
     | OperationKeys.READ
     | OperationKeys.UPDATE
-    | OperationKeys.DELETE = OperationKeys.READ;
+    | OperationKeys.DELETE;
 
   @Input()
   modelName!: string;
@@ -40,25 +41,13 @@ export class ModelPage implements OnInit {
 
   model!: Model | undefined;
 
-
-  /**
-   * @description Logger instance for the component.
-   * @summary Provides logging capabilities for the component, allowing for consistent
-   * and structured logging of information, warnings, and errors. This logger is initialized
-   * in the ngOnInit method using the getLogger function from the ForAngularCommonModule.
-   *
-   * The logger is used throughout the component to record important events, debug information,
-   * and potential issues. It helps in monitoring the component's behavior, tracking the flow
-   * of operations, and facilitating easier debugging and maintenance.
-   *
-   * @type {Logger}
-   * @private
-   * @memberOf ModelPage
-   */
-  private logger!: Logger;
-
   private _repository?: IRepository<Model>;
+
   private routerService: RouterService = inject(RouterService);
+
+  constructor() {
+    super();
+  }
 
   private get repository() {
     if (!this._repository) {
@@ -69,15 +58,13 @@ export class ModelPage implements OnInit {
         );
       this._repository = Repository.forModel(constructor);
       this.model = new constructor() as Model;
+      console.log(this.model);
     }
     return this._repository;
   }
 
-  ngOnInit(): void {
-    this.logger = getLogger(this);
-  }
-
-  async ionViewWillEnter(): Promise<void> {
+  override async ionViewWillEnter(): Promise<void> {
+    await super.ionViewWillEnter();
     if(this.modelId)
       this.allowedOperations =  this.allowedOperations.concat([OperationKeys.UPDATE, OperationKeys.DELETE]);
     await this.refresh(this.modelId);
@@ -96,11 +83,11 @@ export class ModelPage implements OnInit {
         break;
       }
     } catch (error: unknown) {
-      this.logger.error(error as Error | string);
+      this.log.for(this.refresh).error(error as Error | string);
     }
   }
 
-  async handleEvent(event: BaseCustomEvent) {
+  override async handleEvent(event: any) {
     const { name } = event;
     switch (name) {
       case EventConstants.SUBMIT:
@@ -109,7 +96,7 @@ export class ModelPage implements OnInit {
     }
   }
 
-  async handleSubmit(event: BaseCustomEvent): Promise<void | Error> {
+  async handleSubmit(event: IBaseCustomEvent): Promise<void | Error> {
     try {
       const repo = this._repository as IRepository<Model>;
       const data = this.parseData(event.data as KeyValue);
@@ -122,14 +109,14 @@ export class ModelPage implements OnInit {
         await getNgxToastComponent().inform(`${this.operation} Item successfully`);
       }
     } catch (error: unknown) {
-      this.logger.error(error as Error | string);
+      this.log.for(this.handleSubmit).error(error as Error | string);
       throw new Error((error as Error)?.message || error as string);
     }
   }
 
   async handleGet(uid: string): Promise<Model | undefined> {
     if (!uid) {
-      this.logger.info('No key passed to model page read operation, backing to last page');
+      this.log.for(this.handleGet).info('No key passed to model page read operation, backing to last page');
       this.routerService.backToLastPage();
       return undefined;
     }
@@ -148,4 +135,3 @@ export class ModelPage implements OnInit {
       return uid;
   }
 }
-

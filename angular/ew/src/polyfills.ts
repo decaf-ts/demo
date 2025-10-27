@@ -55,6 +55,7 @@ import 'zone.js';  // Included with Angular CLI.
  */
 
 import 'reflect-metadata';
+import '@decaf-ts/ui-decorators';
 
 ((globalThis as any).window as any).global = (globalThis as any).window;
 (globalThis as any).global = (globalThis as any).global || globalThis.window;
