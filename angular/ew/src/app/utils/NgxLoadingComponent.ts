@@ -1,6 +1,6 @@
 import { LoadingOptions } from "@ionic/angular";
 import { HTMLIonOverlayElement, loadingController } from "@ionic/core";
-import { KeyValue, NgxDecafComponent } from "@decaf-ts/_for-angular";
+import { KeyValue } from "@decaf-ts/for-angular";
 import { Directive } from "@angular/core";
 import { LoggedClass } from "@decaf-ts/logging";
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  IonContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { cardOutline, peopleOutline, documentAttachOutline } from 'ionicons/icons';
-import { LayoutComponent, IBaseCustomEvent } from '@decaf-ts/_for-angular';
+import { LayoutComponent, IBaseCustomEvent } from '@decaf-ts/for-angular';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 @Component({

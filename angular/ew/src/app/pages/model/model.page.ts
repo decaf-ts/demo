@@ -5,10 +5,10 @@ import {
   IRepository,
   OperationKeys,
 } from '@decaf-ts/db-decorators';
-import { Repository } from '@decaf-ts/core';
-import { Model } from '@decaf-ts/decorator-validation';
+import { EventIds, Repository } from '@decaf-ts/core';
+import { Model, Primitives } from '@decaf-ts/decorator-validation';
 import { Logger } from '@decaf-ts/logging';
-import { IBaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent, NgxBasePage, ListComponent } from '@decaf-ts/_for-angular';
+import { IBaseCustomEvent, EventConstants, KeyValue, getLogger, DecafRepository, ModelRendererComponent, NgxPageDirective, ListComponent } from '@decaf-ts/for-angular';
 import { RouterService } from '../../services/router.service';
 import { getNgxToastComponent } from '../../utils/NgxToastComponent';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -22,7 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [ModelRendererComponent, TranslatePipe, ListComponent, HeaderComponent, ContainerComponent, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent],
   styleUrls: ['./model.page.scss'],
 })
-export class ModelPage extends NgxBasePage {
+export class ModelPage extends NgxPageDirective {
 
   @Input()
   operation!:
@@ -34,34 +34,17 @@ export class ModelPage extends NgxBasePage {
   @Input()
   modelName!: string;
 
-  @Input()
-  modelId!: string;
-
   allowedOperations: OperationKeys[] = [OperationKeys.CREATE, OperationKeys.READ];
 
-  model!: Model | undefined;
 
-  private _repository?: IRepository<Model>;
 
   private routerService: RouterService = inject(RouterService);
 
   constructor() {
-    super();
+    super("ModelPage", false);
   }
 
-  private get repository() {
-    if (!this._repository) {
-      const constructor = Model.get(this.modelName);
-      if (!constructor)
-        throw new InternalError(
-          'Cannot find model. was it registered with @model?',
-        );
-      this._repository = Repository.forModel(constructor);
-      this.model = new constructor() as Model;
-      console.log(this.model);
-    }
-    return this._repository;
-  }
+
 
   override async ionViewWillEnter(): Promise<void> {
     await super.ionViewWillEnter();
@@ -70,16 +53,16 @@ export class ModelPage extends NgxBasePage {
     await this.refresh(this.modelId);
   }
 
-  async refresh(uid?: string) {
+  async refresh(uid?: string | number): Promise<void> {
     if(!uid)
-      uid = this.modelId;
+      uid = this.modelId as string | number;
     try {
       this._repository = this.repository;
       switch(this.operation){
         case OperationKeys.READ:
         case OperationKeys.UPDATE:
         case OperationKeys.DELETE:
-          this.model = await this.handleGet(uid);
+          this.model = await this.handleGet(uid as string | number);
         break;
       }
     } catch (error: unknown) {
@@ -104,7 +87,7 @@ export class ModelPage extends NgxBasePage {
         await repo.create(data as Model) : this.operation === OperationKeys.UPDATE ?
           await repo.update(data as Model) : repo.delete(data as string | number);
       if(result) {
-        (repo as DecafRepository<Model>).refresh(this.modelName, this.operation, this.modelId);
+        (repo as DecafRepository<Model>).refresh(this.modelName, this.operation, this.modelId as EventIds);
         this.routerService.backToLastPage();
         await getNgxToastComponent().inform(`${this.operation} Item successfully`);
       }
@@ -114,24 +97,25 @@ export class ModelPage extends NgxBasePage {
     }
   }
 
-  async handleGet(uid: string): Promise<Model | undefined> {
+  async handleGet(uid: string | number): Promise<Model | undefined> {
     if (!uid) {
       this.log.for(this.handleGet).info('No key passed to model page read operation, backing to last page');
       this.routerService.backToLastPage();
       return undefined;
     }
-    const result = await (this._repository as IRepository<Model>).read(isNaN(Number(uid)) ? uid : Number(uid));
+    const type = Reflect.getMetadata("design:type", this.model as KeyValue, this.repository.pk as string).name;
+    const result = await (this._repository as IRepository<Model>).read(
+      [Primitives.NUMBER, Primitives.BIGINT].includes(type.toLowerCase()) ? Number(uid) : uid
+    );
     return result ?? undefined;
   }
 
 
   private parseData(data: Partial<Model>): Model | string | number {
       const repo = this._repository as IRepository<Model>;
-      let uid: number | string = this.modelId;
-      if(repo.pk === 'id' as keyof Model)
-        uid = Number(uid);
+      const type = Reflect.getMetadata("design:type", this.model as KeyValue, this.repository.pk as string).name;
       if(this.operation !== OperationKeys.DELETE)
-        return Model.build(this.modelId ? Object.assign(data, {[repo.pk]: uid}) : data, this.modelName) as Model;
-      return uid;
+        return Model.build(this.modelId ? Object.assign(data, {[repo.pk]:  this.modelId}) : data, this.modelName) as Model;
+      return [Primitives.NUMBER, Primitives.BIGINT].includes(type.toLowerCase()) ? Number(this.modelId) : this.modelId as string;
   }
 }

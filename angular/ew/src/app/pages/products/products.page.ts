@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonCard, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
-import { IBaseCustomEvent, EventConstants, ListComponent } from '@decaf-ts/_for-angular';
+import { IBaseCustomEvent, EventConstants, ListComponent } from '@decaf-ts/for-angular';
 import { Product } from 'src/app/models/Product';
 
 @Component({

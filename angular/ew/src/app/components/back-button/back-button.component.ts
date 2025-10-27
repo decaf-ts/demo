@@ -1,6 +1,6 @@
 import { OnInit, CUSTOM_ELEMENTS_SCHEMA, Input, Component, inject, HostListener } from "@angular/core";
 import { PredefinedColors } from "@ionic/core";
-import { windowEventEmitter, FunctionLike, StringOrBoolean, stringToBoolean, EventConstants, RouteDirections  } from '@decaf-ts/_for-angular';
+import { windowEventEmitter, FunctionLike, StringOrBoolean, stringToBoolean, EventConstants, RouteDirections  } from '@decaf-ts/for-angular';
 import { Location } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { chevronBackOutline } from 'ionicons/icons';

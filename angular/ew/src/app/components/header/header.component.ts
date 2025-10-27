@@ -2,7 +2,7 @@ import { Component,  inject, Input, OnInit } from '@angular/core';
 import { CrudOperations, OperationKeys } from '@decaf-ts/db-decorators';
 import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, MenuController } from '@ionic/angular/standalone';
 import { RouterService } from 'src/app/services/router.service';
-import { StringOrBoolean,getWindow, stringToBoolean, NgxBaseComponent, FunctionLike } from '@decaf-ts/_for-angular';
+import { StringOrBoolean,getWindow, stringToBoolean, NgxDecafComponentDirective, FunctionLike } from '@decaf-ts/for-angular';
 import { saveOutline, folderOpenOutline, createOutline } from "ionicons/icons";
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { addIcons } from 'ionicons';
@@ -12,12 +12,12 @@ import { TranslatePipe } from '@ngx-translate/core';
  * @description Header component for application pages.
  * @summary The HeaderComponent provides a consistent header across the application with
  * configurable elements such as title, back button, menu button, and CRUD operation controls.
- * It extends NgxBaseComponent to inherit common functionality and implements OnInit for
+ * It extends NgxDecafComponentDirective to inherit common functionality and implements OnInit for
  * initialization logic. This component is designed to be flexible and adaptable to different
  * page contexts, supporting various navigation patterns and visual styles.
  *
  * @class HeaderComponent
- * @extends {NgxBaseComponent}
+ * @extends {NgxDecafComponentDirective}
  * @implements {OnInit}
  */
 @Component({
@@ -29,7 +29,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   standalone: true,
 
 })
-export class HeaderComponent extends NgxBaseComponent implements OnInit {
+export class HeaderComponent extends NgxDecafComponentDirective implements OnInit {
 
   /**
    * @description The current CRUD operation being performed.
@@ -42,20 +42,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   @Input()
   currentOperation: OperationKeys = OperationKeys.READ;
-
-
-
-  /**
-   * @description The identifier of the current operation model.
-   * @summary  Accepts either a string or a number.
-   *
-   * @type {string|number}
-   * @default OperationKeys.READ
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  modelId!: string | number;
-
 
   /**
    * @description Controls whether the menu button is displayed.
@@ -239,17 +225,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   private routerService: RouterService  = inject(RouterService);
 
-  /**
-   * @description Root component of the Decaf-ts for Angular application
-   * @summary This component serves as the main entry point for the application.
-   * It sets up the navigation menu, handles routing events, and initializes
-   * the application state. It also manages the application title and menu visibility.
-   *
-   * @private
-   * @type {MenuController}
-   * @memberOf HeaderComponent
-   */
-  private menuController: MenuController = inject(MenuController);
+
 
   /**
    * @description Color of back button icon.

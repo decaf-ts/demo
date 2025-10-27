@@ -1,4 +1,4 @@
-import { DecafRepository, formatDate, FunctionLike, getOnWindow, KeyValue } from '@decaf-ts/_for-angular';
+import { DecafRepository, formatDate, FunctionLike, getOnWindow, KeyValue } from '@decaf-ts/for-angular';
 import { faker } from '@faker-js/faker';
 import { Model, Primitives } from '@decaf-ts/decorator-validation';
 import { InternalError } from '@decaf-ts/db-decorators';

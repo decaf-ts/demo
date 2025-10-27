@@ -24,7 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   isDevelopmentMode,
   removeFocusTrap,
-} from '@decaf-ts/_for-angular';
+} from '@decaf-ts/for-angular';
 import { FakerRepository, IMenuItem } from './utils';
 import { LogoComponent } from './components/logo/logo.component';
 import { DashboardMenuItem, LogoutMenuItem, SidebarMenu } from './utils/constants';

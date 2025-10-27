@@ -7,10 +7,10 @@ import {
   PreloadAllModules,
 } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { provideTranslateService, RootTranslateServiceConfig, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { RamAdapter } from '@decaf-ts/core';
-import { provideI18nLoader, I18nLoaderFactory, provideDbAdapter, NgxRenderingEngine } from '@decaf-ts/_for-angular';
+import { RamAdapter } from '@decaf-ts/core/ram';
+import { provideI18nLoader, I18nLoaderFactory, provideDbAdapter, NgxRenderingEngine, provideI18n, I18nResourceConfigType } from '@decaf-ts/for-angular';
 import { routes } from './app.routes';
 import { Product } from './models/Product';
 import { Batch } from './models/Batch';
@@ -20,11 +20,6 @@ export const appModels = [new Product(), new Batch()];
 
 new RamAdapter({user: "user"}, databaseFlavour);
 
-try {
-  new NgxRenderingEngine();
-} catch (e: unknown) {
-  throw new Error(`Failed to load rendering engine: ${e}`);
-}
 
 // new RamAdapter({user: "user"});
 export const appConfig: ApplicationConfig = {
@@ -34,18 +29,16 @@ export const appConfig: ApplicationConfig = {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
     provideHttpClient(),
-    provideTranslateService({
-      fallbackLang: 'en',
-      lang: "en",
-      loader: {
-        provide: TranslateLoader,
-        useFactory: I18nLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    provideI18nLoader({
-      prefix: './assets/i18n/',
-      suffix: '.json',
-    }),
+     provideI18n(
+      {
+        fallbackLang: 'en',
+        lang: "en",
+      } as RootTranslateServiceConfig,
+      // optionally provide I18nLoader configuration, otherwise it will use default (same as setted below)
+      {
+        prefix: './assets/i18n/',
+        suffix: '.json',
+      } as I18nResourceConfigType
+    )
   ],
 };

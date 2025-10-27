@@ -1,4 +1,4 @@
-import { NgxEventHandler, ICrudFormEvent, KeyValue } from "@decaf-ts/_for-angular";
+import { NgxEventHandler, ICrudFormEvent, KeyValue } from "@decaf-ts/for-angular";
 import { getNgxToastComponent, NgxToastComponent } from "./NgxToastComponent";
 import { Router } from "@angular/router";
 

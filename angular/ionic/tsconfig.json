@@ -32,7 +32,7 @@
     "paths": {
       "@shared/*": ["../../src/*"],
       // "@decaf-ts/core/ram/RamAdapter": ["node_modules/@decaf-ts/core/lib/esm/ram/RamAdapter"],
-      // "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
+      "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
     }
   },
   "angularCompilerOptions": {
@@ -43,7 +43,7 @@
       "paths": {
         "@shared/*": ["../../src/*"],
         // "@decaf-ts/core/ram/RamAdapter": ["node_modules/@decaf-ts/core/lib/esm/ram/RamAdapter"],
-        // "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
+        "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
       }
     }
   }
