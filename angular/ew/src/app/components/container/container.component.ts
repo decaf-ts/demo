@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxDecafComponentDirective, FlexPositions, StringOrBoolean } from '@decaf-ts/for-angular';
+import { ForAngularComponentsModule, ElementSizes, stringToBoolean, FlexPositions, StringOrBoolean, NgxComponentDirective } from '@decaf-ts/for-angular';
 
 
 /**
@@ -27,7 +27,7 @@ import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxDecafComp
   standalone: true,
   imports: [ForAngularComponentsModule]
 })
-export class ContainerComponent extends NgxDecafComponentDirective implements OnInit {
+export class ContainerComponent extends NgxComponentDirective implements OnInit {
 
   /**
    * @description Controls whether the side menu is enabled for this container.

@@ -1,4 +1,12 @@
 {
+  "component": {
+    "image_upload": {
+      "drag_file": "Drag and drop your image here",
+      "button_select": "Select file",
+      "button_clear": "Clear",
+      "preview": "Preview"
+    }
+  },
   "login": {
      "username": {
       "label": "Username",
@@ -12,6 +20,17 @@
 
  "product": {
     "menu": "Products",
+    "steps": {
+      "1": {
+        "title": "Product Details"
+      },
+      "2": {
+        "title": "Product Image"
+      },
+      "3": {
+        "title": "Epi Information"
+      }
+    },
     "productCode": {
       "label": "Product Code",
       "placeholder": "Enter the product code"
@@ -38,7 +57,47 @@
     }
   },
   "batch": {
-    "menu": "Batches"
+    "menu": "Batches",
+    "productcode": {
+      "label": "Product Code",
+      "placeholder": "Enter the product code",
+      "options": {
+        "aspirin": "Aspirin",
+        "paracetamol": "Paracetamol",
+        "ibuprofen": "Ibuprofen",
+        "amoxicillin": "Amoxicillin",
+        "azithromycin": "Azithromycin",
+        "metformin": "Metformin"
+      }
+    },
+    "batchNumber": {
+      "label": "Batch Number",
+      "placeholder": "Enter the batch number"
+    },
+    "expiryDate": {
+      "label": "Expiry Date",
+      "placeholder": "Enter the expiry date"
+    },
+     "packagingSiteName": {
+      "label": "Packaging Site Name",
+      "placeholder": "Enter the packaging site name"
+    },
+    "importLicenseNumber": {
+      "label": "Import License Number",
+      "placeholder": "Enter the import license number"
+    },
+      "manufacturerName": {
+      "label": "Manufacturer Name",
+      "placeholder": "Enter the manufacturer name"
+    },
+    "dateOfManufacturing": {
+      "label": "Date of Manufacturing",
+      "placeholder": "Enter the date of manufacturing"
+    },
+    "batchRecall": {
+      "label": "Batch Recall",
+      "placeholder": "Indicates if the batch is subject to recall"
+    }
   },
   "user": {
     "secret": {

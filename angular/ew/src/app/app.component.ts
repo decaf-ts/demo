@@ -23,15 +23,17 @@ import { addIcons } from 'ionicons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   isDevelopmentMode,
-  removeFocusTrap,
+  NgxPageDirective,
 } from '@decaf-ts/for-angular';
 import { FakerRepository, IMenuItem } from './utils';
 import { LogoComponent } from './components/logo/logo.component';
-import { DashboardMenuItem, LogoutMenuItem, SidebarMenu } from './utils/constants';
-import { appModels, databaseFlavour } from './app.config';
+import { DashboardMenuItem, LogoutMenuItem, AppMenu } from './utils/constants';
+import { AppModels, AppName, DbAdapterFlavour } from './app.config';
 import { Repository, uses } from '@decaf-ts/core';
-import { getNgxLoadingComponent } from './utils/NgxLoadingComponent';
 import {  ModelConstructor } from '@decaf-ts/decorator-validation';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { Product } from './models/Product';
+
 
 
 /**
@@ -88,59 +90,15 @@ import {  ModelConstructor } from '@decaf-ts/decorator-validation';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [],
+  providers: []
+
 })
-export class AppComponent implements OnInit {
-  /**
-   * @description The title of the application
-   */
-  title = 'Decaf-ts for-angular demo';
-
-  /**
-   * @description The menu items for the application's navigation
-   */
-  menu: IMenuItem[] = SidebarMenu;
+export class AppComponent extends NgxPageDirective implements OnInit {
 
 
-  /**
-   * @description Ionic Platform service
-   */
-  platform: Platform = inject(Platform);
-
-  /**
-   * @description Angular Router service
-   */
-  router: Router = inject(Router);
-
-  /**
-   * @description The currently active menu item
-   */
-  activeItem = '';
-
-  /**
-   * @description Flag indicating if the application has been initialized
-   */
-  initialized = false;
-
-  /**
-   * @description Angular Title service
-   */
-  private titleService: Title = inject(Title);
-
-  /**
-   * @description disable or enable menu on page
-   */
-  hasMenu = false;
-
-  /**
-   * @description The database adapter provider
-   */
-  // protected adapter: RamAdapter = inject(DB_ADAPTER_PROVIDER_TOKEN);
-
-  /**
-   * @description Initializes the component
-   * @summary Sets up Ionic icons and disables the menu controller
-   */
   constructor() {
+    super("", true);
+    this.title = "Decaf-ts for-angular demo";
     addIcons(IonicIcons);
   }
 
@@ -150,16 +108,7 @@ export class AppComponent implements OnInit {
    * @return {Promise<void>}
    */
   async ngOnInit(): Promise<void> {
-    await this.initializeApp();
-    this.router.events.subscribe(async event => {
-      if (event instanceof NavigationEnd) {
-        const { url } = event;
-        this.hasMenu = !(url.includes('login'));
-        this.setTitle(url.replace('/', '') || "login");
-      }
-      if (event instanceof NavigationStart)
-        removeFocusTrap();
-    });
+    await this.initialize();
   }
 
   /**
@@ -167,46 +116,57 @@ export class AppComponent implements OnInit {
    * @summary Sets the initialized flag and sets up repositories if in development mode
    * @return {Promise<void>}
    */
-  async initializeApp(): Promise<void> {
-    this.initialized = true;
-    this.menu = [];
+  override async initialize(): Promise<void> {
     const isDevelopment = isDevelopmentMode();
-    const models = appModels;
-    const loading = getNgxLoadingComponent();
+    const populate = [Product.name];
     const menu = [];
-    const populate = ['Product'];
-    const icons = {
-      Product: 'products.svg',
-      Batch: 'batches.svg',
-    };
-    await loading.show('Populating ' + name);
+    const models = AppModels;
     for(let model of models) {
-      uses(databaseFlavour)(model);
+      uses(DbAdapterFlavour)(model);
       if(model instanceof Function)
-        model = new (model as unknown as ModelConstructor<any>)();
+        model = new (model as unknown as ModelConstructor<typeof model>)();
       const name = model.constructor.name.replace(/[0-9]/g, '');
-       if (isDevelopment) {
-        await loading.show('Populating ' + name);
+      if (isDevelopment) {
         if(populate.includes(name)) {
-          const repository = new FakerRepository(model);
+          this.logger.info(`Populating repository for model: ${name}`);
+          const repository = new FakerRepository(model, 3);
           await repository.init();
         }
       }
-      menu.push({label: `${name.toLowerCase()}.menu`,  name, url: `/model/${Repository.table(model)}`, icon: icons[name as keyof typeof icons] || 'database.svg' });
+
+      menu.push({label: name,  name, url: `/model/${Repository.table(model)}`, icon: 'cube-outline'})
     }
-    this.menu = [DashboardMenuItem, ...menu, LogoutMenuItem];
-    if(loading.isVisible())
-      await loading.remove();
+    this.initialized = true;
+    this.menu = [
+      DashboardMenuItem,
+      ...menu as IMenuItem[],
+
+      LogoutMenuItem
+    ];
+    this.setPageTitle(this.router.url.replace('/', ''));
   }
 
+
   /**
-   * @description Sets the application title based on the current page
-   * @summary Updates the document title with the application name and current page
-   * @param {string} page - The current page URL
+   * @description Sets the browser page title based on the current route.
+   * @summary Updates the browser's document title by finding the active menu item that matches
+   * the provided route. If a matching menu item is found, it sets the title using the format
+   * "Decaf For Angular - {menu title or label}". This improves SEO and provides clear context
+   * to users about the current page. If a custom menu array is provided, it uses that instead
+   * of the component's default menu.
+   * @protected
+   * @param {string} route - The current route path to match against menu items
+   * @param {IMenuItem[]} [menu] - Optional custom menu array to search (uses this.menu if not provided)
+   * @return {void}
+   * @memberOf module:lib/engine/NgxPageDirective
    */
-  setTitle(page: string): void {
-    const activeMenu = this.menu.find(item => item?.url?.includes(page));
-    if (activeMenu)
-      this.titleService.setTitle(`${this.title} - ${activeMenu?.title || activeMenu?.label}`);
+  protected override setPageTitle(route?: string, menu?: IMenuItem[]): void {
+    if(!route)
+      route = this.router.url.replace('/', '');
+    if(menu)
+      menu = this.menu;
+    const activeMenu = this.menu.find(item => item?.url?.includes(route));
+    if(activeMenu)
+      this.titleService.setTitle(`${activeMenu?.title || activeMenu?.label} - ${AppName}`);
   }
 }

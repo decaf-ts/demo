@@ -1,9 +1,8 @@
-import { DecafRepository, formatDate, FunctionLike, getOnWindow, KeyValue } from '@decaf-ts/for-angular';
+import { DB_ADAPTER_PROVIDER, DecafRepository, formatDate, FunctionLike, getOnWindow, KeyValue } from '@decaf-ts/for-angular';
 import { faker } from '@faker-js/faker';
 import { Model, Primitives } from '@decaf-ts/decorator-validation';
 import { InternalError } from '@decaf-ts/db-decorators';
 import { Repository, uses } from '@decaf-ts/core';
-import { databaseFlavour } from '../app.config';
 import { parseToNumber } from '@decaf-ts/ui-decorators';
 import { Product, ProductNames } from '../models/Product';
 
@@ -26,7 +25,7 @@ export class FakerRepository<T extends Model> {
         );
       try {
         this.model = new constructor();
-        const dbAdapterFlavour = getOnWindow(databaseFlavour) || undefined;
+        const dbAdapterFlavour = getOnWindow(DB_ADAPTER_PROVIDER) || undefined;
         if(dbAdapterFlavour)
           uses(dbAdapterFlavour as string)(constructor);
         this._repository  = Repository.forModel(constructor);

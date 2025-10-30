@@ -14,13 +14,13 @@ import { getWindow } from '@decaf-ts/for-angular';
 export class LogoComponent implements OnInit {
 
   @Input()
-  showAngularLogo = true;
+  showAngularLogo = false;
 
   @Input()
-  logo = '/assets/images/decaf-logo.svg';
+  logo = '/assets/images/pharmaledger.svg';
 
   @Input()
-  logoContrast = '/assets/images/decaf-logo-lw.svg';
+  logoContrast = '/assets/images/pharmaledger-lw.svg';
 
   @Input()
   width: number | string = 180;

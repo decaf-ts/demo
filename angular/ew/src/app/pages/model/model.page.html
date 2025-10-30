@@ -1,7 +1,7 @@
 <app-header
   [model]="model"
   [title]="modelName + ' ' + (operation ? operation : ' List')"
-  [currentOperation]="operation"
+  [operation]="operation"
   [center]="true"
   [modelId]="modelId"
   showMenuButton="true"
@@ -16,26 +16,33 @@
       <ion-card class="dcf-card-default">
          <ion-card-header>
           <ion-card-title>
-            <span style="text-transform: capitalize;">{{operation}}</span> {{ operation ? modelName : ( modelName | translate )}}
+            <span style="text-transform: capitalize;">{{operation}}</span> {{ operation ? modelName : 'Listing'}}
           </ion-card-title>
         </ion-card-header>
         <ion-card-content class="dcf-margin-top">
             @if(model) {
-
               @if(!operation) {
-              <ngx-decaf-list
-                [model]="model"
-                type="paginated"
-                [operations]="['read', 'create', 'update', 'delete']"
-                (listenEvent)="handleEvent($event)"
-              />
+                <ngx-decaf-list
+                  [model]="model"
+                  type="paginated"
+                  [operations]="['read', 'create', 'update', 'delete']"
+                  (listenEvent)="handleEvent($event)"
+                />
             } @else {
-
-              <ngx-decaf-model-renderer
-                [model]="model"
-                (listenEvent)="handleEvent($event)"
-                [globals]='{operation, modelId, allowClear: false}'>
-              </ngx-decaf-model-renderer>
+              @if(!errorMessage) {
+                <ngx-decaf-model-renderer
+                  [model]="model"
+                  (listenEvent)="handleEvent($event)"
+                  [globals]='{operation: operation, modelId, allowClear: false}'>
+                </ngx-decaf-model-renderer>
+              } @else {
+                <ngx-decaf-empty-state
+                  [model]="model"
+                  title="404 - Not Found"
+                  iconColor="danger"
+                  icon="sad-outline"
+                  [subtitle]="'errors.not_found' | translate:{'0': pk, '1': modelId, '2': modelName}" />
+              }
             }
           } @else {
             <div>No Model</div>

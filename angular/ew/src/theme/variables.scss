@@ -14,6 +14,22 @@
 	--dcf-color-primary-shade: #124363;
 	--dcf-color-primary-tint: #2c5e7f;
 
+   /* Secondary Color */
+  --dcf-color-secondary: #71a1c4;
+  --dcf-color-secondary-rgb: 113, 161, 196;
+  --dcf-color-secondary-contrast: #ffffff;
+  --dcf-color-secondary-contrast-rgb: 255, 255, 255;
+  --dcf-color-secondary-shade: #6190b0;
+  --dcf-color-secondary-tint: #81b1d3;
+
+  /* Tertiary Color */
+  --dcf-color-tertiary: #a1c4e0;
+  --dcf-color-tertiary-rgb: 161, 196, 224;
+  --dcf-color-tertiary-contrast: #000000;
+  --dcf-color-tertiary-contrast-rgb: 0, 0, 0;
+  --dcf-color-tertiary-shade: #8fb0c9;
+  --dcf-color-tertiary-tint: #b1d3eb;
+
   --ion-default-dynamic-font: var(--dcf-default-dynamic-font) !important;
 
   --ion-color-primary: var(--dcf-color-primary);

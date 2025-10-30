@@ -9,21 +9,13 @@ import {
   url,
 } from "@decaf-ts/decorator-validation";
 import { pk } from "@decaf-ts/core";
-import { HTML5InputTypes, uichild, uielement, uilistitem, uilistprop, uimodel } from "@decaf-ts/ui-decorators";
+import { hideOn, HTML5InputTypes, uichild, uielement, uilayout, uilayoutprop, uilistmodel, uilistprop, uimodel, uiorder } from "@decaf-ts/ui-decorators";
 import { Product } from "./Product";
+import { OperationKeys } from "@decaf-ts/db-decorators";
 
-@uimodel('ngx-decaf-crud-form')
+@uimodel('ngx-decaf-fieldset')
 @model()
-class ManufacturerForm {
-  @required()
-  @uielement('ngx-decaf-crud-field', {
-    label: 'batch.manufacturerName.label',
-    placeholder: 'batch.manufacturerName.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
-    page: 1,
-  })
-  name!: string;
-
+class ManufacturerAddress {
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.manufacturerAddress.label',
     placeholder: 'batch.manufacturerAddress.placeholder',
@@ -34,20 +26,21 @@ class ManufacturerForm {
 }
 
 
-@uilistitem('ngx-decaf-list-item', {icon: 'cafe-outline'})
-@uimodel('ngx-decaf-crud-form')
+@uilistmodel('ngx-decaf-list-item', {icon: 'cafe-outline'})
+@uilayout('ngx-decaf-crud-form', 2, 1)
 @model()
 export class Batch extends Model {
 
   @required()
   @uielement('ngx-decaf-crud-field', {
-    label: "batch.productCode.label",
-    placeholder: "batch.productCode.placeholder",
+    label: "batch.productcode.label",
+    placeholder: "batch.productcode.placeholder",
     type: HTML5InputTypes.SELECT,
-    optionsMapper: (item: Product) => ({text: item.inventedName, value: item.productCode}),
+    optionsMapper: (item: Product) => ({text: item.inventedName, value: `${item.productCode}`}),
     options: () => Product
   })
   @uilistprop('title')
+  @uilayoutprop(2)
   @required()
   productCode!: string;
 
@@ -55,69 +48,69 @@ export class Batch extends Model {
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.batchNumber.label',
     placeholder: 'batch.batchNumber.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
     page: 1,
   })
   @required()
+  @uilayoutprop(1, 1)
+  @hideOn(OperationKeys.CREATE)
   batchNumber!: string;
 
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.packagingSiteName.label',
     placeholder: 'batch.packagingSiteName.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
-    page: 1,
   })
   @url()
+  @uilayoutprop(1, 1)
   packagingSiteName?: string;
 
 
   @uielement('ngx-decaf-crud-field', {
-    label: 'batch.packagingSiteName.label',
-    placeholder: 'batch.packagingSiteName.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
-    page: 1,
+    label: 'batch.expiryDate.label',
+    placeholder: 'batch.expiryDate.placeholder',
   })
   @required()
   @date('yyyy-MM-dd')
+  @uilayoutprop(1, 1)
   expiryDate!: string;
 
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.importLicenseNumber.label',
     placeholder: 'batch.importLicenseNumber.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
-    page: 1,
   })
+  @uilayoutprop(1, 1)
   importLicenseNumber?: string;
 
-  // @uichild(ManufacturerForm.name, 'ngx-decaf-layout', {cols: 2, rows: 1})
+    @uielement('ngx-decaf-crud-field', {
+    label: 'batch.batchRecall.label',
+    placeholder: 'batch.batchRecall.placeholder',
+    page: 1,
+    type: HTML5InputTypes.CHECKBOX
+  })
+  @uilayoutprop(1, 1)
+  batchRecall!: boolean;
 
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.manufacturerName.label',
     placeholder: 'batch.manufacturerName.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
     page: 1,
   })
+  @uilayoutprop(1, 2)
   manufacturerName?: string;
 
   @uielement('ngx-decaf-crud-field', {
-    label: 'batch.packagingSiteName.label',
-    placeholder: 'batch.packagingSiteName.placeholder',
-    className: 'dcf-width-1-2@s dcf-width-1-1',
+    label: 'batch.dateOfManufacturing.label',
+    placeholder: 'batch.dateOfManufacturing.placeholder',
     page: 1,
   })
   @required()
   @date('yyyy-MM-dd')
+  @uilayoutprop(1, 2)
   dateOfManufacturing?: string;
 
-
-  @uielement('ngx-decaf-crud-field', {
-    label: 'batch.batchRecall.label',
-    placeholder: 'batch.batchRecall.placeholder',
-    className: 'dcf-width-1-1',
-    page: 1,
-    type: HTML5InputTypes.CHECKBOX
-  })
-  batchRecall!: boolean;
+  @uichild(ManufacturerAddress.name, 'ngx-decaf-fieldset', {}, true)
+  @uiorder(2)
+  @uilayoutprop(2, 2)
+  manufacturerAddress!: ManufacturerAddress;
 
   // dateOfManufacturing?: string;
 

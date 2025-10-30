@@ -14,7 +14,7 @@ export const LogoutMenuItem =   {
   color: 'danger'
 };
 
-export const SidebarMenu: IMenuItem[] = [
+export const AppMenu: IMenuItem[] = [
   DashboardMenuItem,
   {
     label: 'Products',

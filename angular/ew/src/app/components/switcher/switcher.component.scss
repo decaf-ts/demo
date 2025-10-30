@@ -1,0 +1,121 @@
+.dcf-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -20px;
+  padding: 0;
+  list-style: none;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  >* {
+    flex: none;
+    padding-left: 20px;
+    position: relative;
+
+    >a {
+      display: flex;
+      align-items: center;
+      column-gap: 0.25em;
+      justify-content: center;
+      padding: 5px 10px;
+      color: var(--dcf-color-gray-4);
+      border-bottom: 1px solid transparent;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      transition: color 0.1s ease-in-out;
+
+      &:hover {
+        color: var(--dcf-color-gray-5);
+        text-decoration: none;
+      }
+    }
+  }
+
+  >.dcf-active {
+    >a {
+      color: var(--dcf-color-gray-8);
+      border-color: var(--dcf-color-primary);
+    }
+  }
+
+  >.dcf-disabled {
+    >a {
+      color: var(--dcf-color-gray-4);
+    }
+  }
+
+  .dcf-dropdown {
+    margin-left: 30px;
+  }
+
+
+  &.dcf-switcher-bottom {
+    &::before {
+      top: 0;
+      bottom: auto;
+    }
+
+    >* {
+      >a {
+        border-top: 1px solid transparent;
+        border-bottom: none;
+      }
+    }
+  }
+
+  &.dcf-switcher-left {
+    flex-direction: column;
+    margin-left: 0;
+
+    >* {
+      padding-left: 0;
+
+      >a {
+        justify-content: left;
+        border-right: 1px solid transparent;
+        border-bottom: none;
+      }
+    }
+
+    &::before {
+      top: 0;
+      bottom: 0;
+      left: auto;
+      right: 0;
+      border-left: 1px solid #e5e5e5;
+      border-bottom: none;
+    }
+  }
+
+  &.dcf-switcher-right {
+    flex-direction: column;
+    margin-left: 0;
+
+    >* {
+      padding-left: 0;
+
+      >a {
+        justify-content: left;
+        border-left: 1px solid transparent;
+        border-bottom: none;
+      }
+    }
+
+    &::before {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: auto;
+      border-left: 1px solid #e5e5e5;
+      border-bottom: none;
+    }
+  }
+}

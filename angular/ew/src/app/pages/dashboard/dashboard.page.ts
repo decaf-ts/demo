@@ -10,7 +10,7 @@ import { ContainerComponent } from 'src/app/components/container/container.compo
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [HeaderComponent, ContainerComponent, IonContent, LayoutComponent],
+  imports: [HeaderComponent, ContainerComponent, IonContent],
 })
 export class DashboardPage implements OnInit {
 

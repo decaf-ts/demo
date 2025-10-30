@@ -30,7 +30,6 @@
     ],
     "useDefineForClassFields": false,
     "paths": {
-      "@shared": ["../../src"],
       "@shared/*": ["../../src/*"],
       "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
     }
@@ -41,7 +40,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": false, // default true
       "paths": {
-        "@shared": ["../../src"],
         "@shared/*": ["../../src/*"],
         "@decaf-ts/core/ram": ["./node_modules/@decaf-ts/core/lib/ram"],
       }
