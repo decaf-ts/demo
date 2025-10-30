@@ -37,3 +37,11 @@
 // @import '@ionic/angular/css/palettes/dark.system.css';
 @use "./theme/variables.scss";
 @use "@decaf-ts/styles/dist/main.css";
+
+
+
+.dcf-width-1-1 {
+    ion-item {
+        width: 100%;
+    }
+}
