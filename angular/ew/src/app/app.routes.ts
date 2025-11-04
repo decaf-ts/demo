@@ -46,5 +46,13 @@ export const routes: Routes = [
   {
     path: 'account',
     loadComponent: () => import('./pages/account/account.page').then( m => m.AccountPage)
+  },
+  {
+    path: 'batchs',
+    loadComponent: () => import('./pages/batchs/batchs.page').then( m => m.BatchsPage)
+  },
+  {
+    path: 'account',
+    loadComponent: () => import('./pages/account/account.page').then( m => m.AccountPage)
   }
 ];

@@ -15,17 +15,17 @@ export const LogoutMenuItem =   {
 };
 
 export const AppMenu: IMenuItem[] = [
-  DashboardMenuItem,
-  {
-    label: 'Products',
-    url: '/products',
-    icon: 'products.svg',
-  },
-  {
-    label: 'Batches',
-    url: '/batches',
-    icon: 'batches.svg',
-  },
+  // DashboardMenuItem,
+  // {
+  //   label: 'Products',
+  //   url: '/products',
+  //   icon: 'product.svg',
+  // },
+  // {
+  //   label: 'Batches',
+  //   url: '/batches',
+  //   icon: 'batche.svg',
+  // },
    {
     label: 'Audit',
     url: '/audit',
@@ -36,5 +36,5 @@ export const AppMenu: IMenuItem[] = [
     url: '/account',
     icon: 'account.svg',
   },
-  LogoutMenuItem
+  // LogoutMenuItem
 ];

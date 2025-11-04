@@ -267,16 +267,18 @@ export function getLeafletLanguages(): SelectOption[] {
 }
 
 
-enum DocumentType {
-  LEAFLET = 'leaflet',
-  PRESCRIBING_INFO = 'prescribingInfo',
-  SMPC = 'SMPC'
-}
 
+type DocumentType = 'leaflet' | 'prescribingInfo' | 'SMPC';
+
+const DocumentsTypes: {[key in DocumentType]: key} = {
+  leaflet: 'leaflet',
+  prescribingInfo: 'prescribingInfo',
+  SMPC: 'SMPC'
+} as const;
 
 export function getDocumentTypes(): SelectOption[] {
-  return Object.values(DocumentType).map(doc =>
-    ({text: doc.toLowerCase(), value: doc, disabled: doc === DocumentType.SMPC, selected: doc === DocumentType.LEAFLET})
+  return Object.values(DocumentsTypes).map(doc =>
+    ({text: doc.toLowerCase(), value: doc, disabled: doc === DocumentsTypes.SMPC, selected: doc === DocumentsTypes.leaflet})
   );
 }
 

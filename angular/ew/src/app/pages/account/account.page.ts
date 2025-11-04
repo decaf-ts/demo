@@ -1,20 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonContent } from '@ionic/angular/standalone';
+import { getOnWindow, ModelRendererComponent, NgxPageDirective } from '@decaf-ts/for-angular';
+import { TranslatePipe } from '@ngx-translate/core';
+import { ContainerComponent } from '../../components/container/container.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
+import { LoginForm } from 'src/app/forms/LoginForm';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   styleUrls: ['./account.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [HeaderComponent, ModelRendererComponent, TranslatePipe, IonContent, IonCard, IonCardContent, ContainerComponent, ModelRendererComponent],
 })
-export class AccountPage implements OnInit {
+export class AccountPage extends NgxPageDirective implements OnInit{
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    super("Account", false);
   }
 
+  ngOnInit(): void {
+   this.model = new LoginForm({
+    username: getOnWindow('loggedUser') || 'User',
+    password: 'Decafts123-'
+   });
+  }
 }

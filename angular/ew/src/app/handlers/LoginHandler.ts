@@ -1,4 +1,4 @@
-import { NgxEventHandler, ICrudFormEvent, KeyValue } from "@decaf-ts/for-angular";
+import { NgxEventHandler, ICrudFormEvent, KeyValue, setOnWindow } from "@decaf-ts/for-angular";
 import { getNgxToastComponent, NgxToastComponent } from "../utils/NgxToastComponent";
 import { Router } from "@angular/router";
 
@@ -34,8 +34,14 @@ export class LoginHandler extends NgxEventHandler<ICrudFormEvent> {
   async handle(event: ICrudFormEvent): Promise<void> {
     const { username, password } = event.data as KeyValue;
     const success = !!username && !!password;
-    if(success)
-      await this.router.navigate(['/dashboard']);
+    if(success) {
+      setOnWindow('loggedUser', username);
+      setTimeout(async () => {
+        await this.router.navigate(['/dashboard']);
+      }, 50);
+      console.log("handler by login Handler");
+    }
+
     const toast = await this.toastComponent.show({
       message: success ? 'Login successful!' : 'Invalid username or password.',
       duration: 3000,

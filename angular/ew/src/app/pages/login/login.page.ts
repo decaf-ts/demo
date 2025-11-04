@@ -1,11 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { IonCard, IonCardContent, IonContent, ToastController } from '@ionic/angular/standalone';
-import { ICrudFormEvent, getLogger, getLocaleContext, ModelRendererComponent, NgxPageDirective } from '@decaf-ts/for-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonCard, IonCardContent, IonContent } from '@ionic/angular/standalone';
+import { ModelRendererComponent, NgxPageDirective } from '@decaf-ts/for-angular';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { ContainerComponent } from '../../components/container/container.component';
 import { LoginForm } from '../../forms/LoginForm';
-import { MenuController } from '@ionic/angular';
 
 
 /**

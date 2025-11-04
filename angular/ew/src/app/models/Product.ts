@@ -1,14 +1,12 @@
 import {
-  list,
   model,
   Model,
   ModelArg,
   required,
-  url,
 } from "@decaf-ts/decorator-validation";
 import { pk } from "@decaf-ts/core";
-import { HTML5CheckTypes, HTML5InputTypes, uichild, uielement, uilayout, uilayoutprop, uilistmodel, uilistprop, uimodel, uiorder, uipageprop, uisteppedmodel } from "@decaf-ts/ui-decorators";
-import { EpiForm } from "../forms/EpiForm";
+import {  HTML5InputTypes, uichild, uielement,  uilayoutprop, uilistmodel, uilistprop, uiorder, uipageprop, uisteppedmodel } from "@decaf-ts/ui-decorators";
+import { EpiForm } from "src/app/forms/EpiForm";
 
 // import { ProductStrength } from "./ProductStrength";
 // import { ProductMarket } from "./ProductMarket";
@@ -122,10 +120,9 @@ export class Product extends Model {
   productImage!: string;
 
 
-  // @uilayoutprop(1)
-  // @uipageprop(3)
-  // @uichild(EpiForm.name, 'app-switcher', {page: 3}, false)
-  // epi!: EpiForm;
+  @uipageprop(3)
+  @uichild(EpiForm.name, 'app-switcher', {}, false)
+  epi!: EpiForm;
 
 
 

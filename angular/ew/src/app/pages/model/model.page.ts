@@ -110,7 +110,7 @@ export class ModelPage extends NgxModelPageDirective {
   // }
 
   override async ionViewWillEnter(): Promise<void> {
-   await super.ionViewWillEnter();
+    await super.ionViewWillEnter();
   }
 
   override async handleEvent(event: IBaseCustomEvent): Promise<void> {

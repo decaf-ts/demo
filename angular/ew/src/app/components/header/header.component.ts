@@ -1,8 +1,8 @@
-import { Component,  inject, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component,  inject, Input, OnInit } from '@angular/core';
 import { OperationKeys } from '@decaf-ts/db-decorators';
-import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonAvatar, IonButton, IonButtons, IonHeader, IonIcon, IonImg, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { RouterService } from 'src/app/services/router.service';
-import { StringOrBoolean,getWindow, stringToBoolean, FunctionLike, NgxComponentDirective } from '@decaf-ts/for-angular';
+import { StringOrBoolean,getWindow, stringToBoolean, FunctionLike, NgxComponentDirective, getOnWindow } from '@decaf-ts/for-angular';
 import { saveOutline, folderOpenOutline, createOutline } from "ionicons/icons";
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { addIcons } from 'ionicons';
@@ -24,7 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [TranslatePipe, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonMenuButton, IonIcon,  BackButtonComponent],
+  imports: [TranslatePipe, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonMenuButton, IonIcon, IonAvatar,  BackButtonComponent],
   schemas: [],
   standalone: true,
 
@@ -238,6 +238,11 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
   private initialBackgroundColor!: string;
 
 
+  user!: string;
+
+
+  colorSchema: 'dark' | 'light' = 'light';
+
   /**
    * @description Creates an instance of HeaderComponent.
    * @summary Initializes a new HeaderComponent by calling the parent class constructor
@@ -249,6 +254,7 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
     super("HeaderComponent");
     addIcons({ saveOutline, folderOpenOutline, createOutline });
   }
+
 
  /**
   * @description Initializes the component after Angular first displays the data-bound properties.
@@ -274,6 +280,10 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
   * @memberOf HeaderComponent
   */
   async ngOnInit(): Promise<void> {
+    // const isLoggedIn = await this.isLoggedIn();
+    // if(!isLoggedIn)
+    //   this.routerService.navigateTo('/login');
+    // this.user = isLoggedIn as string;
     this.initialBackgroundColor = this.backgroundColor;
     this.observeThemeChange();
     this.showBackButton = stringToBoolean(this.showBackButton);
@@ -294,6 +304,12 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
     }
   }
 
+  async isLoggedIn(): Promise<string|undefined> {
+    const isLoggedIn = getOnWindow('loggedUser') as string;
+    console.log("isLoggedIn:", isLoggedIn);
+    return isLoggedIn;
+  }
+
   /**
    * @description Observes system theme changes and updates header appearance accordingly.
    * @summary Sets up a media query listener to detect changes in the user's color scheme preference
@@ -309,9 +325,21 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
     const win = getWindow() as Window;
     const colorSchemePreference = win.matchMedia('(prefers-color-scheme: dark)');
     this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
+
     colorSchemePreference.addEventListener('change', () => {
         this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
     });
+  }
+
+  navigateToAccount(): void {
+    this.routerService.navigateTo('/account');
+  }
+
+  changeColorSchema(): void {
+    this.colorSchema = this.colorSchema === 'light' ? 'dark' : 'light';
+    console.log(this.colorSchema);
+    document.documentElement.classList.toggle('dcf-palette-dark', this.colorSchema === 'dark');
+    this.backgroundColor =   this.colorSchema === 'dark' ? '' : this.initialBackgroundColor;
   }
 
   getBackButtonSlot(): string {

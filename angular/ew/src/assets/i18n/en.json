@@ -7,6 +7,12 @@
       "preview": "Preview"
     }
   },
+  "menu": {
+    "product": "Products",
+    "batch": "Batches",
+    "logout": "Logout",
+    "account": "Account"
+  },
   "login": {
      "username": {
       "label": "Username",
@@ -16,6 +22,33 @@
       "label": "Password",
       "placeholder": "Type your password"
     }
+  },
+  "dashboard": {
+    "title": "Control Panel",
+    "subtitle": "Your ew overview",
+    "cards": {
+      "product": {
+        "title": "Products",
+        "description": "Manage and view pharmaceutical products"
+      },
+      "batch": {
+        "title": "Batches",
+        "description": "Manage and view product batches"
+      },
+      "account": {
+        "title": "Account",
+        "description": "Manage your account settings"
+      }
+    }
+  },
+  "audit": {
+    "title": "Audit Logs",
+    "subtitle": "Review system activities and changes",
+    "empty": "There is no log on any previous Audit."
+  },
+  "account": {
+    "title": "User Information",
+    "subtitle": "Wallet and identitity details"
   },
 
  "product": {
@@ -54,6 +87,9 @@
     "nameMedicinalProduct": {
       "label": "Medicinal Product Name",
       "placeholder": "Enter the name of the medicinal product"
+    },
+    "productRecall": {
+      "label": "Mark Product as Recalled (Enabled only for Brazil)"
     }
   },
   "batch": {

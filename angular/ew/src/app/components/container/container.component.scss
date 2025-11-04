@@ -6,7 +6,7 @@
     padding-top: 1.25rem !important;
   }
 
-  @media (min-width: 681px) and (max-width: 768px) {
+  @media (min-width: 681px) and (max-width: 992px) {
     padding: 2.5rem 1.75rem;
   }
 
@@ -14,37 +14,46 @@
     padding: 1.25rem .75rem;
   }
 
-  &.dcf-width-small {
+  .dcf-width-small {
     div {  width: 150px; }
   }
-  &.dcf-width-medium {
+  .dcf-width-medium {
     div { width: 300px; }
   }
-  &.dcf-width-large {
+  .dcf-width-large {
     div { width: 450px; }
   }
-  &.dcf-width-xlarge {
+  .dcf-width-xlarge {
     div { width: 600px;}
   }
-  &.dcf-width-2xlarge {
+  .dcf-width-2xlarge {
     div { width: 750px;}
   }
 
-  &.dcf-width-auto {
+  .dcf-width-auto {
     div {
       width: auto;
     }
   }
 
-  &.dcf-width-block {
+  .dcf-width-block {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
     div {
-      width: 100%;
-      max-width: 1200px;
+     flex: 1;
+     min-width: 1px;
     }
   }
 
   /* Expand */
-  &.dcf-width-expand {
+  .dcf-width-expand {
+    @media(min-width: 992px) {
+      max-width: 75vw !important;
+    }
+    padding-right: 1rem;
+
+    padding-left: 1rem;
     div {
       flex: 1;
       min-width: 1px;
@@ -65,4 +74,30 @@
   .dcf-grid {
     margin-top: .75rem;
   }
+}
+
+
+::ng-deep .dcf-container {
+    h1, h2, h3, h4 {
+      color: var(--dcf-color-gray-7);
+      margin-bottom: .25rem !important;
+      &:first-of-type {
+        margin-top: 0px !important;
+      }
+    + p {
+        margin-top: 0px !important;
+        margin-bottom: 1.5rem !important;
+        color: var(--dcf-color-gray-4);
+      }
+    }
+
+    ion-card {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    ngx-decaf-model-renderer {
+      padding-top: 1rem;
+      display: block;
+    }
 }

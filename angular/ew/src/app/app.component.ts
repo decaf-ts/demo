@@ -118,7 +118,7 @@ export class AppComponent extends NgxPageDirective implements OnInit {
    */
   override async initialize(): Promise<void> {
     const isDevelopment = isDevelopmentMode();
-    const populate = [Product.name];
+    const populate = ["Product"];
     const menu = [];
     const models = AppModels;
     for(let model of models) {
@@ -129,18 +129,18 @@ export class AppComponent extends NgxPageDirective implements OnInit {
       if (isDevelopment) {
         if(populate.includes(name)) {
           this.logger.info(`Populating repository for model: ${name}`);
-          const repository = new FakerRepository(model, 3);
+          const repository = new FakerRepository(model, 12);
           await repository.init();
         }
       }
-
-      menu.push({label: name,  name, url: `/model/${Repository.table(model)}`, icon: 'cube-outline'})
+      const label = name.toLowerCase();
+      menu.push({label: `menu.${label}`,  url: `/model/${Repository.table(model)}`, icon: `${label}.svg`} as IMenuItem);
     }
     this.initialized = true;
     this.menu = [
       DashboardMenuItem,
       ...menu as IMenuItem[],
-
+      ...AppMenu,
       LogoutMenuItem
     ];
     this.setPageTitle(this.router.url.replace('/', ''));
@@ -160,13 +160,16 @@ export class AppComponent extends NgxPageDirective implements OnInit {
    * @return {void}
    * @memberOf module:lib/engine/NgxPageDirective
    */
-  protected override setPageTitle(route?: string, menu?: IMenuItem[]): void {
+  protected override async setPageTitle(route?: string, menu?: IMenuItem[]): Promise<void> {
     if(!route)
       route = this.router.url.replace('/', '');
     if(menu)
       menu = this.menu;
     const activeMenu = this.menu.find(item => item?.url?.includes(route));
-    if(activeMenu)
-      this.titleService.setTitle(`${activeMenu?.title || activeMenu?.label} - ${AppName}`);
+    if(activeMenu) {
+      const title = await this.translate(activeMenu?.title || activeMenu?.label);
+      this.titleService.setTitle(`${title} - ${AppName}`);
+    }
+
   }
 }

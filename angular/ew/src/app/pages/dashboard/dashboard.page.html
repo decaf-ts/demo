@@ -1,5 +1,5 @@
 <app-header
-  title="Dashboard"
+  [title]="locale+'.title'"
   center="true"
   showMenuButton="true"
   color="primary">
@@ -7,8 +7,30 @@
 
 <ion-content fullscreen="true">
    <main class="main">
-    <app-container [hasSideMenu]="true">
-       <!-- <ngx-decaf-layout className="dcf-card-default" [model]="model" (listenEvent)="handleEvent($event)"/> -->
+    <app-container [hasSideMenu]="true" size="expand">
+      <h1>{{ locale+'.title' | translate }}</h1>
+      <p>{{ locale+'.subtitle' | translate }}</p>
+      <div class="dcf-grid dcf-grid-small dcf-grid-match dcf-width-1-1">
+        @for(card of cards; track $index) {
+          <div class="dcf-width-1-3@l dcf-width-1-2@m">
+            <ion-card class="dcf-card-item dcf-card-default" (click)="handleClick(card.url)">
+              <ion-card-content>
+                <div class="dcf-grid dcf-grid-small dcf-width-1-1">
+                  <div class="dcf-width-1-4" style="max-width: 60px;">
+                    <ion-img [src]="'assets/images/icons/' + card.icon" title="{{card.title}}" alt="{{card.title}}"/>
+                  </div>
+                  <div class="dcf-width-expand dcf-flex dcf-flex-middle">
+                    <div>
+                      <ion-card-title>{{ locale+'.cards.' + card.title + '.title' | translate }}</ion-card-title>
+                      <p>{{ locale+'.cards.' + card.title + '.description' | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        }
+      </div>
     </app-container>
   </main>
 </ion-content>

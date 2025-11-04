@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonContent } from '@ionic/angular/standalone';
+import { EmptyStateComponent,  NgxPageDirective } from '@decaf-ts/for-angular';
+import { TranslatePipe } from '@ngx-translate/core';
+import { ContainerComponent } from '../../components/container/container.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.page.html',
   styleUrls: ['./audit.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [HeaderComponent, EmptyStateComponent, TranslatePipe, IonContent,  ContainerComponent],
 })
-export class AuditPage implements OnInit {
+export class AuditPage extends NgxPageDirective{
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    super("Audit", false);
   }
-
 }

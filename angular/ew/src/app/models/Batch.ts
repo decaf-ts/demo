@@ -1,15 +1,14 @@
 import {
   date,
   list,
+  minlength,
   model,
   Model,
   ModelArg,
-  pattern,
   required,
-  url,
 } from "@decaf-ts/decorator-validation";
 import { pk } from "@decaf-ts/core";
-import { hideOn, HTML5InputTypes, uichild, uielement, uilayout, uilayoutprop, uilistmodel, uilistprop, uimodel, uiorder } from "@decaf-ts/ui-decorators";
+import { hideOn, HTML5InputTypes, uielement, uilayout, uilayoutprop,  uilistprop, uimodel } from "@decaf-ts/ui-decorators";
 import { Product } from "./Product";
 import { OperationKeys } from "@decaf-ts/db-decorators";
 
@@ -20,14 +19,13 @@ class ManufacturerAddress {
     label: 'batch.manufacturerAddress.label',
     placeholder: 'batch.manufacturerAddress.placeholder',
     className: 'dcf-width-1-2@s dcf-width-1-1',
-    page: 1,
   })
+  @minlength(2)
   address?: string;
 }
 
 
-@uilistmodel('ngx-decaf-list-item', {icon: 'cafe-outline'})
-@uilayout('ngx-decaf-crud-form', 2, 1)
+@uilayout('ngx-decaf-crud-form', 2, 3)
 @model()
 export class Batch extends Model {
 
@@ -48,7 +46,6 @@ export class Batch extends Model {
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.batchNumber.label',
     placeholder: 'batch.batchNumber.placeholder',
-    page: 1,
   })
   @required()
   @uilayoutprop(1, 1)
@@ -59,58 +56,90 @@ export class Batch extends Model {
     label: 'batch.packagingSiteName.label',
     placeholder: 'batch.packagingSiteName.placeholder',
   })
-  @url()
-  @uilayoutprop(1, 1)
-  packagingSiteName?: string;
-
-
-  @uielement('ngx-decaf-crud-field', {
-    label: 'batch.expiryDate.label',
-    placeholder: 'batch.expiryDate.placeholder',
-  })
+  @uilayoutprop(1, 2)
+  @minlength(2)
   @required()
-  @date('yyyy-MM-dd')
-  @uilayoutprop(1, 1)
-  expiryDate!: string;
+  packagingSiteName?: string;
 
   @uielement('ngx-decaf-crud-field', {
     label: 'batch.importLicenseNumber.label',
     placeholder: 'batch.importLicenseNumber.placeholder',
   })
-  @uilayoutprop(1, 1)
+  @uilayoutprop(1, 2)
   importLicenseNumber?: string;
 
-    @uielement('ngx-decaf-crud-field', {
-    label: 'batch.batchRecall.label',
-    placeholder: 'batch.batchRecall.placeholder',
-    page: 1,
-    type: HTML5InputTypes.CHECKBOX
-  })
-  @uilayoutprop(1, 1)
-  batchRecall!: boolean;
-
   @uielement('ngx-decaf-crud-field', {
-    label: 'batch.manufacturerName.label',
-    placeholder: 'batch.manufacturerName.placeholder',
-    page: 1,
+    label: 'batch.importLicenseNumber.label',
+    placeholder: 'batch.importLicenseNumber.placeholder',
   })
-  @uilayoutprop(1, 2)
-  manufacturerName?: string;
+  @uilayoutprop('half', 3)
+  importLicenseNumber2?: string;
 
-  @uielement('ngx-decaf-crud-field', {
-    label: 'batch.dateOfManufacturing.label',
-    placeholder: 'batch.dateOfManufacturing.placeholder',
-    page: 1,
+   @uielement('ngx-decaf-crud-field', {
+    label: 'batch.expiryDate.label',
+    placeholder: 'batch.expiryDate.placeholder',
   })
   @required()
   @date('yyyy-MM-dd')
-  @uilayoutprop(1, 2)
-  dateOfManufacturing?: string;
+  @uilayoutprop('auto', 3)
+  expiryDate!: string;
 
-  @uichild(ManufacturerAddress.name, 'ngx-decaf-fieldset', {}, true)
-  @uiorder(2)
-  @uilayoutprop(2, 2)
-  manufacturerAddress!: ManufacturerAddress;
+  @uielement('ngx-decaf-crud-field', {
+    label: 'batch.dayselection.label',
+    placeholder: 'batch.dayselection.placeholder',
+    page: 1,
+    type: HTML5InputTypes.CHECKBOX
+  })
+  @uilayoutprop('auto', 3)
+  enableDaySelection!: string;
+
+  // @uielement('ngx-decaf-crud-field', {
+  //   label: 'batch.expiryDate.label',
+  //   placeholder: 'batch.expiryDate.placeholder',
+  // })
+  // @required()
+  // @date('yyyy-MM-dd')
+  // @uilayoutprop(1, 1)
+  // expiryDate!: string;
+
+  // @uielement('ngx-decaf-crud-field', {
+  //   label: 'batch.importLicenseNumber.label',
+  //   placeholder: 'batch.importLicenseNumber.placeholder',
+  // })
+  // @uilayoutprop(1, 1)
+  // importLicenseNumber?: string;
+
+  //   @uielement('ngx-decaf-crud-field', {
+  //   label: 'batch.batchRecall.label',
+  //   placeholder: 'batch.batchRecall.placeholder',
+  //   page: 1,
+  //   type: HTML5InputTypes.CHECKBOX
+  // })
+  // @uilayoutprop(1, 1)
+  // batchRecall!: boolean;
+
+  // @uielement('ngx-decaf-crud-field', {
+  //   label: 'batch.manufacturerName.label',
+  //   placeholder: 'batch.manufacturerName.placeholder',
+  //   page: 1,
+  // })
+  // @uilayoutprop(1, 2)
+  // manufacturerName?: string;
+
+  // @uielement('ngx-decaf-crud-field', {
+  //   label: 'batch.dateOfManufacturing.label',
+  //   placeholder: 'batch.dateOfManufacturing.placeholder',
+  //   page: 1,
+  // })
+  // @required()
+  // @date('yyyy-MM-dd')
+  // @uilayoutprop(1, 2)
+  // dateOfManufacturing?: string;
+
+  // @uichild(ManufacturerAddress.name, 'ngx-decaf-fieldset', {title: "product.manufacturer.title",  collapsable: false, borders: false}, true)
+  // @uiorder(100)
+  // @uilayoutprop(2, 3)
+  // manufacturerAddress!: ManufacturerAddress;
 
   // dateOfManufacturing?: string;
 

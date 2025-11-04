@@ -16,6 +16,7 @@ import {
   IonCol,
   IonText
  } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Dynamic()
 @Component({
@@ -23,7 +24,7 @@ import {
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss'],
   standalone: true,
-  imports: [ForAngularCommonModule, IonCard, IonCardContent, IonCardHeader, IonText, IonCardTitle, IonIcon, IonButton, IonList, IonItem, IonRow, IonCol, IonLabel],
+  imports: [IonCard, IonCardContent, IonText, TranslatePipe,  IonIcon, IonButton],
 })
 export class ImageUploadComponent extends NgxFormFieldDirective implements OnInit {
 

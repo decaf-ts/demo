@@ -53,26 +53,34 @@ export class FakerRepository<T extends Model> {
         default:
           data = await this.generateData();
       }
-      data = await this.repository?.createAll(data) as T[];
+     try {
+         data = await this.repository?.createAll(data) as T[];
+      } catch (error: unknown) {
+        console.error(error);
+      }
     }
     this.data = data as T[] || [];
-    console.log(this.data);
   }
 
  async generateData<T extends Model>(pkValues?: KeyValue, pk?: string, pkType?: string): Promise<T[]> {
 
-    const limit = Object.values(pkValues || {}).length || this.limit;
+    const limit = pkValues ? Object.values(pkValues || {}).length - 1 : this.limit;
     if(!pk)
       pk = this._repository?.pk as string;
     if(!pkType)
-      pkType = Primitives.STRING;
-    const props = Object.keys(this.model as KeyValue).filter((k) => ![pk, 'updatedBy', 'createdAt','createdBy', 'updatedAt'].includes(k));
+      pkType = Reflect.getMetadata("design:type", this.model as KeyValue, pk).name.toLowerCase();
+
+    const props = Object.keys(this.model as KeyValue).filter((k) => {
+      if(pkType === Primitives.STRING)
+        return !['updatedBy', 'createdAt','createdBy', 'updatedAt'].includes(k);
+      return ![pk, 'updatedBy', 'createdAt','createdBy', 'updatedAt'].includes(k)
+    });
     const dataProps: Record<string, FunctionLike> = {};
     for(const prop of props) {
-      const type = Reflect.getMetadata("design:type", this.model as KeyValue, prop).name;
-      switch(type.toLowerCase()) {
+      const type = Reflect.getMetadata("design:type", this.model as KeyValue, prop);
+      switch((type?.name || "").toLowerCase()) {
         case 'string':
-          dataProps[prop] = () => faker.lorem.word();
+          dataProps[prop] = () => `${faker.lorem.word()} ${pk === prop  ? ' - ' + faker.number.int({min: 1, max: 200}) : ''}`;
           break;
         case 'step':
           dataProps[prop] = () => faker.lorem.word();
@@ -89,8 +97,11 @@ export class FakerRepository<T extends Model> {
         case 'date':
           dataProps[prop] = () => faker.date.past();
           break;
-        default:
-          dataProps[prop] = () => faker.lorem.word();
+        case 'url':
+          dataProps[prop] = () => faker.internet.url();
+          break;
+        case 'array':
+          dataProps[prop] = () => faker.lorem.words({min: 2, max: 5}).split(' ');
           break;
       }
     }
@@ -101,18 +112,29 @@ export class FakerRepository<T extends Model> {
       return data;
 
     const values = Object.values(pkValues as KeyValue);
-
+    const iterated: (string | number)[] = [];
     function getPkValue(item: KeyValue): T {
       if (values.length > 0) {
         const randomIndex = Math.floor(Math.random() * values.length);
         const selected = values.splice(randomIndex, 1)[0];
-        item[pk as string] =
-          pkType === Primitives.STRING ? selected : pkType === Primitives.NUMBER
+        const value = pkType === Primitives.STRING ? selected : pkType === Primitives.NUMBER
             ? parseToNumber(selected) : pkType === Array.name ? [selected] : selected;
+        item[pk as string] = value
       }
-      return item as T;
+      if(!iterated.includes(item[pk as string])) {
+        iterated.push(item[pk as string]);
+        return item as T;
+      }
+      return undefined as unknown as T;
     }
-    return data.map((d) => getPkValue(d));
+    const uids = new Set();
+    return data
+      .map((d) => getPkValue(d))
+      .filter((item: KeyValue) => {
+        if (!item || uids.has(item[pk]) || !item[pk] || item[pk] === undefined) return false;
+        uids.add(item[pk]);
+        return true;
+      }).filter(Boolean) as T[];
   }
 }
 

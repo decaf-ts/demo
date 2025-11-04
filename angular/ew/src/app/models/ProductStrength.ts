@@ -9,6 +9,7 @@ export class ProductStrength extends Model {
 
   legalEntityName?: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(model?: ModelArg<ProductStrength>) {
     super(model);
   }

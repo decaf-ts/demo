@@ -1,0 +1,12 @@
+.dcf-card-item {
+
+  &:hover {
+    cursor: pointer;
+    border-color: var(--dcf-color-primary);
+
+    ion-img {
+      transform: scale(1.1);
+      transition: all 0.1s ease-in-out;
+    }
+  }
+}

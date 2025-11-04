@@ -1,13 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>account</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header
+  [title]="locale+'.title'"
+  center="true"
+  showMenuButton="true"
+  color="primary">
+</app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">account</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen="true">
+   <main class="main">
+    <app-container [hasSideMenu]="true" size="expand">
+      <h1>{{ locale+'.title' | translate }}</h1>
+      <p class="dcf-margin-remove-top">{{ locale+'.subtitle' | translate }}</p>
+      <ion-card class="dcf-card-default">
+        <ion-card-content>
+          <ngx-decaf-model-renderer
+            [model]="model"
+            (listenEvent)="handleEvent($event)"
+            [globals]="{operation: 'read'}" />
+        </ion-card-content>
+      </ion-card>
+
+    </app-container>
+  </main>
 </ion-content>

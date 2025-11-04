@@ -23,6 +23,19 @@
       }
 
       <ng-content select="[slot='end']"></ng-content>
+        <ion-buttons class="account-button" slot="end">
+          <!-- <ion-button (click)="changeColorSchema()" fill="clear">
+            <ion-img src="assets/images/icons/moon-stars.svg" alt="Change Color Schema" title="Change Color Schema" />
+          </ion-button> -->
+          @if(user) {
+            <ion-avatar (click)="navigateToAccount()" title="{{ 'menu.account' | translate }}">
+              <div class="avatar-content">
+                {{ user.charAt(0).toUpperCase() + user.charAt(1).toUpperCase() }}
+              </div>
+            </ion-avatar>
+           }
+        </ion-buttons>
+
 
       @if(operations?.length && route && (!operation || operation === OperationKeys.READ)) {
         <ion-buttons slot="end">
