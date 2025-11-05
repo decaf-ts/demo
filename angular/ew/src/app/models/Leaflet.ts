@@ -32,8 +32,8 @@ export class Leaflet extends BaseModel {
 
   @required()
   @uielement('ngx-decaf-crud-field', {
-    label: 'leaflet.language.label',
-    placeholder: 'leaflet.language.placeholder',
+    label: 'leaflet.type.label',
+    placeholder: 'leaflet.type.placeholder',
     type: HTML5InputTypes.SELECT,
     options: () => getDocumentTypes()
   })
@@ -41,16 +41,16 @@ export class Leaflet extends BaseModel {
 
   @required()
   @uielement('ngx-decaf-crud-field', {
-    label: 'leaflet.language.label',
-    placeholder: 'leaflet.language.placeholder',
+    label: 'leaflet.market.label',
+    placeholder: 'leaflet.market.placeholder',
     type: HTML5InputTypes.SELECT,
     options: () => getMarkets(false)
   })
   market!: string;
 
   @uielement('app-image-upload', {
-    label: 'product.nameMedicinalProduct.label',
-    placeholder: 'product.nameMedicinalProduct.placeholder',
+    label: 'product.xmlFileContent.label',
+    placeholder: 'product.xmlFileContent.placeholder',
     multiple: true
   })
   @uilistprop('description')

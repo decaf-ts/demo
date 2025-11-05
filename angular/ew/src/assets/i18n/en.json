@@ -50,8 +50,15 @@
     "title": "User Information",
     "subtitle": "Wallet and identitity details"
   },
-
- "product": {
+  "user": {
+    "secret": {
+      "label": "Password"
+    },
+    "username": {
+      "label": "Username"
+    }
+  },
+  "product": {
     "menu": "Products",
     "steps": {
       "1": {
@@ -110,6 +117,9 @@
       "label": "Batch Number",
       "placeholder": "Enter the batch number"
     },
+    "dayselection": {
+      "label": "Enable Day Selection"
+    },
     "expiryDate": {
       "label": "Expiry Date",
       "placeholder": "Enter the expiry date"
@@ -122,9 +132,13 @@
       "label": "Import License Number",
       "placeholder": "Enter the import license number"
     },
-      "manufacturerName": {
+    "manufacturerName": {
       "label": "Manufacturer Name",
       "placeholder": "Enter the manufacturer name"
+    },
+    "manufacturerAddress": {
+      "label": "Manufacturer Address",
+      "placeholder": "Enter the manufacturer address"
     },
     "dateOfManufacturing": {
       "label": "Date of Manufacturing",
@@ -135,12 +149,60 @@
       "placeholder": "Indicates if the batch is subject to recall"
     }
   },
-  "user": {
-    "secret": {
-      "label": "Password"
+  "leaflet": {
+    "language": {
+      "label": "Language",
+      "placeholder": "Select the language"
     },
-    "username": {
-      "label": "Username"
+    "type": {
+      "label": "Docment type",
+      "placeholder": "Select the document type",
+      "options": {
+        "leaflet": "Patient Information",
+        "prescribinginfo": "Prescribing Information",
+        "smcp": "SMCP"
+      }
+    },
+    "market": {
+      "label": "Market",
+      "placeholder": "Select the market"
+    },
+    "xmlFileContent": {
+      "label": "Epi File",
+      "placeholder": "Select the Epi File"
+    }
+  },
+   "substance": {
+    "name": {
+      "label": "Substance Name",
+      "placeholder": "Enter the substance name"
+    },
+    "strength": {
+      "label": "Substance Strength",
+      "placeholder": "Enter the substance strength"
+    }
+  },
+  "market": {
+    "id": {
+      "label": "Select Country",
+      "placeholder": "Select Country"
+    },
+    "nationalCode": {
+      "label": "National Code",
+      "placeholder": "Enter the national code"
+    },
+    "mahName": {
+      "label": "MAH Name",
+      "placeholder": "Enter the MAH Name"
+    },
+    "legalEntityName": {
+      "label": "Legal Entity Name",
+      "placeholder": "Enter the Legal Entity Name"
+    },
+    "mahAddress": {
+      "label": "MAH Address",
+      "placeholder": "Enter the MAH Address"
     }
   }
+
 }

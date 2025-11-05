@@ -15,11 +15,11 @@
     <app-container [hasSideMenu]="true" size="expand">
       <ion-card class="dcf-card-default">
          <ion-card-header>
-          <ion-card-title>
-            <span style="text-transform: capitalize;">{{operation}}</span> {{ operation ? modelName : 'Listing'}}
-          </ion-card-title>
+            <ion-card-title>
+              <span style="text-transform: capitalize;">{{operation}}</span> {{ operation ? modelName : 'Listing'}}
+            </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="dcf-margin-top">
+        <ion-card-content>
             @if(model) {
               @if(!operation) {
                 <ngx-decaf-list

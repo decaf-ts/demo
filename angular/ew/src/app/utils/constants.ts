@@ -31,10 +31,10 @@ export const AppMenu: IMenuItem[] = [
     url: '/audit',
     icon: 'audit.svg',
   },
-   {
-    label: 'Account',
-    url: '/account',
-    icon: 'account.svg',
-  },
+  // {
+  //   label: 'Account',
+  //   url: '/account',
+  //   icon: 'account.svg',
+  // },
   // LogoutMenuItem
 ];

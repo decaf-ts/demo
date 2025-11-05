@@ -3,11 +3,12 @@
 }
 
 ion-header {
-
   &.dcf-mobile-header {
     box-shadow: none !important;
     border-bottom: 1px solid var(--ion-color-gray-2) !important;
-   .dcf-mobile-logo { padding: .5rem .75rem; }
+    .dcf-mobile-logo {
+      padding: 0.5rem 0.75rem;
+    }
   }
 
   &.white {
@@ -15,12 +16,14 @@ ion-header {
     box-shadow: none !important;
     border-bottom: 1px solid var(--ion-color-gray-2) !important;
 
-    @media(max-width: 680px) {
-      padding-right: .25rem;
-      padding-left:  .25rem;
+    @media (max-width: 680px) {
+      padding-right: 0.25rem;
+      padding-left: 0.25rem;
     }
 
-    svg { stroke: var(--ion-color-gray-7) !important; }
+    svg {
+      stroke: var(--ion-color-gray-7) !important;
+    }
 
     &.ion-color-primary,
     &.ion-color-secondary,
@@ -29,13 +32,19 @@ ion-header {
     &.ion-color-warning,
     &.ion-color-success,
     &.ion-color-dark {
-      svg { stroke: var(--ion-color-gray-1) !important; }
-      ion-icon  { color: var(--ion-color-gray-7) !important; }
+      svg {
+        stroke: var(--ion-color-gray-1) !important;
+      }
+      ion-icon {
+        color: var(--ion-color-gray-7) !important;
+      }
     }
   }
 
   @media (prefers-color-scheme: dark) {
-    svg { stroke: var(--ion-color-gray-1); }
+    svg {
+      stroke: var(--ion-color-gray-1);
+    }
     .ion-color-primary,
     .ion-color-secondary,
     .ion-color-tertiary,
@@ -43,34 +52,42 @@ ion-header {
     .ion-color-warning,
     .ion-color-success,
     .ion-color-dark {
-      svg { stroke: var(--ion-color-gray-1); }
-      ion-icon  { color: var(--ion-color-gray-1); }
+      svg {
+        stroke: var(--ion-color-gray-1);
+      }
+      ion-icon {
+        color: var(--ion-color-gray-1);
+      }
     }
   }
 
-.dcf-header-container {
-  padding: 0px;
-  margin: 0px;
-  width: 100%;
+  .dcf-header-container {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
 
-  &:not(.dcf-width-expand ) {
-    max-width: 1280px;
-    ion-toolbar {  padding: 0rem 1rem !important; }
-  }
-  &.dcf-width-expand {
-    flex: 1;
-    min-width: 1px;
-    @media(min-width:  992px) {
-      ion-toolbar {  padding: 0rem 1.5rem; }
+    &:not(.dcf-width-expand) {
+      max-width: 1280px;
+      ion-toolbar {
+        padding: 0rem 1rem !important;
+      }
+    }
+    &.dcf-width-expand {
+      flex: 1;
+      min-width: 1px;
+      @media (min-width: 992px) {
+        ion-toolbar {
+          padding: 0rem 1.5rem;
+        }
+      }
     }
   }
-}
 
-ion-title {
-  font-size: 1.025rem !important;
-}
+  ion-title {
+    font-size: 1.025rem !important;
+  }
 
-&.dcf-flex {
+  &.dcf-flex {
     display: flex;
     justify-content: center;
 
@@ -88,16 +105,14 @@ ion-title {
       background-color: transparent;
       box-shadow: none !important;
       border-bottom: 1px solid var(--ion-color-gray-2);
-
     }
   }
 }
 
-
 ion-avatar {
   display: flex;
   justify-content: center;
-  padding: .5rem;
+  padding: 1rem;
 
   > div {
     cursor: pointer;
@@ -108,7 +123,7 @@ ion-avatar {
     height: 100%;
 
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 0.875rem;
     border-radius: 50%;
     background: var(--ion-color-gray-2);
   }
