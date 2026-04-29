@@ -143,17 +143,6 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
   @Input()
   override operations: CrudOperations[] = [];
 
-  /**
-   * @description The identifier of the current operation model.
-   * @summary  Accepts either a string or a number.
-   *
-   * @type {string|number}
-   * @default OperationKeys.READ
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  modelId!: string | number;
-
 
   /**
    * @description Controls whether the menu button is displayed.

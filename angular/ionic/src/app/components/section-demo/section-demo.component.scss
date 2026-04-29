@@ -1,11 +1,20 @@
 section {
-  padding-top: var(--dcf-padding-large);
-  padding-bottom: var(--dcf-padding-large);
+  padding-top: var(--dcf-padding-xlarge);
+  padding-bottom: var(--dcf-padding-xlarge);
 
   &.muted {
     background: #fef2f2;
     .demo {
       background-color: white;
+      .icon-container {
+        background: #f3f4f6;
+      }
+      .ti {
+        color: #9ca3af;
+      }
+      p {
+        color: #9ca3af;
+      }
     }
   }
 
@@ -70,4 +79,10 @@ section {
       color: #fca5a5;
     }
   }
+}
+
+ion-button {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  text-transform: none;
 }

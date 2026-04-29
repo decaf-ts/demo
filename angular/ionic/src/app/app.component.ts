@@ -6,33 +6,13 @@ import { Title } from '@angular/platform-browser';
 import { Platform } from '@ionic/angular';
 import {
   IonApp,
-  IonContent,
   IonRouterOutlet,
 } from '@ionic/angular/standalone';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { Model, ModelBuilderFunction, ModelConstructor } from '@decaf-ts/decorator-validation';
-import { TranslateModule } from '@ngx-translate/core';
-import { Repository } from '@decaf-ts/core';
-import {
-  isDevelopmentMode,
-  NgxRenderingEngine,
-  DB_ADAPTER_PROVIDER_TOKEN,
-  removeFocusTrap,
-  DecafRepository,
-  DecafRepositoryAdapter
-} from '@decaf-ts/for-angular';
-import { LogoComponent } from './components/logo/logo.component';
 
 
 
-try {
-  new NgxRenderingEngine();
-  Model.setBuilder(Model.fromModel as ModelBuilderFunction);
-
-} catch (e: unknown) {
-  throw new Error(`Failed to load rendering engine: ${e}`);
-}
 
 /**
  * @description Root component of the Decaf-ts for Angular application

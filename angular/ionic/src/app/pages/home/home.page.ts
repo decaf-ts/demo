@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
 import { LayoutComponent, NgxPageDirective } from '@decaf-ts/for-angular';
-import { ContainerComponent } from 'src/app/components/container/container.component';
-import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HomeLayout } from 'src/app/layouts/HomeLayout';
 import { HeroComponent } from 'src/app/components/hero/hero.component';
 import { SectionDemoComponent } from 'src/app/components/section-demo/section-demo.component';
@@ -13,7 +11,7 @@ import { SectionDemoComponent } from 'src/app/components/section-demo/section-de
   styleUrls: ['./home.page.scss'],
   standalone: true,
   providers: [HeroComponent, SectionDemoComponent],
-  imports: [ IonContent, LayoutComponent],
+  imports: [IonContent, LayoutComponent],
 })
 export class HomePage extends NgxPageDirective implements OnInit {
 

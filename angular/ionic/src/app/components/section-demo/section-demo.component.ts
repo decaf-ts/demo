@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Dynamic, IconComponent, NgxComponentDirective } from '@decaf-ts/for-angular';
+import { Component, Input } from '@angular/core';
+import { Dynamic,  NgxComponentDirective } from '@decaf-ts/for-angular';
 import { IonButton } from '@ionic/angular/standalone';
 import { ContainerComponent } from '../container/container.component';
 
@@ -8,7 +8,7 @@ import { ContainerComponent } from '../container/container.component';
   selector: 'app-section-demo',
   templateUrl: './section-demo.component.html',
   styleUrls: ['./section-demo.component.scss'],
-  imports: [IonButton, IconComponent, ContainerComponent],
+  imports: [IonButton,  ContainerComponent],
   standalone: true,
 })
 export class SectionDemoComponent extends NgxComponentDirective {
