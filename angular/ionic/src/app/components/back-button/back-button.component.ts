@@ -1,21 +1,135 @@
-import { OnInit, CUSTOM_ELEMENTS_SCHEMA, Input, Component, inject, HostListener } from "@angular/core";
-import { PredefinedColors } from "@ionic/core";
-import { windowEventEmitter, FunctionLike, StringOrBoolean, stringToBoolean, EventConstants, RouteDirections  } from '@decaf-ts/for-angular';
 import { Location } from '@angular/common';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ForAngularCommonModule,
+  FunctionLike,
+  NgxMediaService,
+  RouteDirections,
+  StringOrBoolean,
+  stringToBoolean,
+  windowEventEmitter,
+} from '@decaf-ts/for-angular';
+import { ComponentEventNames } from '@decaf-ts/ui-decorators';
+import { PredefinedColors } from '@ionic/core';
 import { addIcons } from 'ionicons';
 import { chevronBackOutline } from 'ionicons/icons';
-import { IonButton, IonIcon } from "@ionic/angular/standalone";
+import { shareReplay } from 'rxjs';
 
+/**
+ * @description Back button component for navigation within Angular applications.
+ * @summary The BackButtonComponent provides a standardized back navigation button with
+ * customizable appearance and behavior. It supports both traditional browser back navigation
+ * and custom navigation logic through function callbacks. The component integrates with
+ * Angular's Location service for browser history management and provides event emission
+ * capabilities for external components to react to navigation actions.
+ *
+ * Key features include:
+ * - Customizable appearance with Ionic color schemes
+ * - Prevention of default navigation behavior for custom handling
+ * - Event emission for external component integration
+ * - Support for custom navigation targets (URLs or functions)
+ * - Configurable text display alongside the icon
+ * - Integration with browser history API
+ *
+ * @component BackButtonComponent
+ * @example
+ * ```html
+ * <!-- Basic back button -->
+ * <app-back-button></app-back-button>
+ *
+ * <!-- Custom colored back button with text -->
+ * <app-back-button
+ *   color="secondary"
+ *   showText="true"
+ *   text="Go Back">
+ * </app-back-button>
+ *
+ * <!-- Back button with custom navigation -->
+ * <app-back-button
+ *   [link]="customBackFunction"
+ *   preventDefault="true">
+ * </app-back-button>
+ *
+ * <!-- Back button that navigates to specific URL -->
+ * <app-back-button
+ *   link="/dashboard"
+ *   direction="forward">
+ * </app-back-button>
+ * ```
+ *
+ * @mermaid
+ * sequenceDiagram
+ *   participant U as User
+ *   participant BBC as BackButtonComponent
+ *   participant L as Location Service
+ *   participant E as Event System
+ *   participant C as Custom Function
+ *
+ *   U->>BBC: Click back button
+ *   BBC->>BBC: backToPage()
+ *
+ *   alt preventDefault is true
+ *     BBC->>BBC: handleEndNavigation()
+ *     BBC->>E: Emit navigation event
+ *     Note over BBC: Navigation prevented
+ *   else preventDefault is false
+ *     BBC->>BBC: handleEndNavigation()
+ *     BBC->>E: Emit navigation event
+ *
+ *     alt No custom link
+ *       BBC->>L: location.back()
+ *       L->>L: Navigate to previous page
+ *     else Custom function provided
+ *       BBC->>C: Execute custom function
+ *       C->>C: Handle custom navigation
+ *     else URL string provided
+ *       Note over BBC: Navigate to URL (implementation dependent)
+ *     end
+ *   end
+ *
+ * @memberOf app.components
+ */
 @Component({
   selector: 'app-back-button',
   templateUrl: './back-button.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrls: ['./back-button.component.scss'],
-  imports: [IonButton, IonIcon],
+  imports: [ForAngularCommonModule],
   standalone: true,
-
 })
 export class BackButtonComponent implements OnInit {
+  /**
+   * @description Reference to the component's native DOM element.
+   * @summary Provides direct access to the native DOM element of the component through Angular's
+   * ViewChild decorator. This reference can be used to manipulate the DOM element directly,
+   * apply custom styles, or access native element properties and methods. The element is
+   * identified by the 'component' template reference variable.
+   * @type {ElementRef}
+   */
+  @ViewChild('component', { read: ElementRef, static: true })
+  component!: ElementRef;
+
+  /**
+   * @description Flag to enable or disable dark mode support for the component.
+   * @summary When enabled, the component will automatically detect the system's dark mode
+   * preference using the media service and apply appropriate styling classes. This flag
+   * controls whether the component should respond to dark mode changes and apply the
+   * dark palette class to its DOM element. By default, dark mode support is disabled.
+   * @protected
+   * @type {boolean}
+   * @default false
+   */
+  @Input()
+  protected isDarkMode: boolean = false;
 
   /**
    * @description Controls whether default navigation behavior is prevented.
@@ -109,7 +223,7 @@ export class BackButtonComponent implements OnInit {
    * @memberOf BackButtonComponent
    */
   @Input()
-  color: PredefinedColors = "primary";
+  color: PredefinedColors = 'primary';
 
   /**
    * @description Color of the toolbar containing the back button.
@@ -148,13 +262,25 @@ export class BackButtonComponent implements OnInit {
   private location: Location = inject(Location);
 
   /**
+   * @description Angular Location service.
+   * @summary Injected service that provides access to the browser's URL and history.
+   * This service is used for interacting with the browser's history API, allowing
+   * for back navigation and URL manipulation outside of Angular's router.
+   *
+   * @private
+   * @type {Location}
+   * @memberOf CrudFormComponent
+   */
+  private mediaService: NgxMediaService = inject(NgxMediaService);
+
+  /**
    * @description Creates an instance of BackButtonComponent.
    * @summary Initializes a new BackButtonComponent
    *
    * @memberOf BackButtonComponent
    */
   constructor() {
-    addIcons({chevronBackOutline})
+    addIcons({ chevronBackOutline });
   }
 
   /**
@@ -186,9 +312,13 @@ export class BackButtonComponent implements OnInit {
   ngOnInit(): void {
     this.preventDefault = stringToBoolean(this.preventDefault);
     this.emitEvent = stringToBoolean(this.emitEvent);
-    if(this.toolbarColor)
-      this.color = this.toolbarColor as PredefinedColors;
-    // this.color = this.toolbarColor ? 'light' : 'primary';
+    this.mediaService
+      .isDarkMode()
+      .pipe(shareReplay({ bufferSize: 1, refCount: true }))
+      .subscribe((isDark) => {
+        this.isDarkMode = isDark;
+      });
+    if (this.toolbarColor) this.color = this.toolbarColor as PredefinedColors;
     this.showText = stringToBoolean(this.showText);
 
     // if(this.showText)
@@ -231,15 +361,12 @@ export class BackButtonComponent implements OnInit {
    *
    * @memberOf BackButtonComponent
    */
-  async backToPage(forceRefresh = false): Promise<boolean|void> {
-    if(this.preventDefault)
-      return this.handleEndNavigation(forceRefresh);
+  async backToPage(forceRefresh: boolean = false): Promise<boolean | void> {
+    if (this.preventDefault) return this.handleEndNavigation(forceRefresh);
 
     this.handleEndNavigation(forceRefresh);
-    if(!this.link)
-      return this.location.back();
-    if(this.link instanceof Function)
-      return await this.link();
+    if (!this.link) return this.location.back();
+    if (this.link instanceof Function) return (await this.link()) as void;
   }
 
   /**
@@ -264,8 +391,10 @@ export class BackButtonComponent implements OnInit {
    * @memberOf BackButtonComponent
    */
   handleEndNavigation(forceRefresh: boolean): void {
-    if(this.emitEvent)
-      windowEventEmitter(EventConstants.BACK_BUTTON_NAVIGATION, {refresh: forceRefresh});
+    if (this.emitEvent)
+      windowEventEmitter(ComponentEventNames.BackButtonClickEvent, {
+        refresh: forceRefresh,
+      });
   }
 
   /**
@@ -292,7 +421,7 @@ export class BackButtonComponent implements OnInit {
    * @memberOf BackButtonComponent
    */
   @HostListener('window:BackButtonForceNavigationEvent', ['$event'])
-  handleModelPageEvent(): Promise<boolean|void> {
+  handleModelPageEvent(): Promise<boolean | void> {
     return this.backToPage();
   }
 }

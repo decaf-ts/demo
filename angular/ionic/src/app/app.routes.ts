@@ -3,60 +3,10 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
-    pathMatch: 'full',
+    loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
   },
   {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
-  },
-  {
-    path: 'dashboard',
-
-    loadComponent: () => import('./pages/dashboard/dashboard.page').then(m => m.DashboardPage)
-  },
-  {
-    path: 'crud',
-    loadComponent: () => import('./pages/crud/crud.page').then(m => m.CrudPage)
-  },
-  {
-    path: 'crud/:operation',
-    loadComponent: () => import('./pages/crud/crud.page').then(m => m.CrudPage)
-  },
-  {
-    path: 'fieldset',
-    loadComponent: () => import('./pages/fieldset/fieldset.page').then(m => m.FieldsetPage)
-  },
-  {
-    path: 'steps-form',
-    loadComponent: () => import('./pages/steps-form/steps-form.page').then( m => m.StepsFormPage)
-  },
-  {
-    path: 'model',
-    loadComponent: () => import('./pages/model/model.page').then(m => m.ModelPage)
-  },
-  {
-    path: 'model/:modelName/:operation',
-    loadComponent: () => import('./pages/model/model.page').then(m => m.ModelPage)
-  },
-  {
-    path: 'model/:modelName/:operation/:modelId',
-    loadComponent: () => import('./pages/model/model.page').then(m => m.ModelPage)
-  },
-  {
-    path: 'list',
-    loadComponent: () => import('./pages/list/list.page').then(m => m.ListPage)
-  },
-  {
-    path: 'list/:type',
-    loadComponent: () => import('./pages/list/list.page').then(m => m.ListPage)
-  },
-  {
-    path: 'list-model',
-    loadComponent: () => import('./pages/list-model/list-model.page').then(m => m.ListModelPage)
-  },
-  {
-    path: 'list-model/:type',
-    loadComponent: () => import('./pages/list-model/list-model.page').then(m => m.ListModelPage)
-  },
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
+  }
 ];

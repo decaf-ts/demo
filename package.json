@@ -86,7 +86,11 @@
   "devDependencies": {
     "@decaf-ts/utils": "latest",
     "@faker-js/faker": "^10.0.0",
+<<<<<<< Updated upstream
     "@types/jest": "^30.0.0",
+=======
+    "@ionic/angular-toolkit": "^12.3.0",
+>>>>>>> Stashed changes
     "@types/node": "^24.5.0"
   },
   "dependencies": {
@@ -97,10 +101,13 @@
     "@decaf-ts/for-angular": "latest",
     "@decaf-ts/logging": "latest",
     "@decaf-ts/ui-decorators": "latest",
+<<<<<<< Updated upstream
     "reflect-metadata": "^0.2.2"
   },
   "overrides": {
     "minimatch": "^10.2.2",
     "test-exclude": "7.0.1"
+=======
+>>>>>>> Stashed changes
   }
 }

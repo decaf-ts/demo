@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxBaseComponent, FlexPositions, StringOrBoolean } from '@decaf-ts/for-angular';
-
+import { ElementSizes } from '@decaf-ts/ui-decorators';
+import {
+  ForAngularComponentsModule,
+  NgxComponentDirective,
+  ElementSize,
+  FlexPosition,
+  StringOrBoolean,
+  stringToBoolean,
+} from '@decaf-ts/for-angular';
 
 /**
  * @description A flexible container component for layout management.
@@ -11,11 +18,11 @@ import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxBaseCompo
  *
  * @param {StringOrBoolean} hasSideMenu - Controls whether the side menu is enabled
  * @param {string} className - Additional CSS classes to apply to the container
- * @param {FlexPositions} position - Flex positioning of container content
+ * @param {FlexPosition} position - Flex positioning of container content
  * @param {StringOrBoolean} flex - Whether to use flex layout
  * @param {StringOrBoolean} expand - Whether the container should expand to fill available space
  * @param {StringOrBoolean} fullscreen - Whether the container should take up full viewport height
- * @param {ElementSizes} size - Size preset for the container width
+ * @param {ElementSize} size - Size preset for the container width
  *
  * @class ContainerComponent
  * @memberOf module:DecafComponents
@@ -25,10 +32,12 @@ import { ForAngularComponentsModule, ElementSizes, stringToBoolean, NgxBaseCompo
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
   standalone: true,
-  imports: [ForAngularComponentsModule]
+  imports: [ForAngularComponentsModule],
 })
-export class ContainerComponent extends NgxBaseComponent implements OnInit {
-
+export class ContainerComponent
+  extends NgxComponentDirective
+  implements OnInit
+{
   /**
    * @description Controls whether the side menu is enabled for this container.
    * @summary When set to true, this property enables the Ionic menu controller, allowing
@@ -48,12 +57,12 @@ export class ContainerComponent extends NgxBaseComponent implements OnInit {
    * is enabled. Options include 'center', 'top', 'bottom', 'left', 'right', and combinations
    * like 'top-left'. This property is only applied when the flex property is true.
    *
-   * @type {FlexPositions}
+   * @type {FlexPosition}
    * @default 'center'
    * @memberOf ContainerComponent
    */
   @Input()
-  position: FlexPositions = 'center';
+  position: FlexPosition = 'center';
 
   /**
    * @description Determines if the container should use flex layout.
@@ -68,18 +77,18 @@ export class ContainerComponent extends NgxBaseComponent implements OnInit {
   @Input()
   flex: StringOrBoolean = true;
 
-  /**
-   * @description Determines if the container should expand to fill available space.
-   * @summary When true, applies expansion classes for width, making the container
-   * take up all available horizontal space. When false, the container's width is
-   * determined by the size property.
-   *
-   * @type {StringOrBoolean}
-   * @default false
-   * @memberOf ContainerComponent
-   */
-  @Input()
-  expand: StringOrBoolean = false;
+  // /**
+  //  * @description Determines if the container should expand to fill available space.
+  //  * @summary When true, applies expansion classes for width, making the container
+  //  * take up all available horizontal space. When false, the container's width is
+  //  * determined by the size property.
+  //  *
+  //  * @type {StringOrBoolean}
+  //  * @default false
+  //  * @memberOf ContainerComponent
+  //  */
+  // @Input()
+  // expand: StringOrBoolean = false;
 
   /**
    * @description Determines if the container should take up the full viewport height.
@@ -92,20 +101,20 @@ export class ContainerComponent extends NgxBaseComponent implements OnInit {
    * @memberOf ContainerComponent
    */
   @Input()
-  fullscreen: StringOrBoolean = true;
+  fullscreen: StringOrBoolean = false;
 
   /**
    * @description Size preset for the container width.
    * @summary Controls the width of the container using predefined size classes.
    * Options include 'block', 'small', 'medium', 'large', and others defined in
-   * the ElementSizes type. This property is ignored when expand is true.
+   * the ElementSize type. This property is ignored when expand is true.
    *
-   * @type {ElementSizes}
-   * @default 'block'
+   * @type {ElementSize}
+   * @default 'expand'
    * @memberOf ContainerComponent
    */
   @Input()
-  size: ElementSizes = 'block';
+  size: ElementSize = ElementSizes.expand;
 
   /**
    * @description Creates an instance of ContainerComponent.
@@ -145,16 +154,17 @@ export class ContainerComponent extends NgxBaseComponent implements OnInit {
    * @memberOf ContainerComponent
    */
   ngOnInit() {
-    this.expand = stringToBoolean(this.expand);
+    // this.expand = stringToBoolean(this.expand);
     this.flex = stringToBoolean(this.flex);
 
-    this.size += ` dcf-width-${this.expand ? 'expand' : this.size}`;
-
-    if(this.flex && !this.className.includes('dcf-flex-'))
+    if (this.flex && !this.className?.includes('dcf-flex-'))
       this.className += ` dcf-flex dcf-flex-${this.position}`;
 
     this.fullscreen = stringToBoolean(this.fullscreen);
-    if(this.fullscreen)
-      this.className += ' dcf-height-viewport';
+    if (this.fullscreen) this.className += ' dcf-height-viewport';
+
+    // this.size += ` dcf-width-${this.expand ? 'expand' : this.size}`;
+    // this.size = `dcf-width-${this.size}`;
+    // this.className += `${this.size}`
   }
 }

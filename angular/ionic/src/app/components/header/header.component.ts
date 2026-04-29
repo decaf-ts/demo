@@ -1,49 +1,147 @@
-import { Component,  inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CrudOperations, OperationKeys } from '@decaf-ts/db-decorators';
-import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, MenuController } from '@ionic/angular/standalone';
-import { RouterService } from 'src/app/services/router.service';
-import { StringOrBoolean,getWindow, stringToBoolean, NgxBaseComponent, FunctionLike } from '@decaf-ts/for-angular';
-import { saveOutline, folderOpenOutline, createOutline } from "ionicons/icons";
+import { ElementSizes } from '@decaf-ts/ui-decorators';
+import {
+  IonButton,
+  IonButtons,
+  IonHeader,
+  IonToolbar,
+  MenuController,
+} from '@ionic/angular/standalone';
+
+import {
+  ElementSize,
+  getWindowDocument,
+  IMenuItem,
+  NgxComponentDirective,
+} from '@decaf-ts/for-angular';
 import { BackButtonComponent } from '../back-button/back-button.component';
-import { addIcons } from 'ionicons';
-import { TranslatePipe } from '@ngx-translate/core';
+import { ContainerComponent } from '../container/container.component';
+import { LogoComponent } from '../logo/logo.component';
 
 /**
  * @description Header component for application pages.
  * @summary The HeaderComponent provides a consistent header across the application with
  * configurable elements such as title, back button, menu button, and CRUD operation controls.
- * It extends NgxBaseComponent to inherit common functionality and implements OnInit for
+ * It extends NgxComponentDirective to inherit common functionality and implements OnInit for
  * initialization logic. This component is designed to be flexible and adaptable to different
  * page contexts, supporting various navigation patterns and visual styles.
  *
  * @class HeaderComponent
- * @extends {NgxBaseComponent}
+ * @extends {NgxComponentDirective}
  * @implements {OnInit}
  */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [TranslatePipe, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonMenuButton, IonIcon,  BackButtonComponent],
-  schemas: [],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    ContainerComponent,
+    LogoComponent
+  ],
   standalone: true,
-
 })
-export class HeaderComponent extends NgxBaseComponent implements OnInit {
-
+/**
+ * @class HeaderComponent
+ * @extends {NgxComponentDirective}
+ * @implements {OnInit}
+ *
+ * @description A configurable header component for Angular applications.
+ * @summary Provides a flexible header component with support for menu buttons, back navigation,
+ * logo display, color scheme toggling, and responsive design. The component includes built-in
+ * support for dark mode, sticky/floating behavior, and customizable styling options.
+ *
+ * @example
+ * ```html
+ * <app-header
+ *   [title]="'My Application'"
+ *   [showMenuButton]="true"
+ *   [showBackButton]="false"
+ *   [backgroundColor]="'primary'"
+ *   [sticky]="true"
+ *   [showThemeToggleButton]="true">
+ * </app-header>
+ * ```
+ *
+ * @remarks
+ * This component automatically handles user authentication by checking for a logged-in user
+ * and redirecting to the login page if no user is found. It also provides responsive behavior
+ * with separate mobile-specific styling options.
+ *
+ * Key features:
+ * - Menu button with configurable position
+ * - Back button navigation
+ * - Logo display
+ * - Color scheme toggle (light/dark mode)
+ * - Sticky and floating header modes
+ * - Responsive design with mobile-specific options
+ * - Customizable colors and layout
+ *
+ * @memberOf app.components
+ */
+/**
+ * @description Header component for displaying page titles, navigation controls, and branding elements.
+ * @summary A versatile header component that provides a consistent navigation experience across the application.
+ * It supports features such as menu buttons, back navigation, logo display, color scheme toggling, and
+ * responsive behavior for mobile devices. The component can be customized through various input properties
+ * to match different page requirements and design patterns.
+ *
+ * @remarks
+ * This component extends NgxComponentDirective to inherit common functionality and implements OnInit
+ * for initialization logic. It integrates with Ionic components for native mobile appearance and behavior.
+ *
+ * Key Features:
+ * - Configurable menu and back button controls
+ * - Support for logo and title display
+ * - Responsive layout with mobile-specific properties
+ * - Color scheme toggling between light and dark modes
+ * - Sticky and floating header variants
+ * - Authentication-aware with automatic login redirect
+ * - Customizable colors, alignment, and border settings
+ *
+ * @example
+ * ```typescript
+ * <app-header
+ *   [title]="'Dashboard'"
+ *   [showMenuButton]="true"
+ *   [showBackButton]="false"
+ *   [backgroundColor]="'primary'"
+ *   [showThemeToggleButton]="true">
+ * </app-header>
+ * ```
+ *
+ * @export
+ * @class HeaderComponent
+ * @extends {NgxComponentDirective}
+ * @implements {OnInit}
+ */
+export class HeaderComponent extends NgxComponentDirective implements OnInit {
   /**
-   * @description The current CRUD operation being performed.
-   * @summary Indicates which CRUD operation is currently active. This affects the UI state
-   * and which operation buttons are highlighted or disabled.
-   *
-   * @type {operations}
-   * @default OperationKeys.READ
-   * @memberOf HeaderComponent
+   * @description Overrides the current CRUD operation context for this header instance.
+   * @summary Optional input that allows pages to specify the active operation (CREATE, READ, UPDATE, DELETE)
+   * which can alter header controls (buttons, visibility) and routing behavior. When undefined the
+   * component will inherit or resolve the operation from the surrounding context or parent component.
+   * @type {OperationKeys | undefined}
+   * @default undefined
    */
   @Input()
-  currentOperation: OperationKeys = OperationKeys.READ;
+  override operation: OperationKeys | undefined = undefined;
 
-
+  /**
+   * @description Available CRUD operations for this component instance.
+   * @summary Defines which CRUD operations (Create, Read, Update, Delete) are available
+   * for this component. This affects which operations can be performed on the data and
+   * which operation buttons are displayed in the UI. By default, only READ operations are enabled.
+   * @type {CrudOperations[]}
+   * @default [OperationKeys.READ]
+   * @memberOf module:lib/engine/NgxComponentDirective
+   */
+  @Input()
+  override operations: CrudOperations[] = [];
 
   /**
    * @description The identifier of the current operation model.
@@ -64,12 +162,12 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * applications or any interface that uses a slide-in menu for navigation.
    * The menu controller is automatically enabled/disabled based on this property.
    *
-   * @type {StringOrBoolean}
-   * @default false
+   * @type {boolean}
+   * @default true
    * @memberOf HeaderComponent
    */
   @Input()
-  showMenuButton: StringOrBoolean = false;
+  showMenuButton: boolean = true;
 
   /**
    * @description Position of the menu button in the header.
@@ -85,7 +183,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
 
   /**
    * @description The title text displayed in the header.
-   * @summary Sets the main title text that appears in the center of the header.
+   * @summary Sets the main title text
    * This typically represents the name of the current page or section.
    *
    * @type {string}
@@ -93,77 +191,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   @Input()
   title?: string;
-
-  /**
-   * @description URL or path to the logo image.
-   * @summary When provided, displays a logo image in the header instead of or alongside
-   * the title text. This can be used for branding purposes.
-   *
-   * @type {string}
-   * @default ""
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  logo: string = "";
-
-  /**
-   * @description Controls whether the header expands to fill available space.
-   * @summary When set to true, the header will expand vertically to fill available space.
-   * This can be useful for creating larger headers with more content.
-   *
-   * @type {StringOrBoolean}
-   * @default false
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  expand: StringOrBoolean = true;
-
-  /**
-   * @description Controls the alignment of the title text.
-   * @summary Specifies how the title text should be aligned within the header.
-   * Common values include 'start', 'center', and 'end'.
-   *
-   * @type {string}
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  titleAligment?: string;
-
-  /**
-   * @description Controls whether the header has a border.
-   * @summary When set to true, the header will display a border at the bottom.
-   * Setting to false removes the border for a more seamless design.
-   *
-   * @type {StringOrBoolean}
-   * @default true
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  border: StringOrBoolean = true;
-
-  /**
-   * @description Controls whether the back button is displayed.
-   * @summary When set to true, the component will display a back button that allows
-   * users to navigate to the previous page. This is particularly useful for
-   * multi-level navigation flows.
-   *
-   * @type {StringOrBoolean}
-   * @default false
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  showBackButton: StringOrBoolean = false;
-
-  /**
-   * @description Custom navigation target for the back button.
-   * @summary Specifies a custom URL or function to execute when the back button is clicked.
-   * This overrides the default behavior of navigating to the previous page in history.
-   *
-   * @type {string | FunctionLike}
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  backButtonLink?: string | FunctionLike;
 
   /**
    * @description Background color of the header.
@@ -175,44 +202,33 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   @Input()
-  backgroundColor: string = "white";
+  color:
+    | 'white'
+    | 'danger'
+    | 'dark'
+    | 'light'
+    | 'medium'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'tertiary'
+    | 'warning'
+    | string
+    | undefined = 'white';
+
 
   /**
-   * @description Background color of the header on mobile devices.
-   * @summary Sets a different background color for the header when viewed on mobile devices.
-   * This allows for responsive design adjustments based on screen size. Uses Ionic's predefined
-   * color palette to maintain consistency with the application's color scheme.
+   * @description Size preset for the container width.
+   * @summary Controls the width of the container using predefined size classes.
+   * Options include 'block', 'small', 'medium', 'large', and others defined in
+   * the ElementSize type. This property is ignored when expand is true.
    *
-   * @type {string}
-   * @default ""
-   * @memberOf HeaderComponent
+   * @type {ElementSize}
+   * @default 'expand'
    */
   @Input()
-  mobileBackgroundColor: string = "";
+  size: ElementSize = ElementSizes.expand;
 
-  /**
-   * @description Position of the menu button on mobile devices.
-   * @summary Determines whether the menu button appears at the start or end of the header
-   * when viewed on mobile devices. This allows for responsive layout adjustments.
-   *
-   * @type {'start' | 'end'}
-   * @default 'end'
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  mobileButtonMenuSlot: 'start' | 'end' = 'end';
-
-  /**
-   * @description Controls whether the header content is centered.
-   * @summary When set to true, the header content (title, buttons) will be centered
-   * horizontally. This affects the overall layout and appearance of the header.
-   *
-   * @type {StringOrBoolean}
-   * @default false
-   * @memberOf HeaderComponent
-   */
-  @Input()
-  center: StringOrBoolean = false;
 
   /**
    * @description Controls whether the header has a translucent effect.
@@ -220,12 +236,14 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * allowing content behind it to be partially visible. This creates a modern,
    * layered UI effect.
    *
-   * @type {StringOrBoolean}
+   * @type {boolean}
    * @default false
    * @memberOf HeaderComponent
    */
   @Input()
-  translucent: StringOrBoolean = false;
+  translucent: boolean = true;
+
+  menu: IMenuItem[] = [];
 
   /**
    * @description Service for handling routing operations.
@@ -237,60 +255,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @type {RouterService}
    * @memberOf HeaderComponent
    */
-  private routerService: RouterService  = inject(RouterService);
-
-  /**
-   * @description Root component of the Decaf-ts for Angular application
-   * @summary This component serves as the main entry point for the application.
-   * It sets up the navigation menu, handles routing events, and initializes
-   * the application state. It also manages the application title and menu visibility.
-   *
-   * @private
-   * @type {MenuController}
-   * @memberOf HeaderComponent
-   */
   private menuController: MenuController = inject(MenuController);
-
-  /**
-   * @description Color of back button icon.
-   * @summary Sets the color of the back button icon using Ionic's predefined color palette.
-   * This allows the back button icon to match the application's color scheme.
-   *
-   * @type {string}
-   * @memberOf HeaderComponent
-   */
-  backButtonColor: string = 'translucent';
-
-
-  /**
-   * @description Stores the original background color value before theme modifications.
-   * @summary Preserves the initial backgroundColor input value before any theme-based
-   * modifications are applied during component initialization. This allows the component
-   * to restore or reference the original color value when switching between themes
-   * or when resetting the header appearance to its default state.
-   *
-   * @type {string}
-   * @private
-   * @memberOf HeaderComponent
-   */
-  private initialBackgroundColor!: string;
-
-
-
-  /**
-   * @description Reference to CRUD operation constants for template usage.
-   * @summary Exposes the OperationKeys enum to the component template, enabling
-   * conditional rendering and behavior based on operation types. This protected
-   * readonly property ensures that template logic can access operation constants
-   * while maintaining encapsulation and preventing accidental modification.
-   *
-
-   * @protected
-   * @readonly
-   * @memberOf CrudFormComponent
-   */
-  protected readonly OperationKeys = OperationKeys;
-
 
   /**
    * @description Creates an instance of HeaderComponent.
@@ -300,141 +265,55 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   constructor() {
-    super("HeaderComponent");
-    addIcons({ saveOutline, folderOpenOutline, createOutline });
+    super('HeaderComponent');
   }
 
- /**
-  * @description Initializes the component after Angular first displays the data-bound properties.
-  * @summary Sets up the component by processing boolean inputs, enabling/disabling the menu controller,
-  * and building the CSS class string based on the component's properties. This method prepares
-  * the component for user interaction by ensuring all properties are properly initialized.
-  *
-  * @mermaid
-  * sequenceDiagram
-  *   participant A as Angular Lifecycle
-  *   participant H as HeaderComponent
-  *
-  *   A->>H: ngOnInit()
-  *   H->>M: enable(showMenuButton)
-  *   H->>H: Process showBackButton
-  *   H->>H: Process center
-  *   H->>H: Process translucent
-  *   H->>H: Process expand
-  *   H->>H: Process border
-  *   H->>H: Build CSS class string
-  *
-  * @returns {Promise<void> }
-  * @memberOf HeaderComponent
-  */
+  /**
+   * @description Initializes the component after Angular first displays the data-bound properties.
+   * @summary Sets up the component by processing boolean inputs, enabling/disabling the menu controller,
+   * and building the CSS class string based on the component's properties. This method prepares
+   * the component for user interaction by ensuring all properties are properly initialized.
+   *
+   * @mermaid
+   * sequenceDiagram
+   *   participant A as Angular Lifecycle
+   *   participant H as HeaderComponent
+   *
+   *   A->>H: ngOnInit()
+   *   H->>M: enable(showMenuButton)
+   *   H->>H: Process showBackButton
+   *   H->>H: Process translucent
+   *   H->>H: Process expand
+   *   H->>H: Build CSS class string
+   *
+   * @returns {Promise<void> }
+   * @memberOf HeaderComponent
+   */
   async ngOnInit(): Promise<void> {
-    this.initialBackgroundColor = this.backgroundColor;
-    this.observeThemeChange();
-    this.showBackButton = stringToBoolean(this.showBackButton);
-    this.showMenuButton = stringToBoolean(this.showMenuButton);
-    if(this.showMenuButton)
-      this.menuController.enable(true);
-    this.center = stringToBoolean(this.center);
-    this.translucent = stringToBoolean(this.translucent);
-    this.expand = stringToBoolean(this.expand);
-    this.border = stringToBoolean(this.border);
-    if(this.center)
-      this.className += ' dcf-flex';
-    if(!this.border)
-      this.className += ` ion-no-border`;
-    this.getRoute();
-    if(this.backgroundColor === 'white') {
-      this.backButtonColor = 'medium';
+    this.initialized = true;
+    this.menu = [
+      {
+        label: 'Modules',
+      },
+      {
+        label: 'Features',
+      },
+      {
+        label: 'Documentation',
+      },
+      {
+        label: 'Community',
+      }
+    ]
+  }
+
+
+  async scrollToSection(id: string): Promise<void> {
+    const document = getWindowDocument() as Document;
+    const element = document.querySelector(`#${id}`);
+    console.log('Scrolling to section:', id, element);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-
-  }
-
-  /**
-   * @description Observes system theme changes and updates header appearance accordingly.
-   * @summary Sets up a media query listener to detect changes in the user's color scheme preference
-   * (light/dark mode). When the theme changes, automatically adjusts the header's background color
-   * by either restoring the original color for light mode or clearing it for dark mode. This ensures
-   * the header appearance remains consistent with the system theme preferences.
-   *
-   * @private
-   * @return {void}
-   * @memberOf HeaderComponent
-   */
-  private observeThemeChange(): void {
-    const win = getWindow() as Window;
-    const colorSchemePreference = win.matchMedia('(prefers-color-scheme: dark)');
-    this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
-    colorSchemePreference.addEventListener('change', () => {
-        this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
-    });
-  }
-
-  /**
-   * @description Navigates to a different operation for the current model.
-   * @summary This method constructs a navigation URL based on the model page,
-   * the requested operation, and optionally a model ID. It then uses the router
-   * service to navigate to the constructed URL. This is typically used when
-   * switching between different CRUD operations on a model.
-   *
-   * @param {string} operation - The operation to navigate to (e.g., 'create', 'read', 'update', 'delete')
-   * @param {string} [id] - Optional model ID to include in the navigation URL
-   * @return {Promise<boolean>} A promise that resolves to true if navigation was successful
-   *
-   * @mermaid
-   * sequenceDiagram
-   *   participant U as User
-   *   participant H as HeaderComponent
-   *   participant R as RouterService
-   *
-   *   U->>H: Click operation button
-   *   H->>H: changeOperation(operation, id)
-   *   H->>H: Construct navigation URL
-   *   H->>R: navigateTo(page)
-   *   R-->>H: Return navigation result
-   *   H-->>U: Display new operation view
-   *
-   * @memberOf HeaderComponent
-   */
-  async changeOperation(operation: string, id?: string): Promise<boolean> {
-    let page = `${this.route}/${operation}/`.replace('//', '/');
-    if(this.modelId || id)
-        page = `${page}/${this.modelId || id}`;
-    return this.routerService.navigateTo(page.replace('//', '/'))
-  }
-
-  /**
-   * @description Determines if a specific operation is allowed in the current context.
-   * @summary This method checks if an operation is included in the list of available
-   * CRUD operations and if it's not the current operation (unless the current operation
-   * is CREATE). This is used to enable/disable or show/hide operation buttons in the UI.
-   *
-   * @param {string} operation - The operation to check
-   * @return {boolean} True if the operation is allowed, false otherwise
-   *
-   * @mermaid
-   * sequenceDiagram
-   *   participant H as HeaderComponent
-   *   participant U as UI
-   *
-   *   U->>H: isAllowed(operation)
-   *   alt operations is undefined
-   *     H-->>U: Return false
-   *   else
-   *     H->>H: Check if operation is in operations
-   *     H->>H: Check if operation is not current operation
-   *     H-->>U: Return result
-   *   end
-   *
-   * @memberOf HeaderComponent
-   */
-  isAllowed(operation: string): boolean {
-    if(!this.operations)
-      return false;
-    return this.operations.includes(operation as CrudOperations) && (this.currentOperation !== OperationKeys.CREATE && this.currentOperation.toLowerCase() !== operation);
-  }
-
-
-  getBackButtonSlot(): string {
-    return this.modelId && ![OperationKeys.READ,  OperationKeys.UPDATE].includes(this.currentOperation as OperationKeys) ? 'start' : 'end';
   }
 }

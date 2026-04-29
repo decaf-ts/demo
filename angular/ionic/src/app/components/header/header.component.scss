@@ -1,95 +1,69 @@
-.dcf-hidden {
-  display: none;
-}
+$transition-duration: 0.15s;
+
+$dcf-width-s: 576px;
+$dcf-width-m: 768px;
+$dcf-width-l: 992px;
+$dcf-width-xl: 1200px;
+$dcf-width-2xl: 1400px;
 
 ion-header {
-
-  &.dcf-mobile-header {
-    box-shadow: none !important;
-    border-bottom: 1px solid var(--ion-color-gray-2) !important;
-   .dcf-mobile-logo { padding: .5rem .75rem; }
-  }
-
-  &.white {
-    background-color: white !important;
-    box-shadow: none !important;
-    border-bottom: 1px solid var(--ion-color-gray-2) !important;
-
-    @media(max-width: 680px) {
-      padding-right: .25rem;
-      padding-left:  .25rem;
-    }
-
-    svg { stroke: var(--ion-color-gray-7) !important; }
-
-    &.ion-color-primary,
-    &.ion-color-secondary,
-    &.ion-color-tertiary,
-    &.ion-color-danger,
-    &.ion-color-warning,
-    &.ion-color-success,
-    &.ion-color-dark {
-      svg { stroke: var(--ion-color-gray-1) !important; }
-      ion-icon  { color: var(--ion-color-gray-7) !important; }
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    svg { stroke: var(--ion-color-gray-1); }
-    .ion-color-primary,
-    .ion-color-secondary,
-    .ion-color-tertiary,
-    .ion-color-danger,
-    .ion-color-warning,
-    .ion-color-success,
-    .ion-color-dark {
-      svg { stroke: var(--ion-color-gray-1); }
-      ion-icon  { color: var(--ion-color-gray-1); }
-    }
-  }
-
-.dcf-header-container {
-  padding: 0px;
-  margin: 0px;
   width: 100%;
-
-  &:not(.dcf-width-expand ) {
-    max-width: 1280px;
-    ion-toolbar {  padding: 0rem 1rem !important; }
+  color: var(--dcf-text-color);
+  ion-toolbar {
+    padding: 0.5rem 0px;
   }
-  &.dcf-width-expand {
-    flex: 1;
-    min-width: 1px;
-    @media(min-width:  768px) {
-      ion-toolbar {  padding: 0rem 2rem; }
+
+  ion-button {
+    --background: rgba(255, 255, 255, 0.2);
+    --background-hover: rgba(255, 255, 255, 0.2);
+    --background-activated: rgba(255, 255, 255, 0.2);
+    --background-focused: rgba(255, 255, 255, 0.2);
+    color: white !important;
+    font-size: 0.825rem !important;
+    text-transform: none;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+  ion-menu-button {
+    ::ng-deep svg {
+      transform: translateY(2.5px);
     }
   }
+
+  ion-title {
+    font-weight: 600;
+    font-size: 1.15rem !important;
+    color: var(--dcf-color-gray-8) !important;
+  }
 }
 
-ion-title {
-  font-size: 1.025rem !important;
-}
-
-&.dcf-flex {
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  .navbar {
     display: flex;
-    justify-content: center;
+    gap: 1.5rem;
 
-    &.primary {
-      background: var(--ion-color-primary);
-    }
-    &.secondary {
-      background: var(--ion-color-secondary);
-    }
-    &.tertiary {
-      background: var(--ion-color-tertiary);
-    }
-
-    &.transparent {
-      background-color: transparent;
-      box-shadow: none !important;
-      border-bottom: 1px solid var(--ion-color-gray-2);
-
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 0.825rem;
+      font-weight: 500 !important;
+      &:hover {
+        filter: brightness(0.9);
+        cursor: pointer;
+      }
+      .active {
+        color: var(--dcf-color-primary);
+      }
     }
   }
 }
-

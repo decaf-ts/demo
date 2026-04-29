@@ -1,0 +1,28 @@
+<section [class.muted]="backgroundColor === 'muted'">
+  <app-container size="2xlarge">
+    <div class="dcf-flex dcf-grid dcf-child-width-1-2@m">
+      <div class="dcf-flex dcf-flex-middle">
+        <div class="info">
+          <div class="meta">{{ meta }}</div>
+          <h2 class="title">{{ title }}</h2>
+          <p class="description">{{ description }}</p>
+          <ion-button color="primary" shape="round" size="large">{{
+            buttonText
+          }}</ion-button>
+        </div>
+      </div>
+      <div [class.first]="demoSide === 'left'">
+        <div class="demo">
+          <div>
+            @if (demoIcon) {
+              <div class="icon-container">
+                <span [class]="'ti ' + demoIcon"></span>
+              </div>
+              <p>{{ demoDescription }}</p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-container>
+</section>

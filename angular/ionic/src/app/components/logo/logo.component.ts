@@ -1,7 +1,7 @@
-import { Component, Input, OnInit  } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { ElementPosition, NgxMediaService } from '@decaf-ts/for-angular';
 import { IonImg } from '@ionic/angular/standalone';
-import { getWindow } from '@decaf-ts/for-angular';
-
+import { shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-logo',
@@ -9,40 +9,40 @@ import { getWindow } from '@decaf-ts/for-angular';
   styleUrls: ['./logo.component.scss'],
   imports: [IonImg],
   standalone: true,
-
 })
 export class LogoComponent implements OnInit {
+  @Input()
+  className: string = '';
 
   @Input()
-  showAngularLogo = true;
+  logo = '/assets/images/decaf-logo-contrast.svg';
 
   @Input()
-  logo = '/assets/images/decaf-logo.svg';
-
-  @Input()
-  logoContrast = '/assets/images/decaf-logo-lw.svg';
+  logoContrast = '/assets/images/decaf-logo-contrast.svg';
 
   @Input()
   width: number | string = 180;
 
+  mediaService = inject(NgxMediaService);
+
+  @Input()
+  alt?: string;
+
+  @Input()
+  title?: string;
+
+  @Input()
+  position?: Extract<ElementPosition, 'left' | 'right' | 'center'> = 'center';
+
   activeLogo!: string;
 
-  /**
-   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
-   * This method is part of Angular's component lifecycle and is used for any additional initialization tasks.
-   *
-   * @returns {void} This method does not return a value.
-   */
-  ngOnInit(): void {
-    const win = getWindow() as Window;
-    const colorSchemePreference = win.matchMedia('(prefers-color-scheme: dark)');
-    this.activeLogo = colorSchemePreference.matches ? this.logoContrast : this.logo;
-      this.width = `${this.width}`.replace('px','');
-    colorSchemePreference.addEventListener('change', () => {
-      this.activeLogo = colorSchemePreference.matches ? this.logoContrast : this.logo;
-      console.log(this.activeLogo);
-    });
+  async ngOnInit(): Promise<void> {
+    this.mediaService
+      .isDarkMode()
+      .pipe(shareReplay({ bufferSize: 1, refCount: true }))
+      .subscribe((isDark) => {
+        this.activeLogo = (isDark ? this.logoContrast : this.logo) as string;
+      });
 
   }
-
 }

@@ -6,16 +6,8 @@ import { Title } from '@angular/platform-browser';
 import { Platform } from '@ionic/angular';
 import {
   IonApp,
-  IonSplitPane,
-  IonMenu,
   IonContent,
-  IonList,
-  IonMenuToggle,
-  IonItem,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonRouterLink
 } from '@ionic/angular/standalone';
 import * as IonicIcons from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -30,8 +22,6 @@ import {
   DecafRepository,
   DecafRepositoryAdapter
 } from '@decaf-ts/for-angular';
-import { FakerRepository, IMenuItem, SidebarMenu } from '@shared/utils';
-import { CategoryModel, EmployeeModel } from '@shared/models';
 import { LogoComponent } from './components/logo/logo.component';
 
 
@@ -79,20 +69,7 @@ try {
   selector: 'app-root',
   imports: [
     IonApp,
-    IonSplitPane,
-    IonMenu,
-    RouterLink,
-    RouterLinkActive,
-    IonContent,
-    IonList,
-    IonMenuToggle,
-    IonItem,
-    IonIcon,
-    IonLabel,
-    IonRouterLink,
     IonRouterOutlet,
-    TranslateModule,
-    LogoComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -105,12 +82,6 @@ export class AppComponent implements OnInit {
   title = 'Decaf-ts for-angular demo';
 
   /**
-   * @description The menu items for the application's navigation
-   */
-  menu: IMenuItem[] = SidebarMenu;
-
-
-  /**
    * @description Ionic Platform service
    */
   platform: Platform = inject(Platform);
@@ -121,24 +92,10 @@ export class AppComponent implements OnInit {
   router: Router = inject(Router);
 
   /**
-   * @description The currently active menu item
-   */
-  activeItem = '';
-
-  /**
-   * @description The database adapter provider
-   */
-  adapter = inject(DB_ADAPTER_PROVIDER_TOKEN);
-
-  /**
    * @description Flag indicating if the application has been initialized
    */
   initialized = false;
 
-  /**
-   * @description Angular Title service
-   */
-  private titleService: Title = inject(Title);
 
   /**
    * @description disable or enable menu on page
@@ -164,42 +121,6 @@ export class AppComponent implements OnInit {
    * @return {Promise<void>}
    */
   async ngOnInit(): Promise<void> {
-    await this.initializeApp();
-    this.router.events.subscribe(async event => {
-      if (event instanceof NavigationEnd) {
-        const { url } = event;
-        this.disableMenu = url.includes('login');
-        this.setTitle(url.replace('/', '') || "login");
-      }
-      if (event instanceof NavigationStart)
-        removeFocusTrap();
-    });
-  }
-
-  /**
-   * @description Initializes the application
-   * @summary Sets the initialized flag and sets up repositories if in development mode
-   * @return {Promise<void>}
-   */
-  async initializeApp(): Promise<void> {
-    this.initialized = true;
-    const isDevelopment = isDevelopmentMode();
-    if (isDevelopment) {
-      for(const model of [new CategoryModel(), new EmployeeModel()] ) {
-        const repository = new FakerRepository<typeof model>(this.adapter, model);
-        await repository.init();
-      }
-    }
-  }
-
-  /**
-   * @description Sets the application title based on the current page
-   * @summary Updates the document title with the application name and current page
-   * @param {string} page - The current page URL
-   */
-  setTitle(page: string): void {
-    const activeMenu = this.menu.find(item => item?.url?.includes(page));
-    if (activeMenu)
-      this.titleService.setTitle(`${this.title} - ${activeMenu?.title || activeMenu?.label}`);
+   this.initialized = true;
   }
 }
