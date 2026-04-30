@@ -35,5 +35,8 @@
     "sass"
   ],
   "prettier.requireConfig": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
   
 }

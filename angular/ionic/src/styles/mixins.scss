@@ -1,0 +1,8 @@
+@mixin linearGradient($height: 100vh) {
+    background-image: linear-gradient(to bottom right,
+            #9333ea 0%,
+            #ec4899 50%,
+            #fb923c 100%);
+
+    min-height: $height;
+}

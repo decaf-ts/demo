@@ -1,0 +1,20 @@
+<section [class.muted]="backgroundColor === 'muted'">
+  <app-container size="2xlarge">
+    <div class="dcf-flex dcf-flex-center">
+      <div class="dcf-flex ">
+        <div class="info text-center">
+          <div class="meta">{{ meta }}</div>
+          <h1 class="title dcf-text-bold fs-1">{{ title }}</h1>
+          <p class="description">{{ description }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 overflow-x-hidden">
+      <div class="dcf-flex dcf-margin-xlarge-top dcf-margin-xlarge-bottom track">
+        @for(company of companies; track company.title) {
+        <img [src]="company.icon" [alt]="company.title" class="dcf-margin-large-right">
+        }
+      </div>
+    </div>
+  </app-container>
+</section>

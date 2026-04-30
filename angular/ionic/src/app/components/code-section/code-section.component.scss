@@ -1,0 +1,11 @@
+@import 'src/styles/mixins.scss';
+
+.code-section {
+    @include linearGradient(40vh);
+}
+
+ion-button {
+    --border-width: 1px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+}

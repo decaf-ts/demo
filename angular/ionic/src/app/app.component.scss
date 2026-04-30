@@ -1,22 +1,28 @@
-
 ion-split-pane {
-    --side-max-width: 240px;
+  --side-max-width: 240px;
 }
 
 ion-menu {
   ion-content {
     --background: var(--ion-item-background, var(--ion-background-color, #fff)) !important;
   }
+
   border-color: var(--dcf-color-gray-2);
+
   @media (prefers-color-scheme: dark) {
     border-color: var(--dcf-card-background);
-    > *,
-    ion-content { background: var(--ion-item-background, var(--ion-background-color, #fff)) !important; }
+
+    >*,
+    ion-content {
+      background: var(--ion-item-background, var(--ion-background-color, #fff)) !important;
+    }
   }
+
   ion-list {
-    pointer-events: none ;
+    pointer-events: none;
     touch-action: none;
     padding: 0rem .75rem;
+
     ion-list-header,
     .dcf-separator {
       font-weight: 600;
@@ -27,15 +33,21 @@ ion-menu {
 
       margin-top: 1rem;
       cursor: text;
+
       @media (prefers-color-scheme: light) {
         color: var(--ion-color-gray-9) !important;
         border-top: 1px solid var(--dcf-color-gray-1);
       }
+
       @media (prefers-color-scheme: dark) {
         color: var(--ion-color-gray-1) !important;
         border-top: 1px solid var(--dcf-background-color);
       }
-      ion-label { font-size: 0.8125rem !important; }
+
+      ion-label {
+        font-size: 0.8125rem !important;
+      }
+
       ion-icon {
         margin-right: .5rem;
         font-size: 0.975rem !important;
@@ -53,10 +65,13 @@ ion-menu {
           --background: var(--ion-color-gray-2);
           color: var(--dcf-color-gray-9) !important;
         }
+
         &:hover {
           @media (prefers-color-scheme: dark) {
-           --background: rgba(var(--dcf-color-dark-rgb), 0); /* subtle primary tint */
-            --color:  rgba(var(--dcf-color-dark-rgb), 1);
+            --background: rgba(var(--dcf-color-dark-rgb), 0);
+            /* subtle primary tint */
+            --color: rgba(var(--dcf-color-dark-rgb), 1);
+
             ion-label {
               color: var(--dcf-color-dark);
             }
@@ -80,7 +95,7 @@ ion-menu {
           color: #2F2B3DE5 !important;
         }
 
-        ion-icon{
+        ion-icon {
           font-size: 1.375rem !important;
           margin-right: .5rem;
           transform: translateY(-1px);

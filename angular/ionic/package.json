@@ -32,7 +32,7 @@
   },
   "private": true,
   "dependencies": {
-   "@angular-builders/custom-webpack": "^20.0.0",
+    "@angular-builders/custom-webpack": "^20.0.0",
     "@angular/animations": "^20.3.16",
     "@angular/common": "^20.3.16",
     "@angular/compiler": "^20.3.16",
@@ -100,7 +100,7 @@
     "typescript-eslint": "8.34.1"
   },
   "description": "An Decaf-ts demo project using Angular and Ionic Framework.",
-   "overrides": {
+  "overrides": {
     "minimatch": "^10.2.2",
     "test-exclude": "^7.0.1",
     "serialize-javascript": "^7.0.2",
