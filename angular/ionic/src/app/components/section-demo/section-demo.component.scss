@@ -4,14 +4,18 @@ section {
 
   &.muted {
     background: #fef2f2;
+
     .demo {
       background-color: white;
+
       .icon-container {
         background: #f3f4f6;
       }
+
       .ti {
         color: #9ca3af;
       }
+
       p {
         color: #9ca3af;
       }
@@ -57,14 +61,17 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
-    > div {
+
+    >div {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     p {
       color: #f87171;
     }
+
     .icon-container {
       width: 80px;
       height: 80px;
@@ -74,6 +81,7 @@ section {
       justify-content: center;
       border-radius: 50%;
     }
+
     .ti {
       font-size: 40px;
       color: #fca5a5;

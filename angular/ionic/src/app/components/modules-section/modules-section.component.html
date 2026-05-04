@@ -10,9 +10,13 @@
       </div>
     </div>
     <div class="dcf-child-width-1-1 overflow-x-hidden">
-      <div class="dcf-flex dcf-margin-xlarge-top dcf-margin-xlarge-bottom track">
-        @for(company of companies; let idx = $index; track company.title + idx) {
-        <img [src]="company.icon" [alt]="company.title" class="dcf-margin-large-right">
+      <div class="dcf-flex dcf-margin-large-top dcf-margin-large-bottom track">
+        @for(sampleModule of modules; let idx = $index; track sampleModule.title + idx) {
+        <div class="sampleModule dcf-margin-large-right">
+          <div class="">{{sampleModule.title}}</div>
+          <div class="mt-3">{{sampleModule.description}}</div>
+        </div>
+
         }
       </div>
     </div>

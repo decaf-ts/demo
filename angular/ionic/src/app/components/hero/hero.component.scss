@@ -1,5 +1,33 @@
 @import 'src/styles/mixins.scss';
 
+$dcf-width-s: 576px;
+$dcf-width-m: 768px;
+$dcf-width-l: 992px;
+$dcf-width-xl: 1200px;
+$dcf-width-2xl: 1400px;
+
 .hero {
   @include linearGradient();
+}
+
+.title {
+  font-size: 6rem !important;
+
+  @media (max-width: $dcf-width-m) {
+    font-size: 3rem !important;
+  }
+}
+
+#chip {
+  background: rgba(255, 255, 255, 0.15);
+  border: 0.1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
+}
+
+ion-button {
+  --border-width: 1px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
 }

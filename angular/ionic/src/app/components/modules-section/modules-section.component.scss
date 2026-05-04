@@ -1,0 +1,26 @@
+.track {
+    animation: scroll reverse 30s linear infinite;
+}
+
+.track:hover {
+    animation-play-state: paused;
+}
+
+/* Animation */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.meta {
+    color: #fb923c;
+}
+
+.sampleModule {
+    width: 25vw !important;
+}

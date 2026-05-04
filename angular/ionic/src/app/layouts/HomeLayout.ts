@@ -10,7 +10,16 @@ import {  uilayoutprop, uielement, uilayout } from '@decaf-ts/ui-decorators';
 @model()
 export class HomeLayout extends Model {
 
-  @uielement('app-hero')
+  @uielement('app-hero', {
+    title: 'Brewed for Builders.',
+    description: "As a suite for TypeScript development, Decaf simplifies full-stack and cross-platform development: lightweight, adaptable, and built to meet your needs ✨",
+    backgroundColor: 'muted',
+    demoSide: 'left',
+    button1Text: 'Eplore Modules',
+    button2Text: 'Documentation',
+    demoIcon: 'ti-circle-check',
+    demoDescription: "Task Management Demo",
+  })
   @uilayoutprop('full', 1)
   hero!: string;
 
@@ -26,6 +35,20 @@ export class HomeLayout extends Model {
   @uilayoutprop('full', 2)
   trusted!: string;
 
+  @uielement('app-modules-section', {
+    title: 'Discover the Power of Modules',
+    meta: "Power Meets Flexibility",
+    description: "Decaf offers a suite of modules to streamline your development. Each module enhances functionality while keeping your workflow efficient.",
+    backgroundColor: 'muted',
+    demoSide: 'left',
+    buttonText: 'See How It Works',
+    demoIcon: 'ti-circle-check',
+    demoDescription: "Task Management Demo",
+  })
+  @uilayoutprop('full', 3)
+  modules!: string;
+
+
   @uielement('app-section-demo', {
     title: 'Manage a dynamic task list.',
     meta: "Showcasing Innovation",
@@ -34,7 +57,7 @@ export class HomeLayout extends Model {
     demoIcon: 'ti-circle-check',
     demoDescription: "Task Management Demo",
   })
-  @uilayoutprop('full', 4)
+  @uilayoutprop('full', 5)
   tasks!: string;
 
   @uielement('app-section-demo', {
@@ -47,7 +70,7 @@ export class HomeLayout extends Model {
     demoIcon: 'ti-circle-check',
     demoDescription: "Task Management Demo",
   })
-  @uilayoutprop('full', 4)
+  @uilayoutprop('full', 5)
   grid!: string;
 
   @uielement('app-code-section', {
@@ -59,7 +82,8 @@ export class HomeLayout extends Model {
     demoIcon: 'ti-circle-check',
     demoDescription: "Task Management Demo",
   })
-  @uilayoutprop('full', 3)
+    
+  @uilayoutprop('full', 4)
   code!: string;
 
   constructor(args: ModelArg<HomeLayout> = {}) {

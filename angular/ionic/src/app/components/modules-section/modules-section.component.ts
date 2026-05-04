@@ -1,20 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
-import { HeaderComponent } from '../header/header.component';
+import { Component, Input} from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
-import { IonButton, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
+import { ModuleSamples } from 'src/app/utils/data';
 
 @Dynamic()
 @Component({
-  selector: 'app-hero',
-  templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.scss'],
-  imports: [HeaderComponent, ContainerComponent, IonButton, IonChip, IonIcon, IonLabel],
+  selector: 'app-modules-section',
+  templateUrl: './modules-section.component.html',
+  styleUrls: ['./modules-section.component.scss'],
+  imports: [ContainerComponent],
   standalone: true,
 })
-export class HeroComponent extends NgxComponentDirective {
-
-  @Input()
+export class ModulesSectionComponent  extends NgxComponentDirective {
+ @Input()
   meta?: string;
 
   @Input()
@@ -27,11 +25,7 @@ export class HeroComponent extends NgxComponentDirective {
   demoSide: 'left' | 'right' = 'right';
 
   @Input()
-  button1Text?: string;
-
-  @Input()
-  button2Text?: string;
-
+  buttonText?: string;
 
   @Input()
   backgroundColor: 'default' | 'muted' = 'default';
@@ -41,6 +35,8 @@ export class HeroComponent extends NgxComponentDirective {
 
   @Input()
   demoDescription?: string;
+
+  modules: any[] = [...ModuleSamples,...ModuleSamples]
 
   async ngOnInit() {
     if(this.translatable) {
@@ -56,15 +52,10 @@ export class HeroComponent extends NgxComponentDirective {
        if(this.demoDescription) {
         this.demoDescription = await this.translate(this.demoDescription);
       }
-      if(this.button1Text) {
-        this.button1Text = await this.translate(this.button1Text);
-      }
-
-      if(this.button2Text) {
-        this.button2Text = await this.translate(this.button2Text);
+      if(this.buttonText) {
+        this.buttonText = await this.translate(this.buttonText);
       }
     }
 
   }
-
 }
