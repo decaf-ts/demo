@@ -10,11 +10,22 @@
       </div>
     </div>
     <div class="dcf-child-width-1-1 overflow-x-hidden">
-      <div class="dcf-flex dcf-margin-large-top dcf-margin-large-bottom track">
+      <div class="dcf-flex dcf-margin-large-top dcf-margin-large-bottom   track">
         @for(sampleModule of modules; let idx = $index; track sampleModule.title + idx) {
-        <div class="sampleModule dcf-margin-large-right">
-          <div class="">{{sampleModule.title}}</div>
-          <div class="mt-3">{{sampleModule.description}}</div>
+        <div class="sampleModule dcf-margin-medium-right">
+          <div
+            class="icon-container d-inline-block dcf-padding-xsmall mb-5 d-flex justify-content-center align-items-center">
+            <ion-icon [name]="sampleModule.icon" size="large"></ion-icon>
+          </div>
+          <div class="dcf-text-bold">{{sampleModule.title}}</div>
+          <div class="mt-3 info">{{sampleModule.description}}</div>
+
+          <div
+            class="icon-container d-inline-block dcf-padding-xsmall my-5 d-flex justify-content-center align-items-center">
+            <ion-icon [name]="modules[idx-1]?modules[idx-1]?.icon:modules[idx+1]?.icon" size="large"></ion-icon>
+          </div>
+          <div class="dcf-text-bold ">{{modules[idx-1]?modules[idx-1]?.title:modules[idx+1]?.title}}</div>
+          <div class="mt-3 info">{{modules[idx-1]?modules[idx-1]?.description:modules[idx+1]?.description}}</div>
         </div>
 
         }

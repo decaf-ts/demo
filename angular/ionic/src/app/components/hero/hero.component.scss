@@ -13,6 +13,10 @@ $dcf-width-2xl: 1400px;
 .title {
   font-size: 6rem !important;
 
+  @media (max-width: $dcf-width-l) {
+    font-size: 5rem !important;
+  }
+
   @media (max-width: $dcf-width-m) {
     font-size: 3rem !important;
   }
@@ -30,4 +34,20 @@ ion-button {
   --border-width: 1px;
   --padding-top: 15px;
   --padding-bottom: 15px;
+}
+
+// .full-width-text {
+//   margin-left: auto;
+//   margin-right: auto;
+//   width: 70vw;
+//   text-align: center;
+//   font-size: 7.5vw;
+// }
+
+.sample-div {
+  margin-left: auto;
+  margin-right: auto;
+  width: 68vw;
+  min-height: 100%;
+  background-color: red;
 }

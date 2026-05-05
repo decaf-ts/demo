@@ -18,6 +18,7 @@ import {
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { ContainerComponent } from '../container/container.component';
 import { LogoComponent } from '../logo/logo.component';
+import { RouterLink } from '@angular/router';
 
 /**
  * @description Header component for application pages.
@@ -41,7 +42,8 @@ import { LogoComponent } from '../logo/logo.component';
     IonButtons,
     IonButton,
     ContainerComponent,
-    LogoComponent
+    LogoComponent,
+    RouterLink
   ],
   standalone: true,
 })
@@ -298,6 +300,10 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
 
 
   async scrollToSection(id: string): Promise<void> {
+    if (id === "Modules") {
+      this.router.navigate(['/modules']);
+      return;
+    }
     const document = getWindowDocument() as Document;
     const element = document.querySelector(`#${id}`);
     console.log('Scrolling to section:', id, element);

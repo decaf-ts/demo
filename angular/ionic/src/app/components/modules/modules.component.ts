@@ -2,18 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
 import { HeaderComponent } from '../header/header.component';
 import { ContainerComponent } from '../container/container.component';
-import { IonButton, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
 
 @Dynamic()
 @Component({
-  selector: 'app-hero',
-  templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.scss'],
-  imports: [HeaderComponent, ContainerComponent, IonButton, IonChip, IonIcon, IonLabel, RouterLink],
+  selector: 'app-modules',
+  templateUrl: './modules.component.html',
+  styleUrls: ['./modules.component.scss'],
+  imports: [HeaderComponent, ContainerComponent],
   standalone: true,
 })
-export class HeroComponent extends NgxComponentDirective {
+export class ModulesComponent extends NgxComponentDirective {
 
   @Input()
   meta?: string;

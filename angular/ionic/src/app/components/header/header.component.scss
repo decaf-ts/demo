@@ -9,6 +9,7 @@ $dcf-width-2xl: 1400px;
 ion-header {
   width: 100%;
   color: var(--dcf-text-color);
+
   ion-toolbar {
     padding: 0.5rem 0px;
   }
@@ -26,6 +27,7 @@ ion-header {
     --padding-start: 12px;
     --padding-end: 12px;
   }
+
   ion-menu-button {
     ::ng-deep svg {
       transform: translateY(2.5px);
@@ -44,6 +46,7 @@ ion-header {
   justify-content: space-around;
   align-items: center;
   width: 100%;
+
   .navbar {
     display: flex;
     gap: 1.5rem;
@@ -55,12 +58,14 @@ ion-header {
       justify-content: center;
       text-decoration: none;
       color: white;
-      font-size: 0.825rem;
+      font-size: 1rem;
       font-weight: 500 !important;
+
       &:hover {
         filter: brightness(0.9);
         cursor: pointer;
       }
+
       .active {
         color: var(--dcf-color-primary);
       }

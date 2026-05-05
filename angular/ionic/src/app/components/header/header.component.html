@@ -1,18 +1,16 @@
 <ion-header mode="md" class="ion-no-border" #component>
   <app-container className="dcf-nav-container">
     <ion-toolbar [color]="color">
-      <app-logo (click)="scrollToSection('hero')" slot="start"></app-logo>
-
+      <app-logo routerLink="/" slot="start"></app-logo>
       <div class="navbar-container">
         <div class="navbar">
           @for (item of menu; track $index) {
-            <a class="item" (click)="scrollToSection(item.label)">
-              {{ item.label }}
-            </a>
+          <a class="item" (click)="scrollToSection(item.label)">
+            {{ item.label }}
+          </a>
           }
         </div>
       </div>
-
       <ion-buttons slot="end">
         <ion-button shape="round">Get Started</ion-button>
       </ion-buttons>

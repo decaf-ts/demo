@@ -1,5 +1,5 @@
 .track {
-    animation: scroll reverse 30s linear infinite;
+    animation: scroll reverse 25s linear infinite;
 }
 
 .track:hover {
@@ -22,5 +22,12 @@
 }
 
 .sampleModule {
-    width: 25vw !important;
+    min-width: 18vw !important;
+}
+
+.icon-container {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    border-radius: 15px;
+    width: 3.5rem;
+    height: 3.5rem;
 }

@@ -25,21 +25,21 @@ export const ModuleSamples = [
   {
     title: "Seamless Styling",
     description: "Unlock the full potential of your projects with Decaf's modular tools.",
-    icon:"filter"
+    icon:"prism-outline"
   },
   {
     title: "Headless & Modular",
     description: "Browse our complete list of modules to find the perfect solution.",
-    icon:"checkmarks"
+    icon:"options-outline"
   },
   {
     title: "Optimized Performance",
     description: "Start integrating Decaf modules today to optimize your development workflow.",
-    icon:"performance"
+    icon:"speedometer-outline"
   },
   {
     title: "seamless styling",
     description: "Unlock the full potential of your projects with Decaf's modular tools.",
-    icon:"filter"
+    icon:"checkmark-done-outline"
   },
 ]
