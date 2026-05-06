@@ -43,7 +43,7 @@ import { RouterLink } from '@angular/router';
     IonButton,
     ContainerComponent,
     LogoComponent,
-    RouterLink
+    RouterLink,
   ],
   standalone: true,
 })
@@ -145,7 +145,6 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
   @Input()
   override operations: CrudOperations[] = [];
 
-
   /**
    * @description Controls whether the menu button is displayed.
    * @summary When set to true, the component will display a menu button that can be used
@@ -207,7 +206,6 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
     | string
     | undefined = 'white';
 
-
   /**
    * @description Size preset for the container width.
    * @summary Controls the width of the container using predefined size classes.
@@ -219,7 +217,6 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
    */
   @Input()
   size: ElementSize = ElementSizes.expand;
-
 
   /**
    * @description Controls whether the header has a translucent effect.
@@ -294,14 +291,14 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
       },
       {
         label: 'Community',
-      }
-    ]
+      },
+    ];
   }
 
-
   async scrollToSection(id: string): Promise<void> {
-    if (id === "Modules") {
-      this.router.navigate(['/modules']);
+    console.log('id:', id);
+    if (id === 'Modules' || 'Features') {
+      this.router.navigate([`/${id.toLowerCase()}`]);
       return;
     }
     const document = getWindowDocument() as Document;

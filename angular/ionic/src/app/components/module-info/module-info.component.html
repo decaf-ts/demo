@@ -4,13 +4,14 @@
       <div class="dcf-flex dcf-flex-middle">
         <div class="info">
           <div class="meta">{{ meta }}</div>
-          <h2 class="title">{{ title }}</h2>
+          <h2 class="title" (click)="buttonAction('features')">{{ title }}</h2>
           <p class="description">{{ description }}</p>
-          <ion-button class="dcf-margin-medium-right" color="primary" shape="round">{{
+          <ion-button (click)="buttonAction('examples')" class="dcf-margin-medium-right" color="primary"
+            shape="round">{{
             buttonText || button1Text
             }}</ion-button>
           @if(button2Text){
-          <ion-button color="primary" shape="round" fill="outline">{{
+          <ion-button (click)="buttonAction('tutorials')" color="primary" shape="round" fill="outline">{{
             button2Text
             }}</ion-button>
           }

@@ -5,13 +5,13 @@ import { ContainerComponent } from '../container/container.component';
 
 @Dynamic()
 @Component({
-  selector: 'app-section-demo',
-  templateUrl: './section-demo.component.html',
-  styleUrls: ['./section-demo.component.scss'],
+  selector: 'app-module-info',
+  templateUrl: './module-info.component.html',
+  styleUrls: ['./module-info.component.scss'],
   imports: [IonButton, ContainerComponent],
   standalone: true,
 })
-export class SectionDemoComponent extends NgxComponentDirective {
+export class ModuleInfoComponent extends NgxComponentDirective {
   @Input()
   meta?: string;
 
@@ -41,6 +41,12 @@ export class SectionDemoComponent extends NgxComponentDirective {
 
   @Input()
   demoDescription?: string;
+
+  buttonAction(route: string) {
+    this.router.navigate([`/${route}`], {
+      queryParams: { module: this.title },
+    });
+  }
 
   async ngOnInit() {
     if (this.translatable) {

@@ -1,0 +1,10 @@
+<section [class.muted]="backgroundColor === 'muted'">
+  <app-container size="2xlarge">
+    @for(decafModule of modules; let idx=$index; track decafModule.title+idx) {
+    <app-module-info [title]="decafModule.title" meta="MODULE" [description]="decafModule.description"
+      [button1Text]="button1Text" [button2Text]="button2Text" demoIcon="ti-circle-check"
+      [demoSide]="$even?'right':'left'">
+    </app-module-info>
+    }
+  </app-container>
+</section>

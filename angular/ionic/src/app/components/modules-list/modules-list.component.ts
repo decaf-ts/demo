@@ -1,17 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
-import { IonButton } from '@ionic/angular/standalone';
 import { ContainerComponent } from '../container/container.component';
+import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
+import { ModulesData } from 'src/app/utils/data';
+import { ModuleInfoComponent } from '../module-info/module-info.component';
 
 @Dynamic()
 @Component({
-  selector: 'app-section-demo',
-  templateUrl: './section-demo.component.html',
-  styleUrls: ['./section-demo.component.scss'],
-  imports: [IonButton, ContainerComponent],
+  selector: 'app-modules-list',
+  templateUrl: './modules-list.component.html',
+  styleUrls: ['./modules-list.component.scss'],
+  imports: [ContainerComponent, ModuleInfoComponent],
   standalone: true,
 })
-export class SectionDemoComponent extends NgxComponentDirective {
+export class ModulesListComponent extends NgxComponentDirective {
   @Input()
   meta?: string;
 
@@ -23,9 +24,6 @@ export class SectionDemoComponent extends NgxComponentDirective {
 
   @Input()
   demoSide: 'left' | 'right' = 'right';
-
-  @Input()
-  buttonText?: string;
 
   @Input()
   button1Text?: string;
@@ -42,6 +40,8 @@ export class SectionDemoComponent extends NgxComponentDirective {
   @Input()
   demoDescription?: string;
 
+  modules: any[] = [...ModulesData];
+
   async ngOnInit() {
     if (this.translatable) {
       if (this.title) {
@@ -56,8 +56,12 @@ export class SectionDemoComponent extends NgxComponentDirective {
       if (this.demoDescription) {
         this.demoDescription = await this.translate(this.demoDescription);
       }
-      if (this.buttonText) {
-        this.buttonText = await this.translate(this.buttonText);
+      if (this.button1Text) {
+        this.button1Text = await this.translate(this.button1Text);
+      }
+
+      if (this.button2Text) {
+        this.button2Text = await this.translate(this.button2Text);
       }
     }
   }

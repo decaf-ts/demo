@@ -2,35 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutComponent, NgxPageDirective } from '@decaf-ts/for-angular';
 import { IonContent } from '@ionic/angular/standalone';
 import { CodeSectionComponent } from 'src/app/components/code-section/code-section.component';
+import { FeaturesComponent } from 'src/app/components/features/features.component';
 import { ModulesCarouselComponent } from 'src/app/components/modules-carousel/modules-carousel.component';
-import { ModulesListComponent } from 'src/app/components/modules-list/modules-list.component';
-import { ModulesComponent } from 'src/app/components/modules/modules.component';
 import { SectionDemoComponent } from 'src/app/components/section-demo/section-demo.component';
 import { TrustedSectionComponent } from 'src/app/components/trusted-section/trusted-section.component';
-import { ModulesLayout } from 'src/app/layouts/ModulesLayout';
+import { FeaturesLayout } from 'src/app/layouts/FeaturesLayout';
 
 @Component({
-  selector: 'app-modules',
-  templateUrl: './modules.page.html',
-  styleUrls: ['./modules.page.scss'],
+  selector: 'app-features',
+  templateUrl: './features.page.html',
+  styleUrls: ['./features.page.scss'],
   standalone: true,
   providers: [
-    ModulesComponent,
+    FeaturesComponent,
     SectionDemoComponent,
     CodeSectionComponent,
     TrustedSectionComponent,
     ModulesCarouselComponent,
-    ModulesListComponent,
   ],
   imports: [IonContent, LayoutComponent],
 })
-export class ModulesPage extends NgxPageDirective implements OnInit {
+export class FeaturesPage extends NgxPageDirective implements OnInit {
   constructor() {
-    super('ModulesPage', false);
+    super('FeaturesPage', false);
   }
 
   async ngOnInit(): Promise<void> {
-    this.model = new ModulesLayout();
+    this.model = new FeaturesLayout();
     console.log(this.model);
     await super.initialize();
   }

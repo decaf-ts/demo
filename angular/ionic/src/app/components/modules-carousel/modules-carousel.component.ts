@@ -1,18 +1,18 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
 import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
 import { ModuleSamples } from 'src/app/utils/data';
 
 @Dynamic()
 @Component({
-  selector: 'app-modules-section',
-  templateUrl: './modules-section.component.html',
-  styleUrls: ['./modules-section.component.scss'],
+  selector: 'app-modules-carousel',
+  templateUrl: './modules-carousel.component.html',
+  styleUrls: ['./modules-carousel.component.scss'],
   imports: [ContainerComponent],
   standalone: true,
 })
-export class ModulesSectionComponent  extends NgxComponentDirective {
- @Input()
+export class ModulesCarouselComponent extends NgxComponentDirective {
+  @Input()
   meta?: string;
 
   @Input()
@@ -36,26 +36,25 @@ export class ModulesSectionComponent  extends NgxComponentDirective {
   @Input()
   demoDescription?: string;
 
-  modules: any[] = [...ModuleSamples,...ModuleSamples]
+  modules: any[] = [...ModuleSamples, ...ModuleSamples];
 
   async ngOnInit() {
-    if(this.translatable) {
-      if(this.title) {
+    if (this.translatable) {
+      if (this.title) {
         this.title = await this.translate(this.title);
       }
-      if(this.meta) {
+      if (this.meta) {
         this.meta = await this.translate(this.meta);
       }
-      if(this.description) {
+      if (this.description) {
         this.description = await this.translate(this.description);
       }
-       if(this.demoDescription) {
+      if (this.demoDescription) {
         this.demoDescription = await this.translate(this.demoDescription);
       }
-      if(this.buttonText) {
+      if (this.buttonText) {
         this.buttonText = await this.translate(this.buttonText);
       }
     }
-
   }
 }
