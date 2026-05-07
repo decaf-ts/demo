@@ -1,18 +1,8 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Dynamic } from '@decaf-ts/for-angular';
 import { HeaderComponent } from '../header/header.component';
 import { ContainerComponent } from '../container/container.component';
-import { ActivatedRoute } from '@angular/router';
-import { ModulesData } from 'src/app/utils/data';
-import { Subscription } from 'rxjs';
+import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
 
 @Dynamic()
 @Component({
@@ -22,98 +12,13 @@ import { Subscription } from 'rxjs';
   imports: [HeaderComponent, ContainerComponent],
   standalone: true,
 })
-export class FeaturesComponent
-  extends NgxComponentDirective
-  implements OnDestroy, OnInit
-{
-  @Input()
-  meta?: string;
-
-  @Input()
-  title?: string = 'Features';
-
-  @Input()
-  description?: string;
-
-  @Input()
-  demoSide: 'left' | 'right' = 'right';
-
-  @Input()
-  button1Text?: string;
-
-  @Input()
-  button2Text?: string;
-
-  @Input()
-  backgroundColor: 'default' | 'muted' = 'default';
-
-  @Input()
-  demoIcon?: string;
-
-  @Input()
-  demoDescription?: string;
-
-  activatedRoute = inject(ActivatedRoute);
-
-  selectedModule: string | null = null;
-
-  modules: any[] = [...ModulesData];
-
-  sub!: Subscription;
-
-  getParam(param: string): void {
-    this.sub?.unsubscribe();
-    this.sub = this.activatedRoute.queryParamMap.subscribe({
-      next: (params) => {
-        this.selectedModule = params.get(param);
-        if (this.selectedModule) {
-          console.log('this.selectedModule:', this.selectedModule);
-          const ModuleData = ModulesData.find(
-            (m) => m.title === this.selectedModule
-          );
-          this.title = `Features for ${ModuleData?.title}`;
-          this.description = ModuleData?.description;
-        }
-      },
-      error: (err) => {
-        console.log('err:', err);
-      },
-      complete: () => {
-        console.log('unsubbed');
-        this.sub.unsubscribe();
-      },
-    });
-  }
-
-  override async ngOnDestroy(): Promise<void> {
-    super.ngOnDestroy();
-    console.log('ngOnDestroy features component:');
-  }
-
+export class FeaturesComponent extends SectionBaseDirective implements OnInit {
   async ngOnInit() {
-    console.log('ngOnInit FeaturesComponent:');
-    this.getParam('module');
+    await super.initialize();
+  }
 
-    if (this.translatable) {
-      if (this.title) {
-        this.title = await this.translate(this.title);
-      }
-      if (this.meta) {
-        this.meta = await this.translate(this.meta);
-      }
-      if (this.description) {
-        this.description = await this.translate(this.description);
-      }
-      if (this.demoDescription) {
-        this.demoDescription = await this.translate(this.demoDescription);
-      }
-      if (this.button1Text) {
-        this.button1Text = await this.translate(this.button1Text);
-      }
-
-      if (this.button2Text) {
-        this.button2Text = await this.translate(this.button2Text);
-      }
-    }
+  @HostListener('window:ModuleChange', ['$event'])
+  async moduleChangeObserver(event: CustomEvent) {
+    this.setSelectedModule(event.detail.data);
   }
 }

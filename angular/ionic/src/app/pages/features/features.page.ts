@@ -1,9 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   LayoutComponent,
   NgxPageDirective,
   ComponentRendererComponent,
+  NgxRouterService,
+  ModelRendererComponent,
+  IBaseCustomEvent,
 } from '@decaf-ts/for-angular';
+import { ComponentEventNames } from '@decaf-ts/ui-decorators';
 import { IonContent } from '@ionic/angular/standalone';
 import { CodeSectionComponent } from 'src/app/components/code-section/code-section.component';
 import { FeaturesListComponent } from 'src/app/components/features-list/features-list.component';
@@ -26,16 +30,34 @@ import { FeaturesLayout } from 'src/app/layouts/FeaturesLayout';
     ModulesCarouselComponent,
     FeaturesListComponent,
   ],
-  imports: [IonContent, LayoutComponent, ComponentRendererComponent],
+  imports: [IonContent, LayoutComponent, ModelRendererComponent],
 })
-export class FeaturesPage extends NgxPageDirective implements OnInit {
+export class FeaturesPage extends NgxPageDirective {
+  @Input()
+  module?: string;
+
+  private routerService: NgxRouterService = inject(NgxRouterService);
+
   constructor() {
     super('FeaturesPage', false);
   }
 
-  async ngOnInit(): Promise<void> {
+  async ionViewWillEnter() {
+    this.module = this.routerService.getQueryParamValue('module');
+    await this.refresh(this.module);
+    await super.ngOnDestroy();
+  }
+
+  async ionViewDidLeave(): Promise<void> {
+    this.model = this.module = undefined;
+    this.initialized = false;
+    await super.ngOnDestroy();
+  }
+
+  override async refresh(module: string | undefined) {
+    this.module = module;
     this.model = new FeaturesLayout();
-    console.log(this.model);
-    await super.initialize();
+    this.initialized = true;
+    this.changeDetectorRef.detectChanges();
   }
 }

@@ -15,7 +15,6 @@ import {
   IMenuItem,
   NgxComponentDirective,
 } from '@decaf-ts/for-angular';
-import { BackButtonComponent } from '../back-button/back-button.component';
 import { ContainerComponent } from '../container/container.component';
 import { LogoComponent } from '../logo/logo.component';
 import { RouterLink } from '@angular/router';
@@ -298,6 +297,7 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
   async gotoSection(id?: string): Promise<void> {
     if (id === 'Modules' || id === 'Features' || !id) {
       this.router.navigate([`/${id ? id.toLowerCase() : ''}`], {
+        onSameUrlNavigation: 'reload',
         queryParams: {},
       });
       return;

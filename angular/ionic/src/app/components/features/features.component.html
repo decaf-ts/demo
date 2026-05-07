@@ -1,10 +1,24 @@
 <section class="hero d-flex flex-column" id="features">
   <app-header title="Features" />
-  <app-container class="dcf-flex-grow-1 dcf-flex dcf-flex-column dcf-justify-content-center">
+  <app-container
+    class="dcf-flex-grow-1 dcf-flex dcf-flex-column dcf-justify-content-center"
+  >
     <div class="dcf-inline-flex dcf-flex-center dcf-margin-medium-top">
-      <div class=" text-white dcf-text-center ">
-        <h1 class="title dcf-text-bold full-width-text">{{ title }}</h1>
-        <p class="description mb-4 dcf-width-2-3 mx-auto">{{ description }}</p>
+      <div class="text-white dcf-text-center">
+        @if (title) {
+          <h1
+            class="title dcf-text-bold full-width-text dfc-animation dcf-animation-slide-bottom-small"
+          >
+            {{ title }}
+          </h1>
+        }
+        @if (description) {
+          <p
+            class="description mb-4 dcf-width-2-3 mx-auto dfc-animation dcf-animation-slide-top-small dcf-animation-medium"
+          >
+            {{ description }}
+          </p>
+        }
       </div>
     </div>
   </app-container>

@@ -1,9 +1,24 @@
-import { Component,  inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CrudOperations, OperationKeys } from '@decaf-ts/db-decorators';
-import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, MenuController } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonButtons,
+  IonHeader,
+  IonIcon,
+  IonMenuButton,
+  IonTitle,
+  IonToolbar,
+  MenuController,
+} from '@ionic/angular/standalone';
 import { RouterService } from 'src/app/services/router.service';
-import { StringOrBoolean,getWindow, stringToBoolean, NgxBaseComponent, FunctionLike } from '@decaf-ts/for-angular';
-import { saveOutline, folderOpenOutline, createOutline } from "ionicons/icons";
+import {
+  StringOrBoolean,
+  getWindow,
+  stringToBoolean,
+  NgxComponentDirective,
+  FunctionLike,
+} from '@decaf-ts/for-angular';
+import { saveOutline, folderOpenOutline, createOutline } from 'ionicons/icons';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { addIcons } from 'ionicons';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -24,13 +39,21 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [TranslatePipe, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonMenuButton, IonIcon,  BackButtonComponent],
+  imports: [
+    TranslatePipe,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonButton,
+    IonMenuButton,
+    IonIcon,
+    BackButtonComponent,
+  ],
   schemas: [],
   standalone: true,
-
 })
-export class HeaderComponent extends NgxBaseComponent implements OnInit {
-
+export class HeaderComponent extends NgxComponentDirective implements OnInit {
   /**
    * @description The current CRUD operation being performed.
    * @summary Indicates which CRUD operation is currently active. This affects the UI state
@@ -43,8 +66,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
   @Input()
   currentOperation: OperationKeys = OperationKeys.READ;
 
-
-
   /**
    * @description The identifier of the current operation model.
    * @summary  Accepts either a string or a number.
@@ -54,8 +75,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   @Input()
-  modelId!: string | number;
-
+  override modelId!: string | number;
 
   /**
    * @description Controls whether the menu button is displayed.
@@ -104,7 +124,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   @Input()
-  logo: string = "";
+  logo: string = '';
 
   /**
    * @description Controls whether the header expands to fill available space.
@@ -175,7 +195,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   @Input()
-  backgroundColor: string = "white";
+  backgroundColor: string = 'white';
 
   /**
    * @description Background color of the header on mobile devices.
@@ -188,7 +208,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   @Input()
-  mobileBackgroundColor: string = "";
+  mobileBackgroundColor: string = '';
 
   /**
    * @description Position of the menu button on mobile devices.
@@ -237,7 +257,7 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @type {RouterService}
    * @memberOf HeaderComponent
    */
-  private routerService: RouterService  = inject(RouterService);
+  private routerService: RouterService = inject(RouterService);
 
   /**
    * @description Root component of the Decaf-ts for Angular application
@@ -261,7 +281,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   backButtonColor: string = 'translucent';
 
-
   /**
    * @description Stores the original background color value before theme modifications.
    * @summary Preserves the initial backgroundColor input value before any theme-based
@@ -275,23 +294,6 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   private initialBackgroundColor!: string;
 
-
-
-  /**
-   * @description Reference to CRUD operation constants for template usage.
-   * @summary Exposes the OperationKeys enum to the component template, enabling
-   * conditional rendering and behavior based on operation types. This protected
-   * readonly property ensures that template logic can access operation constants
-   * while maintaining encapsulation and preventing accidental modification.
-   *
-
-   * @protected
-   * @readonly
-   * @memberOf CrudFormComponent
-   */
-  protected readonly OperationKeys = OperationKeys;
-
-
   /**
    * @description Creates an instance of HeaderComponent.
    * @summary Initializes a new HeaderComponent by calling the parent class constructor
@@ -300,53 +302,49 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    * @memberOf HeaderComponent
    */
   constructor() {
-    super("HeaderComponent");
+    super('HeaderComponent');
     addIcons({ saveOutline, folderOpenOutline, createOutline });
   }
 
- /**
-  * @description Initializes the component after Angular first displays the data-bound properties.
-  * @summary Sets up the component by processing boolean inputs, enabling/disabling the menu controller,
-  * and building the CSS class string based on the component's properties. This method prepares
-  * the component for user interaction by ensuring all properties are properly initialized.
-  *
-  * @mermaid
-  * sequenceDiagram
-  *   participant A as Angular Lifecycle
-  *   participant H as HeaderComponent
-  *
-  *   A->>H: ngOnInit()
-  *   H->>M: enable(showMenuButton)
-  *   H->>H: Process showBackButton
-  *   H->>H: Process center
-  *   H->>H: Process translucent
-  *   H->>H: Process expand
-  *   H->>H: Process border
-  *   H->>H: Build CSS class string
-  *
-  * @returns {Promise<void> }
-  * @memberOf HeaderComponent
-  */
+  /**
+   * @description Initializes the component after Angular first displays the data-bound properties.
+   * @summary Sets up the component by processing boolean inputs, enabling/disabling the menu controller,
+   * and building the CSS class string based on the component's properties. This method prepares
+   * the component for user interaction by ensuring all properties are properly initialized.
+   *
+   * @mermaid
+   * sequenceDiagram
+   *   participant A as Angular Lifecycle
+   *   participant H as HeaderComponent
+   *
+   *   A->>H: ngOnInit()
+   *   H->>M: enable(showMenuButton)
+   *   H->>H: Process showBackButton
+   *   H->>H: Process center
+   *   H->>H: Process translucent
+   *   H->>H: Process expand
+   *   H->>H: Process border
+   *   H->>H: Build CSS class string
+   *
+   * @returns {Promise<void> }
+   * @memberOf HeaderComponent
+   */
   async ngOnInit(): Promise<void> {
     this.initialBackgroundColor = this.backgroundColor;
     this.observeThemeChange();
     this.showBackButton = stringToBoolean(this.showBackButton);
     this.showMenuButton = stringToBoolean(this.showMenuButton);
-    if(this.showMenuButton)
-      this.menuController.enable(true);
+    if (this.showMenuButton) this.menuController.enable(true);
     this.center = stringToBoolean(this.center);
     this.translucent = stringToBoolean(this.translucent);
     this.expand = stringToBoolean(this.expand);
     this.border = stringToBoolean(this.border);
-    if(this.center)
-      this.className += ' dcf-flex';
-    if(!this.border)
-      this.className += ` ion-no-border`;
+    if (this.center) this.className += ' dcf-flex';
+    if (!this.border) this.className += ` ion-no-border`;
     this.getRoute();
-    if(this.backgroundColor === 'white') {
+    if (this.backgroundColor === 'white') {
       this.backButtonColor = 'medium';
     }
-
   }
 
   /**
@@ -362,10 +360,16 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    */
   private observeThemeChange(): void {
     const win = getWindow() as Window;
-    const colorSchemePreference = win.matchMedia('(prefers-color-scheme: dark)');
-    this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
+    const colorSchemePreference = win.matchMedia(
+      '(prefers-color-scheme: dark)'
+    );
+    this.backgroundColor = colorSchemePreference.matches
+      ? ''
+      : this.initialBackgroundColor;
     colorSchemePreference.addEventListener('change', () => {
-        this.backgroundColor =  colorSchemePreference.matches ? '' : this.initialBackgroundColor;
+      this.backgroundColor = colorSchemePreference.matches
+        ? ''
+        : this.initialBackgroundColor;
     });
   }
 
@@ -395,11 +399,13 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    *
    * @memberOf HeaderComponent
    */
-  async changeOperation(operation: string, id?: string): Promise<boolean> {
+  override async changeOperation(
+    operation: string,
+    id?: string
+  ): Promise<boolean> {
     let page = `${this.route}/${operation}/`.replace('//', '/');
-    if(this.modelId || id)
-        page = `${page}/${this.modelId || id}`;
-    return this.routerService.navigateTo(page.replace('//', '/'))
+    if (this.modelId || id) page = `${page}/${this.modelId || id}`;
+    return this.routerService.navigateTo(page.replace('//', '/'));
   }
 
   /**
@@ -427,14 +433,21 @@ export class HeaderComponent extends NgxBaseComponent implements OnInit {
    *
    * @memberOf HeaderComponent
    */
-  isAllowed(operation: string): boolean {
-    if(!this.operations)
-      return false;
-    return this.operations.includes(operation as CrudOperations) && (this.currentOperation !== OperationKeys.CREATE && this.currentOperation.toLowerCase() !== operation);
+  override isAllowed(operation: string): boolean {
+    if (!this.operations) return false;
+    return (
+      this.operations.includes(operation as CrudOperations) &&
+      this.currentOperation !== OperationKeys.CREATE &&
+      this.currentOperation.toLowerCase() !== operation
+    );
   }
 
-
   getBackButtonSlot(): string {
-    return this.modelId && ![OperationKeys.READ,  OperationKeys.UPDATE].includes(this.currentOperation as OperationKeys) ? 'start' : 'end';
+    return this.modelId &&
+      ![OperationKeys.READ, OperationKeys.UPDATE].includes(
+        this.currentOperation as OperationKeys
+      )
+      ? 'start'
+      : 'end';
   }
 }
