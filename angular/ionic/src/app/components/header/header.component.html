@@ -5,7 +5,7 @@
       <div class="navbar-container">
         <div class="navbar">
           @for (item of menu; track $index) {
-          <a class="item" (click)="scrollToSection(item.label)">
+          <a class="item" (click)="gotoSection(item.label)">
             {{ item.label }}
           </a>
           }

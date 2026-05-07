@@ -46,6 +46,19 @@ export class HomeLayout extends Model {
   @uilayoutprop('full', 3)
   modules!: string;
 
+  @uielement('app-code-section', {
+    title: 'Code Smarter, Build Faster.',
+    description:
+      'Streamline your development workflow with Decaf and bring efficiency to every project, effortlessly.',
+    demoSide: 'left',
+    button1Text: 'Get started',
+    button2Text: 'See Documentation',
+    demoIcon: 'ti-circle-check',
+    demoDescription: 'Task Management Demo',
+  })
+  @uilayoutprop('full', 4)
+  code!: string;
+
   @uielement('app-section-demo', {
     title: 'Manage a dynamic task list.',
     meta: 'Showcasing Innovation',
@@ -71,19 +84,6 @@ export class HomeLayout extends Model {
   })
   @uilayoutprop('full', 5)
   grid!: string;
-
-  @uielement('app-code-section', {
-    title: 'Code Smarter, Build Faster.',
-    description:
-      'Streamline your development workflow with Decaf and bring efficiency to every project, effortlessly.',
-    demoSide: 'left',
-    button1Text: 'Get started',
-    button2Text: 'See Documentation',
-    demoIcon: 'ti-circle-check',
-    demoDescription: 'Task Management Demo',
-  })
-  @uilayoutprop('full', 4)
-  code!: string;
 
   constructor(args: ModelArg<HomeLayout> = {}) {
     super(args);

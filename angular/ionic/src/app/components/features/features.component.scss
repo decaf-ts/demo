@@ -7,7 +7,7 @@ $dcf-width-xl: 1200px;
 $dcf-width-2xl: 1400px;
 
 .hero {
-  @include linearGradient(40);
+  @include linearGradient(35vh);
 }
 
 .title {

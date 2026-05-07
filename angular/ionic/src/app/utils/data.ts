@@ -1,3 +1,5 @@
+import { ModuleData } from '../types/types-interfaces';
+
 export const TrustedByCompanies = [
   {
     title: 'statamic',
@@ -48,11 +50,12 @@ export const ModuleSamples = [
   },
 ];
 
-export const ModulesData = [
+export const ModulesData: ModuleData[] = [
   {
     title: 'decoration',
+    shortDescription: '',
     description:
-      'Description @decaf-ts/decoration provides two complementary capabilities: - A small, builder-style API Decoration to define and apply decorators that can vary by "flavour" for example, different frameworks or environments while keeping a stable key-based API. - A centralized run…',
+      '@decaf-ts/decoration provides two complementary capabilities: - A small, builder-style API Decoration to define and apply decorators that can vary by "flavour" for example, different frameworks or environments while keeping a stable key-based API. - A centralized run…',
     details: [
       {
         title: 'Composable Decorators',
@@ -73,6 +76,7 @@ export const ModulesData = [
   },
   {
     title: 'logging',
+    shortDescription: 'Logging Library',
     description:
       'Logging Library — Detailed Description The logging package is a lightweight, extensible logging solution for TypeScript projects. It centers on two main constructs: - MiniLogger — a minimal, context-aware logger used by default. - Logging — a static facade that manages global co…',
     details: [
@@ -95,8 +99,9 @@ export const ModulesData = [
   },
   {
     title: 'utils',
+    shortDescription: '',
     description:
-      'Description The Decaf Utils module is a comprehensive TypeScript utility library designed to standardize APIs across repositories and provide a robust foundation for building command-line interface CLI applications. The library is organized into several key components: CLI Modu…',
+      'The Decaf Utils module is a comprehensive TypeScript utility library designed to standardize APIs across repositories and provide a robust foundation for building command-line interface CLI applications. The library is organized into several key components: CLI Modu…',
     details: [
       {
         title: 'CLI Helpers',
@@ -117,8 +122,9 @@ export const ModulesData = [
   },
   {
     title: 'reflection',
+    shortDescription: '',
     description:
-      'Description The Reflection library is a powerful utility package for TypeScript applications that enhances runtime type inspection and metadata manipulation capabilities. Built on top of the reflect-metadata API, it provides a comprehensive set of tools for working with TypeScri…',
+      'The Reflection library is a powerful utility package for TypeScript applications that enhances runtime type inspection and metadata manipulation capabilities. Built on top of the reflect-metadata API, it provides a comprehensive set of tools for working with TypeScri…',
     details: [
       {
         title: 'Type Checks',

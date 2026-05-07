@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { LayoutComponent, NgxPageDirective } from '@decaf-ts/for-angular';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  LayoutComponent,
+  NgxPageDirective,
+  ComponentRendererComponent,
+} from '@decaf-ts/for-angular';
 import { IonContent } from '@ionic/angular/standalone';
 import { CodeSectionComponent } from 'src/app/components/code-section/code-section.component';
+import { FeaturesListComponent } from 'src/app/components/features-list/features-list.component';
 import { FeaturesComponent } from 'src/app/components/features/features.component';
 import { ModulesCarouselComponent } from 'src/app/components/modules-carousel/modules-carousel.component';
 import { SectionDemoComponent } from 'src/app/components/section-demo/section-demo.component';
@@ -19,8 +24,9 @@ import { FeaturesLayout } from 'src/app/layouts/FeaturesLayout';
     CodeSectionComponent,
     TrustedSectionComponent,
     ModulesCarouselComponent,
+    FeaturesListComponent,
   ],
-  imports: [IonContent, LayoutComponent],
+  imports: [IonContent, LayoutComponent, ComponentRendererComponent],
 })
 export class FeaturesPage extends NgxPageDirective implements OnInit {
   constructor() {

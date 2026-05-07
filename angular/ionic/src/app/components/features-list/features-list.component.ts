@@ -1,36 +1,26 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
-import { HeaderComponent } from '../header/header.component';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
-import { ActivatedRoute } from '@angular/router';
+import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
 import { ModulesData } from 'src/app/utils/data';
+import { ModuleInfoComponent } from '../module-info/module-info.component';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ModuleData } from 'src/app/types/types-interfaces';
 
 @Dynamic()
 @Component({
-  selector: 'app-features',
-  templateUrl: './features.component.html',
-  styleUrls: ['./features.component.scss'],
-  imports: [HeaderComponent, ContainerComponent],
+  selector: 'app-features-list',
+  templateUrl: './features-list.component.html',
+  styleUrls: ['./features-list.component.scss'],
+  imports: [ContainerComponent],
   standalone: true,
 })
-export class FeaturesComponent
-  extends NgxComponentDirective
-  implements OnDestroy, OnInit
-{
+export class FeaturesListComponent extends NgxComponentDirective {
   @Input()
   meta?: string;
 
   @Input()
-  title?: string = 'Features';
+  title?: string;
 
   @Input()
   description?: string;
@@ -53,13 +43,30 @@ export class FeaturesComponent
   @Input()
   demoDescription?: string;
 
+  @Output() selectModel = new EventEmitter();
+
   activatedRoute = inject(ActivatedRoute);
 
   selectedModule: string | null = null;
 
-  modules: any[] = [...ModulesData];
+  modules = [...ModulesData];
 
   sub!: Subscription;
+
+  selectedModuleData: ModuleData | undefined;
+
+  setSelectedModule(selectedModule?: string) {
+    if (selectedModule) this.selectedModule = selectedModule;
+    if (this.selectedModule) {
+      this.selectModel.emit(this.selectedModuleData);
+      console.log('this.selectedModule:', this.selectedModule);
+      this.selectedModuleData = ModulesData.find(
+        (m) => m.title === this.selectedModule
+      );
+      this.title = `Features for ${this.selectedModuleData?.title}`;
+      this.description = this.selectedModuleData?.description;
+    }
+  }
 
   getParam(param: string): void {
     this.sub?.unsubscribe();
@@ -68,11 +75,11 @@ export class FeaturesComponent
         this.selectedModule = params.get(param);
         if (this.selectedModule) {
           console.log('this.selectedModule:', this.selectedModule);
-          const ModuleData = ModulesData.find(
+          this.selectedModuleData = ModulesData.find(
             (m) => m.title === this.selectedModule
           );
-          this.title = `Features for ${ModuleData?.title}`;
-          this.description = ModuleData?.description;
+          this.title = `Features for ${this.selectedModuleData?.title}`;
+          this.description = this.selectedModuleData?.description;
         }
       },
       error: (err) => {
@@ -85,15 +92,8 @@ export class FeaturesComponent
     });
   }
 
-  override async ngOnDestroy(): Promise<void> {
-    super.ngOnDestroy();
-    console.log('ngOnDestroy features component:');
-  }
-
   async ngOnInit() {
-    console.log('ngOnInit FeaturesComponent:');
     this.getParam('module');
-
     if (this.translatable) {
       if (this.title) {
         this.title = await this.translate(this.title);

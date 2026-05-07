@@ -4,7 +4,7 @@ import { uilayoutprop, uielement, uilayout } from '@decaf-ts/ui-decorators';
 
 @uilayout('ngx-decaf-layout', true)
 @model()
-export class FeaturesLayout extends Model implements OnInit {
+export class FeaturesLayout extends Model {
   @uielement('app-features', {
     title: 'Discover the Power of Modules',
     description:
@@ -19,7 +19,7 @@ export class FeaturesLayout extends Model implements OnInit {
   @uilayoutprop('full', 1)
   hero!: string;
 
-  @uielement('app-section-demo', {
+  @uielement('app-features-list', {
     title: 'decoration',
     meta: 'MODULE',
     description:
@@ -29,6 +29,18 @@ export class FeaturesLayout extends Model implements OnInit {
     demoDescription: 'Task Management Demo',
   })
   @uilayoutprop('full', 2)
+  features!: string;
+
+  @uielement('app-section-demo', {
+    title: 'decoration',
+    meta: 'MODULE',
+    description:
+      'Description @decaf-ts/decoration provides two complementary capabilities: - A small, builder-style API Decoration to define and apply decorators that can vary by "flavour" for example, different frameworks or environments while keeping a stable key-based API. - A centralized run…',
+    buttonText: 'See How It Works',
+    demoIcon: 'ti-circle-check',
+    demoDescription: 'Task Management Demo',
+  })
+  @uilayoutprop('full', 3)
   tasks!: string;
 
   @uielement('app-section-demo', {
@@ -42,14 +54,13 @@ export class FeaturesLayout extends Model implements OnInit {
     demoIcon: 'ti-circle-check',
     demoDescription: 'Task Management Demo',
   })
-  @uilayoutprop('full', 3)
+  @uilayoutprop('full', 4)
   grid!: string;
 
   constructor(args: ModelArg<FeaturesLayout> = {}) {
     super(args);
   }
-
   ngOnInit(): void {
-    console.log('ts');
+    throw new Error('Method not implemented.');
   }
 }

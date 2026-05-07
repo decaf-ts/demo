@@ -11,8 +11,7 @@ import { ContainerComponent } from '../container/container.component';
   imports: [HeaderComponent, ContainerComponent],
   standalone: true,
 })
-export class ModulesComponent extends NgxComponentDirective {
-
+export class ModulesComponent extends NgxComponentDirective implements OnInit {
   @Input()
   meta?: string;
 
@@ -31,7 +30,6 @@ export class ModulesComponent extends NgxComponentDirective {
   @Input()
   button2Text?: string;
 
-
   @Input()
   backgroundColor: 'default' | 'muted' = 'default';
 
@@ -42,28 +40,26 @@ export class ModulesComponent extends NgxComponentDirective {
   demoDescription?: string;
 
   async ngOnInit() {
-    if(this.translatable) {
-      if(this.title) {
+    if (this.translatable) {
+      if (this.title) {
         this.title = await this.translate(this.title);
       }
-      if(this.meta) {
+      if (this.meta) {
         this.meta = await this.translate(this.meta);
       }
-      if(this.description) {
+      if (this.description) {
         this.description = await this.translate(this.description);
       }
-       if(this.demoDescription) {
+      if (this.demoDescription) {
         this.demoDescription = await this.translate(this.demoDescription);
       }
-      if(this.button1Text) {
+      if (this.button1Text) {
         this.button1Text = await this.translate(this.button1Text);
       }
 
-      if(this.button2Text) {
+      if (this.button2Text) {
         this.button2Text = await this.translate(this.button2Text);
       }
     }
-
   }
-
 }

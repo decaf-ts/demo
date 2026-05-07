@@ -295,10 +295,11 @@ export class HeaderComponent extends NgxComponentDirective implements OnInit {
     ];
   }
 
-  async scrollToSection(id: string): Promise<void> {
-    console.log('id:', id);
-    if (id === 'Modules' || 'Features') {
-      this.router.navigate([`/${id.toLowerCase()}`]);
+  async gotoSection(id?: string): Promise<void> {
+    if (id === 'Modules' || id === 'Features' || !id) {
+      this.router.navigate([`/${id ? id.toLowerCase() : ''}`], {
+        queryParams: {},
+      });
       return;
     }
     const document = getWindowDocument() as Document;

@@ -1,0 +1,22 @@
+<section [class.muted]="backgroundColor === 'muted'">
+  <app-container size="2xlarge">
+    @if(selectedModule) {
+    <div class="my-2">selected Module: {{selectedModule}}</div>
+    @for(feature of selectedModuleData.details; track feature.title){
+    <div class="border-1 m-3 p-3">
+      <div class="my-2 dcf-text-bold">{{feature.title}}</div>
+      <div class="my-2">{{feature.description}}</div>
+    </div>
+    }
+    }
+    @else {
+    @for(decafModule of modules; let idx=$index; track decafModule.title+idx) {
+    <div class="border-1 my-3 p-3">
+      <div class="my-2 dcf-text-bold fs-5">{{decafModule.title}}</div>
+      <div class="my-2">{{decafModule.shortDescription || "Description"}}</div>
+      <div class="link my-2" (click)="setSelectedModule(decafModule.title)">See examples</div>
+    </div>
+    }
+    }
+  </app-container>
+</section>
