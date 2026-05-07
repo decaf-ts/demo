@@ -1,12 +1,6 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
-import {
-  Dynamic,
-  windowEventEmitter,
-} from '@decaf-ts/for-angular';
+import { Dynamic, windowEventEmitter } from '@decaf-ts/for-angular';
 
 import { ComponentEventNames } from '@decaf-ts/ui-decorators';
 import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
@@ -29,8 +23,7 @@ export class FeaturesListComponent
   }
 
   override async setSelectedModule(module: string) {
-
-    if(this.selectedModule !== module && this.initialized) {
+    if (this.selectedModule !== module && this.initialized) {
       this.emitModuleChange(module);
     }
     this.module = module;

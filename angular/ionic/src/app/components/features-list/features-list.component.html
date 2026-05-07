@@ -1,53 +1,42 @@
 <section [class.muted]="backgroundColor === 'muted'">
   <app-container size="2xlarge">
-    @if (selectedModule) {
+    <div class="grid-container">
+      @if (selectedModule) {
       <div class="m-2 p-2">
-        <ion-button
-          fill="outline"
-          size="small"
-          (click)="clearModuleSection()"
-          color="primary"
-        >
+        <ion-button fill="outline" size="small" (click)="clearModuleSection()" color="primary">
           Show All Modules
         </ion-button>
       </div>
       @for (feature of selectedModuleData.details; track feature.title) {
-        <div
-          class="border-1 m-3 p-3 dfc-animation dcf-animation-slide-left-small"
-          [style.animationDelay]="$index * 100 + 'ms'"
-        >
-          <div class="my-2 dcf-text-bold">{{ feature.title }}</div>
-          <div class="my-2">{{ feature.description }}</div>
-        </div>
+      <div class="border-1 m-3 p-3 dfc-animation dcf-animation-slide-left-small"
+        [style.animationDelay]="$index * 100 + 'ms'">
+        <div class="my-2 dcf-text-bold">{{ feature.title }}</div>
+        <div class="my-2">{{ feature.description }}</div>
+      </div>
       }
-    } @else {
-      <div
-        class="dcf-grid dcf-grid-small dcf-child-width-1-2@m dcf-child-width-1-4@l"
-      >
+      } @else {
+      <div class="dcf-grid dcf-grid-small dcf-child-width-1-2@m dcf-child-width-1-4@l">
         @for (
-          decafModule of modules;
-          let idx = $index;
-          track decafModule.title + idx
+        decafModule of modules;
+        let idx = $index;
+        track decafModule.title + idx
         ) {
-          <div>
-            <div
-              class="border-1 my-3 p-3 dfc-animation dcf-animation-slide-bottom-small"
-              [style.animationDelay]="idx * 200 + 'ms'"
-            >
-              <div class="my-2 dcf-text-bold fs-5">{{ decafModule.title }}</div>
-              <div class="my-2">
-                {{ decafModule.shortDescription || "Description" }}
-              </div>
-              <div
-                class="link my-2"
-                (click)="setSelectedModule(decafModule.title)"
-              >
-                See examples
-              </div>
+        <div>
+          <div class="border-1 my-3 p-3 dfc-animation dcf-animation-slide-bottom-small"
+            [style.animationDelay]="idx * 200 + 'ms'">
+            <div class="my-2 dcf-text-bold fs-5">{{ decafModule.title }}</div>
+            <div class="my-2">
+              {{ decafModule.shortDescription || "Description" }}
+            </div>
+            <div class="link my-2" (click)="setSelectedModule(decafModule.title)">
+              See examples
             </div>
           </div>
+        </div>
         }
       </div>
-    }
+      }
+    </div>
+
   </app-container>
 </section>

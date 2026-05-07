@@ -41,10 +41,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 @import "@tabler/icons-webfont/dist/tabler-icons.scss";
 
+$dcf-width-s: 576px;
+$dcf-width-m: 768px;
+$dcf-width-l: 992px;
+$dcf-width-xl: 1200px;
+$dcf-width-2xl: 1400px;
+
 .text-white {
     color: white;
 }
 
 .border-1 {
     border: 1px solid rgba(0, 0, 0, 0.171) !important;
+}
+
+.ion-flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.ion-flex-md-no-wrap {
+    @media (min-width: $dcf-width-m) {
+        flex-wrap: nowrap;
+    }
 }

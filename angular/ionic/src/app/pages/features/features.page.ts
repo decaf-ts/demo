@@ -1,13 +1,9 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import {
   LayoutComponent,
   NgxPageDirective,
-  ComponentRendererComponent,
   NgxRouterService,
-  ModelRendererComponent,
-  IBaseCustomEvent,
 } from '@decaf-ts/for-angular';
-import { ComponentEventNames } from '@decaf-ts/ui-decorators';
 import { IonContent } from '@ionic/angular/standalone';
 import { CodeSectionComponent } from 'src/app/components/code-section/code-section.component';
 import { FeaturesListComponent } from 'src/app/components/features-list/features-list.component';
@@ -30,7 +26,7 @@ import { FeaturesLayout } from 'src/app/layouts/FeaturesLayout';
     ModulesCarouselComponent,
     FeaturesListComponent,
   ],
-  imports: [IonContent, LayoutComponent, ModelRendererComponent],
+  imports: [IonContent, LayoutComponent],
 })
 export class FeaturesPage extends NgxPageDirective {
   @Input()

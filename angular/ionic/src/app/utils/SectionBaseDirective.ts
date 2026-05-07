@@ -1,13 +1,11 @@
-import { Directive, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, inject, Input, OnDestroy } from '@angular/core';
 import {
   NgxComponentDirective,
   NgxRouterService,
-  RouteDirections,
   windowEventEmitter,
 } from '@decaf-ts/for-angular';
 import { ModulesData } from 'src/app/utils/data';
 import { ModuleData } from '../types/types-interfaces';
-import { ComponentEventNames } from '@decaf-ts/ui-decorators';
 
 @Directive({ host: { '[attr.id]': 'uid' } })
 export class SectionBaseDirective
@@ -88,8 +86,12 @@ export class SectionBaseDirective
       const ModuleData = this.modules.find(
         (m) => m.title === this.selectedModule
       );
-      this.title = ModuleData?.title ? `Features for ${ModuleData?.title}` : 'Discover the Power of Modules';
-      this.description = ModuleData?.description ||  'Browse all Decaf modules and learn how to use them with examples extracted from their documentation.';
+      this.title = ModuleData?.title
+        ? `Features for ${ModuleData?.title}`
+        : 'Discover the Power of Modules';
+      this.description =
+        ModuleData?.description ||
+        'Browse all Decaf modules and learn how to use them with examples extracted from their documentation.';
       this.selectedModuleData = ModuleData;
     }
   }
