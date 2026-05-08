@@ -7,6 +7,7 @@ import { SectionDemoComponent } from 'src/app/components/section-demo/section-de
 import { CodeSectionComponent } from 'src/app/components/code-section/code-section.component';
 import { TrustedSectionComponent } from 'src/app/components/trusted-section/trusted-section.component';
 import { ModulesCarouselComponent } from 'src/app/components/modules-carousel/modules-carousel.component';
+import { FaqSectionComponent } from 'src/app/components/faq-section/faq-section.component';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ import { ModulesCarouselComponent } from 'src/app/components/modules-carousel/mo
     CodeSectionComponent,
     TrustedSectionComponent,
     ModulesCarouselComponent,
+    FaqSectionComponent,
   ],
   imports: [IonContent, LayoutComponent],
 })

@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
 import { HeaderComponent } from '../header/header.component';
 import { ContainerComponent } from '../container/container.component';
+import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
+import { ActivatedRoute } from '@angular/router';
 
 @Dynamic()
 @Component({
@@ -11,55 +13,13 @@ import { ContainerComponent } from '../container/container.component';
   imports: [HeaderComponent, ContainerComponent],
   standalone: true,
 })
-export class ExamplesComponent extends NgxComponentDirective implements OnInit {
-  @Input()
-  meta?: string;
-
-  @Input()
-  title?: string = 'Examples';
-
-  @Input()
-  description?: string;
-
-  @Input()
-  demoSide: 'left' | 'right' = 'right';
-
-  @Input()
-  button1Text?: string;
-
-  @Input()
-  button2Text?: string;
-
-  @Input()
-  backgroundColor: 'default' | 'muted' = 'default';
-
-  @Input()
-  demoIcon?: string;
-
-  @Input()
-  demoDescription?: string;
-
+export class ExamplesComponent extends SectionBaseDirective implements OnInit {
   async ngOnInit() {
-    if (this.translatable) {
-      if (this.title) {
-        this.title = await this.translate(this.title);
-      }
-      if (this.meta) {
-        this.meta = await this.translate(this.meta);
-      }
-      if (this.description) {
-        this.description = await this.translate(this.description);
-      }
-      if (this.demoDescription) {
-        this.demoDescription = await this.translate(this.demoDescription);
-      }
-      if (this.button1Text) {
-        this.button1Text = await this.translate(this.button1Text);
-      }
+    await super.initialize();
+  }
 
-      if (this.button2Text) {
-        this.button2Text = await this.translate(this.button2Text);
-      }
-    }
+  @HostListener('window:ModuleChange', ['$event'])
+  async moduleChangeObserver(event: CustomEvent) {
+    this.setSelectedModule(event.detail.data);
   }
 }

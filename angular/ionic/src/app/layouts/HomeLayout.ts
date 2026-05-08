@@ -11,7 +11,7 @@ export class HomeLayout extends Model {
       'As a suite for TypeScript development, Decaf simplifies full-stack and cross-platform development: lightweight, adaptable, and built to meet your needs ✨',
     backgroundColor: 'muted',
     demoSide: 'left',
-    button1Text: 'Eplore Modules',
+    button1Text: 'Explore Modules',
     button2Text: 'Documentation',
     demoIcon: 'ti-circle-check',
     demoDescription: 'Task Management Demo',
@@ -84,6 +84,20 @@ export class HomeLayout extends Model {
   })
   @uilayoutprop('full', 5)
   grid!: string;
+
+  @uielement('app-faq-section', {
+    title: 'Frequently Asked Questions',
+    meta: 'Answers at Your Fingertips',
+    description:
+      'Explore our FAQs to learn more about how our platform works, its features, and how it can help you build and manage content with ease.',
+    backgroundColor: 'muted',
+    demoSide: 'left',
+    buttonText: 'See How It Works',
+    demoIcon: 'ti-circle-check',
+    demoDescription: 'Task Management Demo',
+  })
+  @uilayoutprop('full', 6)
+  faq!: string;
 
   constructor(args: ModelArg<HomeLayout> = {}) {
     super(args);
