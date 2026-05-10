@@ -8,10 +8,7 @@ import { ModulesData } from 'src/app/utils/data';
 import { ModuleData } from '../types/types-interfaces';
 
 @Directive({ host: { '[attr.id]': 'uid' } })
-export class SectionBaseDirective
-  extends NgxComponentDirective
-  implements OnDestroy
-{
+export abstract class SectionBaseDirective extends NgxComponentDirective {
   @Input()
   meta?: string;
 
@@ -26,6 +23,9 @@ export class SectionBaseDirective
 
   @Input()
   demoSide: 'left' | 'right' = 'right';
+
+  @Input()
+  buttonText?: string;
 
   @Input()
   button1Text?: string;
@@ -68,6 +68,9 @@ export class SectionBaseDirective
       if (this.demoDescription) {
         this.demoDescription = await this.translate(this.demoDescription);
       }
+      if (this.buttonText) {
+        this.buttonText = await this.translate(this.buttonText);
+      }
       if (this.button1Text) {
         this.button1Text = await this.translate(this.button1Text);
       }
@@ -82,17 +85,25 @@ export class SectionBaseDirective
     if (module !== this.selectedModule) {
       this.selectedModule = module as string;
       this.title = this.description = undefined;
-      this.changeDetectorRef.detectChanges();
+
       const ModuleData = this.modules.find(
         (m) => m.title === this.selectedModule
       );
+      const urlSegment = this.routerService.getLastUrlSegment();
+      const paramsIndex =
+        urlSegment?.indexOf('?') === -1 ? undefined : urlSegment?.indexOf('?');
+      const currentRoute = this.capitalizeFirstLetter(
+        paramsIndex ? urlSegment.substring(0, paramsIndex) : urlSegment
+      );
+
       this.title = ModuleData?.title
-        ? `Features for ${ModuleData?.title}`
+        ? `${currentRoute} for ${ModuleData?.title}`
         : 'Discover the Power of Modules';
       this.description =
         ModuleData?.description ||
         'Browse all Decaf modules and learn how to use them with examples extracted from their documentation.';
       this.selectedModuleData = ModuleData;
+      this.changeDetectorRef.detectChanges();
     }
   }
 
@@ -106,6 +117,10 @@ export class SectionBaseDirective
     windowEventEmitter('ModuleChange', {
       data: module,
     });
+  }
+
+  capitalizeFirstLetter(val: string): string | undefined {
+    return val?.charAt(0)?.toUpperCase() + val?.slice(1);
   }
 
   override async ngOnDestroy(): Promise<void> {

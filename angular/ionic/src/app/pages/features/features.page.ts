@@ -41,7 +41,6 @@ export class FeaturesPage extends NgxPageDirective {
   async ionViewWillEnter() {
     this.module = this.routerService.getQueryParamValue('module');
     await this.refresh(this.module);
-    await super.ngOnDestroy();
   }
 
   async ionViewDidLeave(): Promise<void> {

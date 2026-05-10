@@ -7,7 +7,7 @@
           Show All Modules
         </ion-button>
       </div>
-      @for (feature of selectedModuleData.details; track feature.title) {
+      @for (feature of selectedModuleData?.details; track feature.title) {
       <div class="border-1 m-3 p-3 dfc-animation dcf-animation-slide-left-small"
         [style.animationDelay]="$index * 100 + 'ms'">
         <div class="my-2 dcf-text-bold">{{ feature.title }}</div>
@@ -37,6 +37,5 @@
       </div>
       }
     </div>
-
   </app-container>
 </section>

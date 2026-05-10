@@ -11,7 +11,7 @@ export class ExamplesLayout extends Model {
       'Browse all Decaf modules and learn how to use them with examples extracted from their documentation.',
     backgroundColor: 'muted',
     demoSide: 'left',
-    button1Text: 'Eplore Modules',
+    button1Text: 'Explore Modules',
     button2Text: 'Documentation',
     demoIcon: 'ti-circle-check',
     demoDescription: 'Task Management Demo',

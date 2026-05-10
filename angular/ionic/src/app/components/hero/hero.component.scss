@@ -36,18 +36,15 @@ ion-button {
   --padding-bottom: 15px;
 }
 
-// .full-width-text {
-//   margin-left: auto;
-//   margin-right: auto;
-//   width: 70vw;
-//   text-align: center;
-//   font-size: 7.5vw;
-// }
-
 .sample-div {
   margin-left: auto;
   margin-right: auto;
   width: 68vw;
   min-height: 100%;
   background-color: red;
+}
+
+::ng-deep app-container {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }

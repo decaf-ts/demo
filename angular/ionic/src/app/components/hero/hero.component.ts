@@ -2,70 +2,29 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Dynamic, NgxComponentDirective } from '@decaf-ts/for-angular';
 import { HeaderComponent } from '../header/header.component';
 import { ContainerComponent } from '../container/container.component';
-import { IonButton, IonChip, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonChip,
+  IonIcon,
+  IonLabel,
+} from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
 
 @Dynamic()
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
-  imports: [HeaderComponent, ContainerComponent, IonButton, IonChip, IonIcon, IonLabel, RouterLink],
+  imports: [
+    HeaderComponent,
+    ContainerComponent,
+    IonButton,
+    IonChip,
+    IonIcon,
+    IonLabel,
+    RouterLink,
+  ],
   standalone: true,
 })
-export class HeroComponent extends NgxComponentDirective {
-
-  @Input()
-  meta?: string;
-
-  @Input()
-  title?: string;
-
-  @Input()
-  description?: string;
-
-  @Input()
-  demoSide: 'left' | 'right' = 'right';
-
-  @Input()
-  button1Text?: string;
-
-  @Input()
-  button2Text?: string;
-
-
-  @Input()
-  backgroundColor: 'default' | 'muted' = 'default';
-
-  @Input()
-  demoIcon?: string;
-
-  @Input()
-  demoDescription?: string;
-
-  async ngOnInit() {
-    if(this.translatable) {
-      if(this.title) {
-        this.title = await this.translate(this.title);
-      }
-      if(this.meta) {
-        this.meta = await this.translate(this.meta);
-      }
-      if(this.description) {
-        this.description = await this.translate(this.description);
-      }
-       if(this.demoDescription) {
-        this.demoDescription = await this.translate(this.demoDescription);
-      }
-      if(this.button1Text) {
-        this.button1Text = await this.translate(this.button1Text);
-      }
-
-      if(this.button2Text) {
-        this.button2Text = await this.translate(this.button2Text);
-      }
-    }
-
-  }
-
-}
+export class HeroComponent extends SectionBaseDirective {}

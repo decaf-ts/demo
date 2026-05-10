@@ -144,3 +144,36 @@ export const ModulesData: ModuleData[] = [
     ],
   },
 ];
+
+export const faq = [
+  {
+    question: 'What is vanilla CMS',
+    answer:
+      'Vanilla CMS is a powerful Headless CMS designed to help developers and content teams manage and deliver content seamlessly across multiple platforms. It provides a flexible API-based approach for ultimate customization.',
+  },
+  {
+    question: 'How is Vanilla CMS different from traditional CMS platforms?',
+    answer:
+      'Unlike traditional CMSs, Vanilla CMS decouples the backend from the frontend, giving developers the freedom to use any technology to display content. This makes it more scalable, faster, and adaptable for modern applications.',
+  },
+  {
+    question: 'What types of projects is Vanilla CMS best suited for?',
+    answer:
+      'Vanilla CMS is ideal for websites, mobile apps, e-commerce platforms, SaaS applications, and any digital product that requires a structured and scalable content management solution.',
+  },
+  {
+    question: 'Does Vanilla CMS support multiple users and roles?',
+    answer:
+      'Yes! Vanilla CMS comes with Role-Based Access Control (RBAC), allowing you to define permissions for different team members, ensuring security and content integrity.',
+  },
+  {
+    question: 'Can I integrate Vanilla CMS with my existing tech stack?',
+    answer:
+      'Absolutely! Vanilla CMS is API-first, making it compatible with React, Vue, Next.js, Nuxt.js, Svelte, Flutter, and more. You can fetch content via REST or GraphQL APIs.',
+  },
+  {
+    question: 'Is Vanilla CMS scalable for large enterprises?',
+    answer:
+      "Yes! Our architecture is cloud-based and built for scalability, ensuring your content performs well whether you're a startup or a large enterprise with high traffic demands.",
+  },
+];
