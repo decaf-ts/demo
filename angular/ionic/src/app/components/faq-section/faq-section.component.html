@@ -9,17 +9,18 @@
         </div>
       </div>
     </div>
-    <ion-grid class="mt-5">
-      <ion-row class="">
-        @for(faq of questions; let idx = $index; track faq.question + idx){
-        <ion-col class="dcf-padding-small dcf-padding-remove-top dcf-padding-remove-bottom " size="12" size-md="6">
-          <div class="my-4 dcf-padding-small dcf-padding-remove-top dcf-padding-remove-bottom">
-            <div class="dcf-text-bold question">{{faq.question}}</div>
-            <div class="mt-3 info dcf-text-justify">{{faq.answer}}</div>
-          </div>
-        </ion-col>
-        }
-      </ion-row>
-    </ion-grid>
+    <div
+      class="dcf-flex dcf-flex-center dcf-grid dcf-grid-small dcf-child-width-1-1@m dcf-child-width-1-2@l dcf-padding-small dcf-margin-medium-top">
+      @for (
+      faq of questions; let idx = $index; track faq.question + idx
+      ) {
+      <div class="">
+        <div class="my-3 p-3" [style.animationDelay]="idx * 200 + 'ms'">
+          <div translate class="dcf-text-bold question">{{faq.question}}</div>
+          <div class="mt-3 info dcf-text-justify">{{faq.answer}}</div>
+        </div>
+      </div>
+      }
+    </div>
   </app-container>
 </section>

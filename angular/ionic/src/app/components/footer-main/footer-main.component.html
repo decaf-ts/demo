@@ -1,0 +1,35 @@
+<section [ngStyle]="{'background-color':backgroundColor}" [class.muted]="backgroundColor === 'muted'">
+  <app-container size="2xlarge">
+    <div class="dcf-grid dcf-grid-small dcf-child-width-1-1@m dcf-child-width-1-2@l dcf-padding-small">
+      <div class="info dcf-margin-small-top dcf-padding-small dcf-width-1-3@m">
+        <div class="meta">{{ meta }}</div>
+        <img [src]="logo" class="logo" />
+        <h1 class="title">{{ title }}</h1>
+        <p class="">{{ description }}</p>
+      </div>
+      <div
+        class="dcf-grid dcf-grid-small dcf-child-width-1-1@m dcf-child-width-1-3@l dcf-padding-small text-capitalize dcf-margin-small-top dcf-width-2-3@m">
+        @for(category of data.linkCategories; track category){
+        <div class="">
+          <div class="dcf-text-bold">{{category?.name}}</div>
+          @for(link of category?.links; track link){
+          <div class="my-3">{{link?.name}}</div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="border-top links-section">
+      <div class="dcf-grid dcf-grid-small dcf-child-width-1-1@m dcf-child-width-1-3@l dcf-padding-small text-center">
+        <div class="dcf-margin-small-top">{{data.copyright}}</div>
+        <div class="dcf-margin-small-top">{{data.feature}}</div>
+        <div class="dcf-margin-small-top">
+          @for(socialLink of data.social; track socialLink){
+          <ion-icon [name]="socialLink" class="mx-2" size="medium"></ion-icon>
+          }
+        </div>
+      </div>
+    </div>
+  </app-container>
+</section>

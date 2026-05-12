@@ -177,3 +177,81 @@ export const faq = [
       "Yes! Our architecture is cloud-based and built for scalability, ensuring your content performs well whether you're a startup or a large enterprise with high traffic demands.",
   },
 ];
+
+export const infoData = {
+  copyright: '© 2025 Decaf. All rights reserved.',
+  feature: 'Modular by design. Productive by default.',
+  social: [
+    'logo-instagram',
+    'logo-facebook',
+    'logo-linkedin',
+    'logo-twitter',
+    'logo-youtube',
+  ],
+  linkCategories: [
+    {
+      name: 'product',
+      links: [
+        {
+          name: 'documentation',
+          link: '',
+        },
+        {
+          name: 'api reference',
+          link: '',
+        },
+        {
+          name: 'blog posts',
+          link: '',
+        },
+        {
+          name: 'support center',
+          link: '',
+        },
+      ],
+    },
+    {
+      name: 'contact us',
+      links: [
+        {
+          name: 'email us',
+          link: '',
+        },
+        {
+          name: 'live chat',
+          link: '',
+        },
+        {
+          name: 'feedback',
+          link: '',
+        },
+        {
+          name: 'help center',
+          link: '',
+        },
+      ],
+    },
+    {
+      name: 'legal information',
+      links: [
+        {
+          name: 'Terms of Service',
+          link: '',
+        },
+        {
+          name: 'Privacy Policy',
+          link: '',
+        },
+        {
+          name: 'Cookie policy',
+          link: '',
+        },
+        {
+          name: 'GDPR compliance',
+          link: '',
+        },
+      ],
+    },
+    ,
+  ],
+};

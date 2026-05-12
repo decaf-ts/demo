@@ -1,0 +1,32 @@
+$dcf-width-s: 576px;
+$dcf-width-m: 768px;
+$dcf-width-l: 992px;
+$dcf-width-xl: 1200px;
+$dcf-width-2xl: 1400px;
+
+section {
+    padding-top: var(--dcf-padding-medium);
+
+    &.muted {
+        background: #fef2f2;
+    }
+
+    .logo {
+        max-height: 3.5rem !important;
+        min-height: 1.5rem !important;
+    }
+
+    .links-section {
+        ion-icon {
+            font-size: 1.5rem;
+            ;
+        }
+
+        @media(min:$dcf-width-m) {
+            .info {
+                padding-left: var(--dcf-padding-xlarge);
+            }
+
+        }
+    }
+}

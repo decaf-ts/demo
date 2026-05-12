@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
-import { Dynamic } from '@decaf-ts/for-angular';
+import { Dynamic, windowEventEmitter } from '@decaf-ts/for-angular';
 import { faq, ModuleSamples } from 'src/app/utils/data';
-import { IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
 import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
 
 @Dynamic()
@@ -10,7 +9,7 @@ import { SectionBaseDirective } from 'src/app/utils/SectionBaseDirective';
   selector: 'app-faq-section',
   templateUrl: './faq-section.component.html',
   styleUrls: ['./faq-section.component.scss'],
-  imports: [ContainerComponent, IonGrid, IonCol, IonRow],
+  imports: [ContainerComponent],
   standalone: true,
 })
 export class FaqSectionComponent extends SectionBaseDirective {

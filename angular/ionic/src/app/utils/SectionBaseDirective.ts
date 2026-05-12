@@ -16,7 +16,7 @@ export abstract class SectionBaseDirective extends NgxComponentDirective {
   module?: string;
 
   @Input()
-  title?: string = 'Features';
+  title?: string;
 
   @Input()
   description?: string;
@@ -41,6 +41,12 @@ export abstract class SectionBaseDirective extends NgxComponentDirective {
 
   @Input()
   demoDescription?: string;
+
+  @Input()
+  logo?: string;
+
+  @Input()
+  logoContrast?: string;
 
   protected routerService = inject(NgxRouterService);
 

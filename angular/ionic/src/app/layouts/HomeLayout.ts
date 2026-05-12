@@ -99,6 +99,15 @@ export class HomeLayout extends Model {
   @uilayoutprop('full', 6)
   faq!: string;
 
+  @uielement('app-footer-main', {
+    description: 'A Suite for Typescript Development',
+    backgroundColor: '#f9fafb',
+    logo: '/assets/images/decaf-logo.svg',
+    logoContrast: '/assets/images/decaf-logo-contrast.svg',
+  })
+  @uilayoutprop('full', 7)
+  info!: string;
+
   constructor(args: ModelArg<HomeLayout> = {}) {
     super(args);
   }
