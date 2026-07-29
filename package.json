@@ -97,5 +97,9 @@
     "@decaf-ts/for-angular": "latest",
     "@decaf-ts/logging": "latest",
     "@decaf-ts/ui-decorators": "latest"
+  },
+  "overrides": {
+    "test-exclude": "^7.0.2",
+    "brace-expansion": "^5.0.8"
   }
 }

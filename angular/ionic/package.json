@@ -102,13 +102,14 @@
   "description": "An Decaf-ts demo project using Angular and Ionic Framework.",
   "overrides": {
     "minimatch": "^10.2.2",
-    "test-exclude": "^7.0.1",
+    "test-exclude": "^7.0.2",
     "serialize-javascript": "^7.0.2",
     "fabric-common": {
       "jsrsasign": "^11.1.0"
     },
     "fabric-ca-client": {
       "jsrsasign": "^11.1.0"
-    }
+    },
+    "brace-expansion": "^5.0.8"
   }
 }
