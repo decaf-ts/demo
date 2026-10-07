@@ -27,6 +27,8 @@
     "lib": ["es2018", "DOM"],
     "useDefineForClassFields": false
   },
+  "include": ["src"],
+  "exclude": ["node_modules", "angular", "tests", "lib", "dist"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
