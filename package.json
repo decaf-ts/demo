@@ -12,7 +12,7 @@
     "require": "./lib/index.cjs",
     "import": "./lib/esm/index.js"
   },
-  "types": "lib/index.d.ts",
+  "types": "lib/types/index.d.mts",
   "scripts": {
     "do-install": "NPM_TOKEN=$(cat .npmtoken) npm install",
     "update-all": "node ./bin/update-deps.js",
@@ -86,7 +86,7 @@
   "homepage": "https://github.com/decaf-ts/ts-workspace#readme",
   "devDependencies": {
     "@decaf-ts/utils": "latest",
-    "@faker-js/faker": "^10.0.0",
+    "@faker-js/faker": "^9.9.0",
     "@ionic/angular-toolkit": "^12.3.0",
     "@types/node": "^24.5.0"
   },
